@@ -20,7 +20,7 @@ const Menu = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background relative overflow-hidden">
+      <section className="pt-32 pb-12 md:pt-40 md:pb-16 bg-background relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-accent rounded-full blur-3xl" />
@@ -53,10 +53,10 @@ const Menu = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 bg-card/95 border-y border-border/50 sticky top-[72px] z-30 backdrop-blur-lg shadow-sm">
+      <section className="py-6 bg-card/98 border-y border-border/50 sticky top-[64px] z-40 backdrop-blur-xl shadow-md">
         <div className="container mx-auto px-6">
           {/* Category Filter */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
             {categories.map((cat) => (
               <motion.button
                 key={cat.id}
@@ -98,16 +98,16 @@ const Menu = () => {
       </section>
 
       {/* Menu Grid */}
-      <section className="py-16 md:py-24 bg-background">
-        <div className="container mx-auto px-6">
+      <section className="py-12 md:py-20 bg-background">
+        <div className="container mx-auto px-6 relative z-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={`${selectedCategory}-${selectedMood}`}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 auto-rows-fr"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
               {filteredItems.map((item, index) => (
                 <motion.div

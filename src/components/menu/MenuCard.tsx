@@ -52,7 +52,7 @@ export const MenuCard = ({ item, onClick }: MenuCardProps) => {
   return (
     <motion.div
       ref={cardRef}
-      className="group cursor-pointer h-full"
+      className="group cursor-pointer h-full flex flex-col"
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
@@ -64,14 +64,15 @@ export const MenuCard = ({ item, onClick }: MenuCardProps) => {
       whileTap={{ scale: 0.98 }}
     >
       <motion.div
-        className="relative h-full bg-card border border-border/50 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+        className="relative h-full flex flex-col bg-card border border-border/50 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-500"
         style={{
           rotateX: rotateXSpring,
           rotateY: rotateYSpring,
           transformStyle: 'preserve-3d',
+          willChange: 'transform',
         }}
         animate={{
-          y: isHovered && !isPressed ? -8 : 0,
+          y: isHovered && !isPressed ? -6 : 0,
           borderColor: isHovered ? 'rgb(201, 169, 98, 0.5)' : 'rgb(38, 38, 38, 0.5)',
         }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}

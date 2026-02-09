@@ -101,11 +101,13 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 180px; /* Account for sticky header + filters */
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
