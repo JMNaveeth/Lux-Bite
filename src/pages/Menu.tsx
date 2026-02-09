@@ -53,41 +53,45 @@ const Menu = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 bg-card border-y border-border/50 sticky top-[72px] z-30 backdrop-blur-md">
+      <section className="py-8 bg-card/95 border-y border-border/50 sticky top-[72px] z-30 backdrop-blur-lg shadow-sm">
         <div className="container mx-auto px-6">
           {/* Category Filter */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-6">
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
             {categories.map((cat) => (
-              <button
+              <motion.button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-6 py-2 text-sm tracking-wide transition-all duration-300 rounded-sm ${
+                className={`px-6 py-2.5 text-sm tracking-wide transition-all duration-300 rounded-lg font-medium ${
                   selectedCategory === cat.id
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-transparent border border-border text-muted-foreground hover:border-primary hover:text-primary'
+                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30'
+                    : 'bg-transparent border border-border text-muted-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/5'
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <span className="mr-2">{cat.icon}</span>
                 {cat.name}
-              </button>
+              </motion.button>
             ))}
           </div>
 
           {/* Mood Filter */}
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <span className="text-muted-foreground text-sm mr-2">Mood:</span>
+            <span className="text-muted-foreground text-sm mr-2 font-medium">Mood:</span>
             {moods.map((mood) => (
-              <button
+              <motion.button
                 key={mood.id}
                 onClick={() => setSelectedMood(selectedMood === mood.id ? null : mood.id)}
-                className={`px-4 py-1.5 text-sm transition-all duration-300 rounded-full ${
+                className={`px-4 py-2 text-sm transition-all duration-300 rounded-full ${
                   selectedMood === mood.id
-                    ? 'bg-primary/20 text-primary border border-primary'
-                    : 'bg-charcoal-light text-muted-foreground hover:text-foreground'
+                    ? 'bg-primary/20 text-primary border border-primary shadow-md'
+                    : 'bg-charcoal-light text-muted-foreground border border-transparent hover:text-foreground hover:border-border hover:bg-card'
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 {mood.emoji} {mood.name}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -99,16 +103,25 @@ const Menu = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={`${selectedCategory}-${selectedMood}`}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
             >
               {filteredItems.map((item, index) => (
-                <AnimatedSection key={item.id} delay={index * 50}>
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: index * 0.08,
+                    ease: [0.16, 1, 0.3, 1]
+                  }}
+                >
                   <MenuCard item={item} onClick={() => setSelectedItem(item)} />
-                </AnimatedSection>
+                </motion.div>
               ))}
             </motion.div>
           </AnimatePresence>

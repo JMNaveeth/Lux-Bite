@@ -1,5 +1,5 @@
-import { useState, useRef, MouseEvent } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef, MouseEvent, TouchEvent } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { MenuItem } from '@/lib/menuData';
 
 interface MenuCardProps {
@@ -9,89 +9,160 @@ interface MenuCardProps {
 
 export const MenuCard = ({ item, onClick }: MenuCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
+
+  // Smooth spring animations for subtle tilt
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  
+  const springConfig = { stiffness: 300, damping: 30 };
+  const rotateXSpring = useSpring(rotateX, springConfig);
+  const rotateYSpring = useSpring(rotateY, springConfig);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || window.innerWidth < 768) return;
     
     const rect = cardRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     
-    const rotateX = ((e.clientY - centerY) / (rect.height / 2)) * -8;
-    const rotateY = ((e.clientX - centerX) / (rect.width / 2)) * 8;
+    const rotateXValue = ((e.clientY - centerY) / (rect.height / 2)) * -3;
+    const rotateYValue = ((e.clientX - centerX) / (rect.width / 2)) * 3;
     
-    setRotation({ x: rotateX, y: rotateY });
+    rotateX.set(rotateXValue);
+    rotateY.set(rotateYValue);
   };
 
   const handleMouseLeave = () => {
-    setRotation({ x: 0, y: 0 });
+    rotateX.set(0);
+    rotateY.set(0);
     setIsHovered(false);
+    setIsPressed(false);
+  };
+
+  const handleTouchStart = () => {
+    setIsPressed(true);
+  };
+
+  const handleTouchEnd = () => {
+    setIsPressed(false);
   };
 
   return (
     <motion.div
       ref={cardRef}
-      className="group cursor-pointer"
-      style={{ perspective: 1000 }}
+      className="group cursor-pointer h-full"
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       onClick={onClick}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileTap={{ scale: 0.98 }}
     >
       <motion.div
-        className="relative bg-card border border-border/50 rounded-sm overflow-hidden transition-colors duration-500 hover:border-primary/30"
+        className="relative h-full bg-card border border-border/50 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
         style={{
+          rotateX: rotateXSpring,
+          rotateY: rotateYSpring,
           transformStyle: 'preserve-3d',
         }}
         animate={{
-          rotateX: rotation.x,
-          rotateY: rotation.y,
-          scale: isHovered ? 1.02 : 1,
+          y: isHovered && !isPressed ? -8 : 0,
+          borderColor: isHovered ? 'rgb(201, 169, 98, 0.5)' : 'rgb(38, 38, 38, 0.5)',
         }}
-        transition={{ duration: 0.2, ease: 'easeOut' }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* Image Container */}
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="relative aspect-[4/3] overflow-hidden bg-charcoal-light">
           <motion.img
             src={item.image}
             alt={item.name}
             className="w-full h-full object-cover"
-            animate={{ scale: isHovered ? 1.1 : 1 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            animate={{ 
+              scale: isHovered ? 1.08 : 1,
+              filter: isHovered ? 'brightness(1.1)' : 'brightness(1)'
+            }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"
+            animate={{
+              opacity: isHovered ? 0.6 : 0.8
+            }}
+            transition={{ duration: 0.3 }}
+          />
           
           {/* Featured Badge */}
           {item.featured && (
-            <div className="absolute top-4 right-4">
-              <span className="text-xs tracking-widest uppercase text-primary bg-background/90 backdrop-blur-sm px-3 py-1 rounded-sm border border-primary/30">
+            <motion.div 
+              className="absolute top-4 right-4"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <span className="text-xs tracking-widest uppercase text-primary bg-background/95 backdrop-blur-sm px-3 py-1.5 rounded-md border border-primary/40 shadow-lg">
                 ★ Featured
               </span>
-            </div>
+            </motion.div>
           )}
 
           {/* Mood Tags */}
-          <div className="absolute bottom-4 left-4 flex gap-2">
-            {item.moods.slice(0, 2).map((mood) => (
-              <span
+          <motion.div 
+            className="absolute bottom-4 left-4 flex gap-2"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            {item.moods.slice(0, 2).map((mood, index) => (
+              <motion.span
                 key={mood}
-                className="text-xs text-foreground/80 bg-background/60 backdrop-blur-sm px-2 py-0.5 rounded-sm"
+                className="text-xs text-foreground/90 bg-background/70 backdrop-blur-md px-3 py-1 rounded-full border border-border/30"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1 + index * 0.05 }}
+                whileHover={{ scale: 1.05 }}
               >
                 {mood}
-              </span>
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
+
+          {/* Overlay Gradient on Hover */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0"
+            animate={{
+              opacity: isHovered ? 1 : 0
+            }}
+            transition={{ duration: 0.4 }}
+          />
         </div>
 
         {/* Content */}
-        <div className="p-6" style={{ transform: 'translateZ(20px)' }}>
-          <div className="flex items-start justify-between mb-3">
-            <h3 className="font-serif text-xl text-foreground group-hover:text-primary transition-colors duration-300">
+        <div className="p-6">
+          <div className="flex items-start justify-between mb-3 gap-3">
+            <motion.h3 
+              className="font-serif text-xl text-foreground group-hover:text-primary transition-colors duration-300 flex-1"
+              animate={{
+                x: isHovered ? 2 : 0
+              }}
+              transition={{ duration: 0.3 }}
+            >
               {item.name}
-            </h3>
-            <span className="text-primary font-medium text-lg">${item.price}</span>
+            </motion.h3>
+            <motion.span 
+              className="text-primary font-semibold text-lg whitespace-nowrap"
+              animate={{
+                scale: isHovered ? 1.1 : 1,
+                color: isHovered ? 'rgb(219, 188, 127)' : 'rgb(201, 169, 98)'
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              ${item.price}
+            </motion.span>
           </div>
           
           <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-4">
@@ -100,30 +171,53 @@ export const MenuCard = ({ item, onClick }: MenuCardProps) => {
 
           {/* Dietary Tags */}
           {item.dietary && (
-            <div className="flex gap-2">
-              {item.dietary.map((diet) => (
-                <span
+            <div className="flex flex-wrap gap-2">
+              {item.dietary.map((diet, index) => (
+                <motion.span
                   key={diet}
-                  className="text-xs text-accent border border-accent/30 px-2 py-0.5 rounded-sm"
+                  className="text-xs text-accent border border-accent/30 px-2.5 py-1 rounded-full bg-accent/5"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.2 + index * 0.05 }}
+                  whileHover={{ scale: 1.05, borderColor: 'rgb(201, 169, 98)' }}
                 >
                   {diet}
-                </span>
+                </motion.span>
               ))}
             </div>
           )}
         </div>
 
-        {/* Shine Effect */}
+        {/* Subtle Shine Effect */}
         <motion.div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `linear-gradient(
-              ${rotation.y * 10 + 135}deg,
-              transparent 0%,
-              rgba(201, 169, 98, 0.08) 50%,
-              transparent 100%
-            )`,
+          className="absolute inset-0 pointer-events-none opacity-0"
+          animate={{
+            opacity: isHovered ? 1 : 0,
           }}
+          transition={{ duration: 0.4 }}
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(
+                135deg,
+                transparent 0%,
+                rgba(201, 169, 98, 0.05) 50%,
+                transparent 100%
+              )`,
+            }}
+          />
+        </motion.div>
+
+        {/* Bottom Glow on Hover */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent"
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{
+            opacity: isHovered ? 0.6 : 0,
+            scaleX: isHovered ? 1 : 0,
+          }}
+          transition={{ duration: 0.4 }}
         />
       </motion.div>
     </motion.div>
