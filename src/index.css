@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* LUXE BITE — Noir & Gold Design System */
+
+@layer base {
+  :root {
+    /* Core Noir & Gold Palette */
+    --background: 0 0% 4%;           /* Deep black #0A0A0A */
+    --foreground: 40 33% 94%;        /* Cream #F5F0E8 */
+
+    --card: 0 0% 10%;                /* Charcoal #1A1A1A */
+    --card-foreground: 40 33% 94%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 40 33% 94%;
+
+    --primary: 43 47% 59%;           /* Warm Gold #C9A962 */
+    --primary-foreground: 0 0% 4%;
+
+    --secondary: 0 0% 10%;           /* Charcoal */
+    --secondary-foreground: 40 33% 94%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 40 20% 60%;
+
+    --accent: 0 23% 62%;             /* Muted Rose #B08B8B */
+    --accent-foreground: 40 33% 94%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 40 33% 94%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 15%;
+    --ring: 43 47% 59%;
+
+    --radius: 0.25rem;
+
+    /* Extended Luxury Tokens */
+    --gold: 43 47% 59%;
+    --gold-light: 43 47% 70%;
+    --gold-dark: 43 47% 45%;
+    --cream: 40 33% 94%;
+    --charcoal: 0 0% 10%;
+    --charcoal-light: 0 0% 15%;
+    --rose: 0 23% 62%;
+    --noir: 0 0% 4%;
+
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(43 47% 59%), hsl(43 47% 45%));
+    --gradient-noir: linear-gradient(180deg, hsl(0 0% 4%), hsl(0 0% 10%));
+    --gradient-hero: linear-gradient(180deg, transparent 0%, hsl(0 0% 4% / 0.8) 100%);
+
+    /* Shadows */
+    --shadow-gold: 0 4px 30px hsl(43 47% 59% / 0.15);
+    --shadow-card: 0 10px 40px hsl(0 0% 0% / 0.4);
+    --shadow-elevated: 0 20px 60px hsl(0 0% 0% / 0.5);
+
+    /* Sidebar (keeping for compatibility) */
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 40 33% 94%;
+    --sidebar-primary: 43 47% 59%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 40 33% 94%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 43 47% 59%;
+  }
+
+  /* Dark mode is the default for LUXE BITE */
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 40 33% 94%;
+    --card: 0 0% 10%;
+    --card-foreground: 40 33% 94%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 40 33% 94%;
+    --primary: 43 47% 59%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 40 33% 94%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 40 20% 60%;
+    --accent: 0 23% 62%;
+    --accent-foreground: 40 33% 94%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 40 33% 94%;
+    --border: 0 0% 18%;
+    --input: 0 0% 15%;
+    --ring: 43 47% 59%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+    @apply font-medium tracking-wide;
+  }
+}
+
+@layer components {
+  /* Luxury Button Styles */
+  .btn-gold {
+    @apply bg-primary text-primary-foreground px-8 py-3 font-medium tracking-widest uppercase text-sm;
+    @apply transition-all duration-500 ease-out;
+    @apply hover:shadow-[0_4px_30px_hsl(43_47%_59%_/_0.3)];
+    @apply hover:translate-y-[-2px];
+  }
+
+  .btn-outline-gold {
+    @apply border border-primary text-primary px-8 py-3 font-medium tracking-widest uppercase text-sm;
+    @apply transition-all duration-500 ease-out bg-transparent;
+    @apply hover:bg-primary hover:text-primary-foreground;
+  }
+
+  /* Text Gradient */
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(43 47% 70%), hsl(43 47% 59%), hsl(43 47% 45%));
+  }
+
+  /* Elegant Divider */
+  .divider-gold {
+    @apply h-px w-24 mx-auto;
+    background: linear-gradient(90deg, transparent, hsl(43 47% 59%), transparent);
+  }
+
+  /* Subtle grain texture overlay */
+  .grain-overlay {
+    position: relative;
+  }
+
+  .grain-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* 3D Card Transform */
+  .card-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .card-3d-inner {
+    @apply transition-transform duration-500 ease-out;
+    transform-style: preserve-3d;
+  }
+
+  .card-3d:hover .card-3d-inner {
+    transform: rotateY(5deg) rotateX(5deg) translateZ(20px);
+  }
+
+  /* Elegant Link Underline */
+  .link-underline {
+    @apply relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-px bg-primary;
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  /* Scroll Reveal Animation Classes */
+  .reveal-up {
+    @apply opacity-0 translate-y-8;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-up.revealed {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Stagger children */
+  .stagger-children > * {
+    @apply opacity-0 translate-y-4;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .stagger-children.revealed > *:nth-child(1) { transition-delay: 0.1s; }
+  .stagger-children.revealed > *:nth-child(2) { transition-delay: 0.2s; }
+  .stagger-children.revealed > *:nth-child(3) { transition-delay: 0.3s; }
+  .stagger-children.revealed > *:nth-child(4) { transition-delay: 0.4s; }
+  .stagger-children.revealed > *:nth-child(5) { transition-delay: 0.5s; }
+
+  .stagger-children.revealed > * {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+@layer utilities {
+  /* Custom easing curves */
+  .ease-luxury {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Letter spacing variants */
+  .tracking-luxury {
+    letter-spacing: 0.25em;
+  }
+
+  .tracking-elegant {
+    letter-spacing: 0.15em;
+  }
+}
