@@ -20,7 +20,7 @@ const Menu = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-32 pb-12 md:pt-40 md:pb-16 bg-background relative overflow-hidden">
+      <section className="pt-28 pb-6 md:pt-32 md:pb-8 bg-background relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-accent rounded-full blur-3xl" />
@@ -28,7 +28,7 @@ const Menu = () => {
 
         <div className="container mx-auto px-6 relative z-10 text-center">
           <motion.span
-            className="text-primary text-sm tracking-luxury uppercase mb-4 block"
+            className="text-primary text-xs tracking-luxury uppercase mb-2 block"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -36,7 +36,7 @@ const Menu = () => {
             Culinary Artistry
           </motion.span>
           <motion.h1
-            className="font-serif text-5xl md:text-6xl lg:text-7xl text-foreground mb-6"
+            className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -53,15 +53,15 @@ const Menu = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-6 bg-card/98 border-y border-border/50 sticky top-[64px] z-40 backdrop-blur-xl shadow-md">
+      <section className="py-4 bg-card/98 border-y border-border/50 sticky top-[64px] z-40 backdrop-blur-xl shadow-md">
         <div className="container mx-auto px-6">
           {/* Category Filter */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
             {categories.map((cat) => (
               <motion.button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-6 py-2.5 text-sm tracking-wide transition-all duration-300 rounded-lg font-medium ${
+                className={`px-4 py-2 text-xs tracking-wide transition-all duration-300 rounded-lg font-medium ${
                   selectedCategory === cat.id
                     ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30'
                     : 'bg-transparent border border-border text-muted-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/5'
@@ -76,13 +76,13 @@ const Menu = () => {
           </div>
 
           {/* Mood Filter */}
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <span className="text-muted-foreground text-sm mr-2 font-medium">Mood:</span>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="text-muted-foreground text-xs mr-1 font-medium">Mood:</span>
             {moods.map((mood) => (
               <motion.button
                 key={mood.id}
                 onClick={() => setSelectedMood(selectedMood === mood.id ? null : mood.id)}
-                className={`px-4 py-2 text-sm transition-all duration-300 rounded-full ${
+                className={`px-3 py-1.5 text-xs transition-all duration-300 rounded-full ${
                   selectedMood === mood.id
                     ? 'bg-primary/20 text-primary border border-primary shadow-md'
                     : 'bg-charcoal-light text-muted-foreground border border-transparent hover:text-foreground hover:border-border hover:bg-card'
@@ -98,12 +98,12 @@ const Menu = () => {
       </section>
 
       {/* Menu Grid */}
-      <section className="py-12 md:py-20 bg-background">
+      <section className="py-8 md:py-12 bg-background">
         <div className="container mx-auto px-6 relative z-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={`${selectedCategory}-${selectedMood}`}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 auto-rows-fr"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 auto-rows-fr"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
