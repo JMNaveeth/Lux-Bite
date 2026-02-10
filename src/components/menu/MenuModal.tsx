@@ -35,7 +35,7 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
         <>
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-background/90 backdrop-blur-md z-50"
+            className="fixed inset-0 bg-black/80 z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -44,37 +44,33 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
 
           {/* Modal */}
           <motion.div
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] md:w-[90vw] md:max-w-6xl max-h-[90vh] bg-card border-2 border-primary/30 rounded-xl overflow-hidden shadow-2xl z-50"
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-5xl max-h-[85vh] bg-card rounded-2xl overflow-hidden shadow-2xl z-50"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
           >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-3 right-3 z-20 p-3 bg-background backdrop-blur-md rounded-full text-foreground hover:text-primary hover:bg-primary/10 transition-all hover:scale-110 shadow-xl border-2 border-primary/40"
+              className="absolute top-4 right-4 z-20 p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors"
             >
-              <X size={24} className="font-bold" />
+              <X size={24} />
             </button>
 
-            <div className="grid md:grid-cols-[40%_60%] overflow-y-auto max-h-[90vh]">
+            <div className="grid md:grid-cols-[45%_55%] overflow-y-auto max-h-[85vh]">
               {/* Image */}
-              <div className="relative h-72 md:h-auto md:min-h-[550px] overflow-hidden bg-charcoal-light">
+              <div className="relative h-80 md:h-full overflow-hidden">
                 <img
                   src={item.image}
                   alt={item.name}
                   className="w-full h-full object-cover"
-                  loading="eager"
                 />
-                {/* Gradient Overlays - Less opacity for better visibility */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-card/60 md:block hidden" />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent md:hidden" />
                 
                 {/* Featured Badge */}
                 {item.featured && (
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="flex items-center gap-2 text-xs tracking-widest uppercase text-primary bg-background/95 backdrop-blur-sm px-3 py-2 rounded-full border border-primary/40 shadow-lg">
+                  <div className="absolute top-4 left-4">
+                    <span className="flex items-center gap-2 text-xs tracking-widest uppercase text-primary bg-black/70 backdrop-blur-sm px-3 py-2 rounded-full">
                       <Sparkles size={14} />
                       Chef's Selection
                     </span>
@@ -83,7 +79,7 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
               </div>
 
               {/* Content */}
-              <div className="p-5 md:p-12 bg-gradient-to-b from-card to-background/30">
+              <div className="p-8 md:p-10 bg-card">
                 <div className="space-y-6">
                   {/* Category Badge */}
                   <span className="inline-block text-primary text-sm font-semibold tracking-luxury uppercase px-4 py-2 bg-primary/20 rounded-full border-2 border-primary/40">
