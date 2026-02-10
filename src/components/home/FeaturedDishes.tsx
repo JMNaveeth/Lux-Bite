@@ -7,19 +7,19 @@ export const FeaturedDishes = () => {
   const featuredItems = getFeaturedItems();
 
   return (
-    <section className="py-24 md:py-32 bg-background">
-      <div className="container mx-auto px-6">
-        <AnimatedSection className="text-center mb-16">
-          <span className="text-primary text-sm tracking-luxury uppercase mb-4 block">
+    <section className="py-16 md:py-24 lg:py-32 bg-background">
+      <div className="container mx-auto px-4 sm:px-6">
+        <AnimatedSection className="text-center mb-12 md:mb-16">
+          <span className="text-primary text-xs sm:text-sm tracking-luxury uppercase mb-3 md:mb-4 block">
             Culinary Excellence
           </span>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 md:mb-6 px-4">
             Signature Creations
           </h2>
           <div className="divider-gold" />
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {featuredItems.map((item, index) => (
             <AnimatedSection key={item.id} delay={index * 100}>
               <motion.div
@@ -29,7 +29,7 @@ export const FeaturedDishes = () => {
               >
                 <div className="card-3d-inner bg-card rounded-sm overflow-hidden border border-border/50 hover:border-primary/30 transition-colors duration-500">
                   {/* Image */}
-                  <div className="relative aspect-[4/5] overflow-hidden">
+                  <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden">
                     <img
                       src={item.image}
                       alt={item.name}
@@ -38,24 +38,24 @@ export const FeaturedDishes = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
                     
                     {/* Category Badge */}
-                    <div className="absolute top-4 left-4">
-                      <span className="text-xs tracking-widest uppercase text-primary bg-background/80 backdrop-blur-sm px-3 py-1 rounded-sm">
+                    <div className="absolute top-3 left-3">
+                      <span className="text-[10px] sm:text-xs tracking-widest uppercase text-primary bg-background/80 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-sm">
                         {item.category.replace('-', ' ')}
                       </span>
                     </div>
                   </div>
 
                   {/* Content */}
-                  <div className="p-6">
-                    <h3 className="font-serif text-xl text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+                  <div className="p-4 sm:p-5 md:p-6">
+                    <h3 className="font-serif text-lg sm:text-xl text-foreground mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-1">
                       {item.name}
                     </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-4">
+                    <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed line-clamp-2 mb-3 sm:mb-4">
                       {item.description}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-primary font-medium">${item.price}</span>
-                      <span className="text-xs text-muted-foreground tracking-wide">
+                      <span className="text-primary font-medium text-base sm:text-lg">${item.price}</span>
+                      <span className="text-[10px] sm:text-xs text-muted-foreground tracking-wide capitalize">
                         {item.moods[0]}
                       </span>
                     </div>

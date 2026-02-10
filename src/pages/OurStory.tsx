@@ -34,7 +34,7 @@ const OurStory = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background relative overflow-hidden">
+      <section className="pt-28 pb-8 sm:pt-32 sm:pb-12 md:pt-40 md:pb-16 bg-background relative overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1920&q=80"
@@ -44,9 +44,9 @@ const OurStory = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/90 to-background" />
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 text-center">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 text-center">
           <motion.span
-            className="text-primary text-sm tracking-luxury uppercase mb-4 block"
+            className="text-primary text-xs sm:text-sm tracking-luxury uppercase mb-3 sm:mb-4 block"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -54,7 +54,7 @@ const OurStory = () => {
             The Heart of LUXE BITE
           </motion.span>
           <motion.h1
-            className="font-serif text-5xl md:text-6xl lg:text-7xl text-foreground mb-6"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-foreground mb-4 sm:mb-6 px-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -71,10 +71,10 @@ const OurStory = () => {
       </section>
 
       {/* Philosophy */}
-      <section className="py-16 md:py-24 bg-card">
-        <div className="container mx-auto px-6 max-w-4xl text-center">
+      <section className="py-12 sm:py-16 md:py-24 bg-card">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
           <AnimatedSection>
-            <p className="font-serif text-2xl md:text-3xl text-foreground leading-relaxed mb-8">
+            <p className="font-serif text-xl sm:text-2xl md:text-3xl text-foreground leading-relaxed mb-6 sm:mb-8 px-4">
               "At LUXE BITE, we believe that dining is an art form — a symphony of 
               <span className="text-primary"> flavors</span>, 
               <span className="text-primary"> textures</span>, and 

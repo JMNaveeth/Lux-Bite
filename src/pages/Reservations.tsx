@@ -68,14 +68,14 @@ const Reservations = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background relative overflow-hidden">
+      <section className="pt-28 pb-8 sm:pt-32 sm:pb-12 md:pt-40 md:pb-16 bg-background relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary rounded-full blur-3xl" />
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 text-center">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 text-center">
           <motion.span
-            className="text-primary text-sm tracking-luxury uppercase mb-4 block"
+            className="text-primary text-xs sm:text-sm tracking-luxury uppercase mb-3 sm:mb-4 block"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -83,7 +83,7 @@ const Reservations = () => {
             Join Us
           </motion.span>
           <motion.h1
-            className="font-serif text-5xl md:text-6xl lg:text-7xl text-foreground mb-6"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-foreground mb-4 sm:mb-6 px-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}

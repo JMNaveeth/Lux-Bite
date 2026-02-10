@@ -102,12 +102,24 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 180px; /* Account for sticky header + filters */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'DM Sans', sans-serif;
     overflow-x: hidden;
+    /* Improve touch scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Better touch target sizes for mobile */
+  @media (max-width: 768px) {
+    button, a {
+      min-height: 44px;
+      min-width: 44px;
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -119,16 +131,18 @@
 @layer components {
   /* Luxury Button Styles */
   .btn-gold {
-    @apply bg-primary text-primary-foreground px-8 py-3 font-medium tracking-widest uppercase text-sm;
+    @apply bg-primary text-primary-foreground px-6 sm:px-8 py-2.5 sm:py-3 font-medium tracking-widest uppercase text-xs sm:text-sm;
     @apply transition-all duration-500 ease-out;
     @apply hover:shadow-[0_4px_30px_hsl(43_47%_59%_/_0.3)];
     @apply hover:translate-y-[-2px];
+    @apply active:scale-95;
   }
 
   .btn-outline-gold {
-    @apply border border-primary text-primary px-8 py-3 font-medium tracking-widest uppercase text-sm;
+    @apply border border-primary text-primary px-6 sm:px-8 py-2.5 sm:py-3 font-medium tracking-widest uppercase text-xs sm:text-sm;
     @apply transition-all duration-500 ease-out bg-transparent;
     @apply hover:bg-primary hover:text-primary-foreground;
+    @apply active:scale-95;
   }
 
   /* Text Gradient */
