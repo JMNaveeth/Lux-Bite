@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Layout } from '@/components/layout/Layout';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { Calendar, Clock, Users, MessageCircle, Check } from 'lucide-react';
+import { createReservation } from '@/lib/reservationService';
+import { useToast } from '@/hooks/use-toast';
 
 const timeSlots = [
   '5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', 
@@ -15,6 +17,7 @@ const occasions = [
 ];
 
 const Reservations = () => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,11 +29,51 @@ const Reservations = () => {
     notes: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate submission
-    setIsSubmitted(true);
+    
+    // Validate form
+    if (!formData.name || !formData.email || !formData.phone || !formData.date || !formData.time) {
+      toast({
+        title: "Missing information",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Save reservation to Firebase
+      await createReservation({
+        customerName: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        date: formData.date,
+        time: formData.time,
+        guests: parseInt(formData.guests),
+        occasion: formData.occasion || undefined,
+        specialRequests: formData.notes || undefined,
+      });
+
+      setIsSubmitted(true);
+      toast({
+        title: "Reservation confirmed!",
+        description: "We'll send you a confirmation email shortly.",
+      });
+    } catch (error) {
+      console.error('Reservation error:', error);
+      toast({
+        title: "Reservation failed",
+        description: "There was an error creating your reservation. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {

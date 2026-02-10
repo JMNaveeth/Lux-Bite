@@ -6,6 +6,7 @@ import { Layout } from '@/components/layout/Layout';
 import { useCart } from '@/contexts/CartContext';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { useToast } from '@/hooks/use-toast';
+import { createOrder } from '@/lib/orderService';
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -44,22 +45,64 @@ const Checkout = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate form
+    if (!formData.fullName || !formData.email || !formData.phone || !formData.address) {
+      toast({
+        title: "Missing information",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
-    // Simulate order processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      // Prepare order data
+      const orderData = {
+        customerName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        address: `${formData.address}, ${formData.city}, ${formData.postalCode}`,
+        items: cartItems.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image
+        })),
+        subtotal: total,
+        deliveryFee: deliveryFee,
+        total: grandTotal,
+        paymentMethod: formData.paymentMethod as 'cash' | 'card',
+        notes: formData.notes || undefined,
+      };
 
-    // Clear cart and show success message
-    clearCart();
-    toast({
-      title: "Order placed successfully!",
-      description: "Your order will be delivered within 45-60 minutes.",
-    });
+      // Save order to Firebase
+      const orderId = await createOrder(orderData);
 
-    // Redirect to home page
-    setTimeout(() => {
-      navigate('/');
-    }, 1500);
+      // Clear cart and show success message
+      clearCart();
+      toast({
+        title: "Order placed successfully!",
+        description: `Your order #${orderId.slice(-6).toUpperCase()} will be delivered within 45-60 minutes.`,
+      });
+
+      // Redirect to home page
+      setTimeout(() => {
+        navigate('/');
+      }, 1500);
+    } catch (error) {
+      console.error('Order submission error:', error);
+      toast({
+        title: "Order failed",
+        description: "There was an error placing your order. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Redirect if cart is empty
