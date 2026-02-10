@@ -113,7 +113,7 @@ export const MenuCard = ({ item, onClick }: MenuCardProps) => {
 
           {/* Mood Tags */}
           <motion.div 
-            className="absolute bottom-2 left-2 flex gap-1.5"
+            className="absolute bottom-3 left-3 flex gap-2"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -121,7 +121,7 @@ export const MenuCard = ({ item, onClick }: MenuCardProps) => {
             {item.moods.slice(0, 2).map((mood, index) => (
               <motion.span
                 key={mood}
-                className="text-[10px] text-foreground/90 bg-background/70 backdrop-blur-md px-2 py-0.5 rounded-full border border-border/30"
+                className="text-xs font-semibold text-foreground bg-background/90 backdrop-blur-md px-3 py-1.5 rounded-full border-2 border-primary/40 shadow-md"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.1 + index * 0.05 }}
@@ -143,10 +143,10 @@ export const MenuCard = ({ item, onClick }: MenuCardProps) => {
         </div>
 
         {/* Content */}
-        <div className="p-4">
-          <div className="flex items-start justify-between mb-2 gap-2">
+        <div className="p-5">
+          <div className="flex items-start justify-between mb-3 gap-3">
             <motion.h3 
-              className="font-serif text-lg text-foreground group-hover:text-primary transition-colors duration-300 flex-1 line-clamp-1"
+              className="font-serif text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 flex-1 line-clamp-2"
               animate={{
                 x: isHovered ? 2 : 0
               }}
@@ -155,9 +155,9 @@ export const MenuCard = ({ item, onClick }: MenuCardProps) => {
               {item.name}
             </motion.h3>
             <motion.span 
-              className="text-primary font-semibold text-base whitespace-nowrap"
+              className="text-primary font-bold text-lg whitespace-nowrap"
               animate={{
-                scale: isHovered ? 1.05 : 1,
+                scale: isHovered ? 1.08 : 1,
                 color: isHovered ? 'rgb(219, 188, 127)' : 'rgb(201, 169, 98)'
               }}
               transition={{ duration: 0.3 }}
@@ -166,17 +166,17 @@ export const MenuCard = ({ item, onClick }: MenuCardProps) => {
             </motion.span>
           </div>
           
-          <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2 mb-3">
+          <p className="text-foreground/80 text-sm font-medium leading-relaxed line-clamp-2 mb-4">
             {item.description}
           </p>
 
           {/* Dietary Tags */}
           {item.dietary && (
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               {item.dietary.map((diet, index) => (
                 <motion.span
                   key={diet}
-                  className="text-[10px] text-accent border border-accent/30 px-2 py-0.5 rounded-full bg-accent/5"
+                  className="text-xs font-semibold text-accent border-2 border-accent/50 px-3 py-1 rounded-full bg-accent/10"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.2 + index * 0.05 }}

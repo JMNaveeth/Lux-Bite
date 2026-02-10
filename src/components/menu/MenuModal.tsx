@@ -44,7 +44,7 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
 
           {/* Modal */}
           <motion.div
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-5xl md:w-full max-h-[90vh] bg-card border border-border/50 rounded-lg overflow-hidden shadow-2xl z-50"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] md:w-[90vw] md:max-w-6xl max-h-[90vh] bg-card border-2 border-primary/30 rounded-xl overflow-hidden shadow-2xl z-50"
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -53,22 +53,23 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-20 p-2.5 bg-background/90 backdrop-blur-md rounded-full text-foreground/80 hover:text-primary hover:bg-background transition-all hover:scale-110 shadow-lg"
+              className="absolute top-3 right-3 z-20 p-3 bg-background backdrop-blur-md rounded-full text-foreground hover:text-primary hover:bg-primary/10 transition-all hover:scale-110 shadow-xl border-2 border-primary/40"
             >
-              <X size={20} />
+              <X size={24} className="font-bold" />
             </button>
 
-            <div className="grid md:grid-cols-[45%_55%] overflow-y-auto max-h-[90vh]">
+            <div className="grid md:grid-cols-[40%_60%] overflow-y-auto max-h-[90vh]">
               {/* Image */}
-              <div className="relative h-64 md:h-auto md:min-h-[600px] overflow-hidden">
+              <div className="relative h-72 md:h-auto md:min-h-[550px] overflow-hidden bg-charcoal-light">
                 <img
                   src={item.image}
                   alt={item.name}
                   className="w-full h-full object-cover"
+                  loading="eager"
                 />
-                {/* Gradient Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-card/80 md:block hidden" />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent md:hidden" />
+                {/* Gradient Overlays - Less opacity for better visibility */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-card/60 md:block hidden" />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent md:hidden" />
                 
                 {/* Featured Badge */}
                 {item.featured && (
@@ -82,26 +83,26 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
               </div>
 
               {/* Content */}
-              <div className="p-6 md:p-10 bg-gradient-to-b from-card to-background/50">
+              <div className="p-5 md:p-12 bg-gradient-to-b from-card to-background/30">
                 <div className="space-y-6">
                   {/* Category Badge */}
-                  <span className="inline-block text-primary text-xs tracking-luxury uppercase px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
+                  <span className="inline-block text-primary text-sm font-semibold tracking-luxury uppercase px-4 py-2 bg-primary/20 rounded-full border-2 border-primary/40">
                     {item.category.replace('-', ' ')}
                   </span>
 
                   {/* Title & Price */}
-                  <div className="space-y-3">
-                    <h2 className="font-serif text-3xl md:text-4xl text-foreground leading-tight">
+                  <div className="space-y-4">
+                    <h2 className="font-serif text-3xl md:text-5xl text-foreground leading-tight font-bold">
                       {item.name}
                     </h2>
                     
                     <div className="flex items-center gap-4">
-                      <span className="text-3xl font-serif text-gradient-gold">Rs {item.price}</span>
+                      <span className="text-4xl md:text-5xl font-serif text-gradient-gold font-bold">Rs {item.price}</span>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-muted-foreground leading-relaxed text-base">
+                  <p className="text-foreground/90 leading-relaxed text-base md:text-lg font-medium">
                     {item.description}
                   </p>
 
@@ -164,35 +165,35 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
                   </div>
 
                   {/* Add to Cart Section */}
-                  <div className="space-y-4 mt-6">
+                  <div className="space-y-5 mt-8">
                     {/* Quantity Selector */}
-                    <div className="flex items-center justify-between p-4 bg-background/80 rounded-lg border border-border/50">
-                      <span className="text-sm font-semibold text-foreground">Quantity</span>
-                      <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-between p-5 bg-background/90 rounded-xl border-2 border-primary/30 shadow-lg">
+                      <span className="text-base font-bold text-foreground">Quantity</span>
+                      <div className="flex items-center gap-5">
                         <button
                           onClick={decrementQuantity}
-                          className="w-8 h-8 flex items-center justify-center rounded-full bg-charcoal-light border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all"
+                          className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/20 border-2 border-primary/50 hover:border-primary hover:bg-primary/30 transition-all active:scale-95 shadow-md"
                           aria-label="Decrease quantity"
                         >
-                          <Minus size={16} className="text-foreground" />
+                          <Minus size={20} className="text-foreground font-bold" />
                         </button>
-                        <span className="text-lg font-semibold text-foreground w-8 text-center">
+                        <span className="text-2xl font-bold text-foreground w-12 text-center">
                           {quantity}
                         </span>
                         <button
                           onClick={incrementQuantity}
-                          className="w-8 h-8 flex items-center justify-center rounded-full bg-charcoal-light border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all"
+                          className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/20 border-2 border-primary/50 hover:border-primary hover:bg-primary/30 transition-all active:scale-95 shadow-md"
                           aria-label="Increase quantity"
                         >
-                          <Plus size={16} className="text-foreground" />
+                          <Plus size={20} className="text-foreground font-bold" />
                         </button>
                       </div>
                     </div>
 
                     {/* Total Price */}
-                    <div className="flex items-center justify-between px-4">
-                      <span className="text-sm text-muted-foreground">Total</span>
-                      <span className="text-2xl font-serif text-gradient-gold">
+                    <div className="flex items-center justify-between px-5 py-3 bg-primary/10 rounded-xl">
+                      <span className="text-base font-bold text-foreground">Total</span>
+                      <span className="text-3xl md:text-4xl font-serif text-gradient-gold font-bold">
                         Rs {item.price * quantity}
                       </span>
                     </div>
@@ -200,9 +201,9 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
                     {/* Add to Cart Button */}
                     <button 
                       onClick={handleAddToCart}
-                      className="w-full btn-gold flex items-center justify-center gap-2"
+                      className="w-full btn-gold flex items-center justify-center gap-3 text-lg py-4 font-bold shadow-xl hover:shadow-2xl active:scale-95"
                     >
-                      <ShoppingCart size={20} />
+                      <ShoppingCart size={24} />
                       Add to Cart
                     </button>
                   </div>
