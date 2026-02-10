@@ -3,7 +3,7 @@ import { motion, useMotionValue, useSpring, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { getFeaturedItems } from '@/lib/menuData';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
-import { ChefHat, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 const AIChefAnimation = ({ visible }: { visible: boolean }) => {
   if (!visible) return null;
@@ -137,9 +137,14 @@ const AIChefAnimation = ({ visible }: { visible: boolean }) => {
               transition={{
                 duration: 0.9,
                 repeat: Infinity,
-                ease: "easeInOut"
-            {/* Chef Knife */}
-            <motion.div via-gray-50 to-gray-100 rounded-full border-2 border-primary/40 origin-right shadow-lg"
+                ease: "easeInOut",
+              }}
+            />
+          </motion.div>
+
+          {/* Right Arm - Stirring Motion */}
+          <motion.div
+            className="absolute top-26 right-2 w-12 h-2 bg-gradient-to-l from-white via-gray-50 to-gray-100 rounded-full border-2 border-primary/40 origin-right shadow-lg"
             animate={{
               rotate: [0, 50, 10, 45, 0],
               x: [0, -6, 0, -5, 0],
@@ -169,7 +174,14 @@ const AIChefAnimation = ({ visible }: { visible: boolean }) => {
                 rotate: { duration: 1.5, repeat: Infinity, ease: "linear" },
                 scale: { duration: 1, repeat: Infinity, ease: "easeInOut" },
                 boxShadow: { duration: 1.5, repeat: Infinity },
-              ease: "easeIn20 h-10 bg-gradient-to-br from-gray-400 via-gray-300 to-gray-500 rounded-lg border-2 border-gray-600 shadow-2xl"
+              }}
+            />
+          </motion.div>
+
+          {/* Cooking Pot with Steam */}
+          <motion.div className="absolute -bottom-8 left-1/2 -translate-x-1/2">
+            <motion.div 
+              className="w-20 h-10 bg-gradient-to-br from-gray-400 via-gray-300 to-gray-500 rounded-lg border-2 border-gray-600 shadow-2xl"
               animate={{
                 y: [0, -3, 0, -2, 0],
                 scale: [1, 1.02, 1],
@@ -209,7 +221,20 @@ const AIChefAnimation = ({ visible }: { visible: boolean }) => {
                   y: [0, -40, -80],
                   opacity: [0, 0.9, 0.5, 0],
                   scale: [1, 1.8, 2.5, 3],
-                  x: [0, (i % 2 === - Continuous */}
+                  x: [0, (i % 2 === 0 ? 10 : -10)],
+                }}
+                transition={{
+                  duration: 2.5,
+                  delay: i * 0.15,
+                  repeat: Infinity,
+                  ease: "easeOut",
+                }}
+              />
+            ))}
+          </motion.div>
+        </motion.div>
+
+        {/* Premium Sparkle Effects - Continuous */}
         {[...Array(16)].map((_, i) => (
           <motion.div
             key={i}
@@ -245,8 +270,12 @@ const AIChefAnimation = ({ visible }: { visible: boolean }) => {
             <Sparkles 
               size={i % 3 === 0 ? 24 : i % 2 === 0 ? 20 : 16} 
               className={i % 2 === 0 ? "text-primary drop-shadow-2xl" : "text-yellow-400 drop-shadow-2xl"}
-                  delay: i * 0.2,
-                  repeat: Infinity,- Continuous */}
+              fill="currentColor" 
+            />
+          </motion.div>
+        ))}
+
+        {/* Gourmet Presentation Glow - Continuous */}
         <motion.div
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-radial from-primary/30 via-yellow-400/20 to-transparent rounded-full blur-3xl"
           animate={{
@@ -260,7 +289,23 @@ const AIChefAnimation = ({ visible }: { visible: boolean }) => {
             ease: "easeInOut",
           }}
         />
-        {/* Secondary Glow Layer */}- Always Visible */}
+        {/* Secondary Glow Layer */}
+        <motion.div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 bg-gradient-radial from-yellow-300/20 via-primary/10 to-transparent rounded-full blur-3xl"
+          animate={{
+            scale: [1.5, 1, 1.3, 1.1, 1.5],
+            opacity: [0.2, 0.4, 0.3, 0.5, 0.2],
+            rotate: [360, 180, 0],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
+
+      {/* Premium Text with Animation - Always Visible */}
       <motion.div
         className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-center w-64"
         animate={{
@@ -302,64 +347,22 @@ const AIChefAnimation = ({ visible }: { visible: boolean }) => {
               duration: 2,
               repeat: Infinity,
             }}
-        isInView = useInView(cardRef, { once: false, margin: '-50px', amount: 0.3 });
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(mouseY, { stiffness: 200, damping: 25 });
-  const rotateY = useSpring(mouseX, { stiffness: 200, damping: 25 }.3 + i * 0.08,
-              ease: [0.16, 1, 0.3, 1],
+          >
+            ✨
+          </motion.span>
+          {' '}Master Chef Crafting{' '}
+          <motion.span
+            className="inline-block"
+            animate={{
+              rotate: [0, -10, 10, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
             }}
           >
-            <Sparkles 
-              size={i % 2 === 0 ? 20 : 16} 
-              className="text-primary drop-shadow-lg" 
-              fill="currentColor" 
-            />
-          </motion.div>
-        ))}
-
-        {/* Gourmet Presentation Glow */}
-        <motion.div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-primary/20 rounded-full blur-3xl"
-          animate={{
-            scale: [0, 1.5, 2, 1.5, 0],
-            opacity: [0, 0.5, 0.3, 0.5, 0],
-          }}
-          transition={{
-            duration: 3.5,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-
-      {/* Premium Text with Animation */}
-      <motion.div
-        className="mt-2 text-center"
-        animate={{
-          opacity: [0, 1, 1, 1, 0],
-        }}
-        transition={{
-          duration: 3.5,
-          times: [0, 0.2, 0.5, 0.8, 1],
-        }}
-      >
-        <motion.p 
-          className="text-primary font-serif text-lg whitespace-nowrap font-bold bg-gradient-to-r from-background via-background/95 to-background backdrop-blur-md px-6 py-2.5 rounded-full border-2 border-primary/40 shadow-2xl"
-          animate={{
-            boxShadow: [
-              '0 0 20px rgba(201, 169, 98, 0.3)',
-              '0 0 40px rgba(201, 169, 98, 0.6)',
-              '0 0 20px rgba(201, 169, 98, 0.3)',
-            ],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-          }}- Always Show When In View */}
-        <AIChefAnimation visible={isInView
-          ✨ Master Chef Crafting Your Dish ✨
+            ✨
+          </motion.span>
         </motion.p>
       </motion.div>
     </motion.div>
@@ -369,25 +372,13 @@ const AIChefAnimation = ({ visible }: { visible: boolean }) => {
 const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [showChef, setShowChef] = useState(false);
-  const isInView = useInView(cardRef, { once: true, margin: '-100px' });
+  const isInView = useInView(cardRef, { once: false, margin: '-50px', amount: 0.3 });
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   const rotateX = useSpring(mouseY, { stiffness: 200, damping: 25 });
   const rotateY = useSpring(mouseX, { stiffness: 200, damping: 25 });
-
-  // Trigger chef animation when card comes into view
-  useEffect(() => {
-    if (isInView) {
-      const timer = setTimeout(() => {
-        setShowChef(true);
-        setTimeout(() => setShowChef(false), 3000);
-      }, index * 400);
-      return () => clearTimeout(timer);
-    }
-  }, [isInView, index]);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -424,8 +415,8 @@ const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
       >
-        {/* AI Chef Animation */}
-        <AIChefAnimation visible={showChef} />
+        {/* AI Chef Animation - Always Show When In View */}
+        <AIChefAnimation visible={isInView} />
 
         {/* Dish appears with animation */}
         <motion.div
@@ -443,7 +434,7 @@ const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
           } : {}}
           transition={{
             duration: 0.8,
-            delay: index * 0.4 + 1.5,
+            delay: index * 0.4 + 0.5,
             ease: [0.16, 1, 0.3, 1],
           }}
           whileHover={{
