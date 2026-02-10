@@ -1,18 +1,132 @@
 import { useState, useRef, MouseEvent } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { getFeaturedItems } from '@/lib/menuData';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
+import { ChefHat, Sparkles } from 'lucide-react';
+
+const AIChefAnimation = ({ visible }: { visible: boolean }) => {
+  return (
+    <motion.div
+      className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
+      initial={{ opacity: 0, y: -50, scale: 0 }}
+      animate={visible ? {
+        opacity: [0, 1, 1, 0],
+        y: [-50, -100, -100, -150],
+        scale: [0, 1.2, 1, 0.8],
+        rotate: [0, -10, 10, 0],
+      } : {}}
+      transition={{
+        duration: 3,
+        times: [0, 0.3, 0.7, 1],
+        ease: [0.16, 1, 0.3, 1],
+      }}
+    >
+      {/* Chef Icon with Cooking Animation */}
+      <div className="relative">
+        <motion.div
+          className="w-24 h-24 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center shadow-2xl border-4 border-background"
+          animate={visible ? {
+            boxShadow: [
+              '0 10px 40px rgba(201, 169, 98, 0.3)',
+              '0 20px 60px rgba(201, 169, 98, 0.6)',
+              '0 10px 40px rgba(201, 169, 98, 0.3)',
+            ],
+          } : {}}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <ChefHat size={40} className="text-background" strokeWidth={2.5} />
+        </motion.div>
+
+        {/* Sparkles */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute"
+            style={{
+              left: '50%',
+              top: '50%',
+            }}
+            animate={visible ? {
+              x: [0, Math.cos((i * Math.PI) / 3) * 50],
+              y: [0, Math.sin((i * Math.PI) / 3) * 50],
+              opacity: [1, 0],
+              scale: [0, 1, 0],
+            } : {}}
+            transition={{
+              duration: 1.5,
+              delay: 0.3 + i * 0.1,
+              ease: 'easeOut',
+            }}
+          >
+            <Sparkles size={16} className="text-primary" fill="currentColor" />
+          </motion.div>
+        ))}
+
+        {/* Cooking steam effect */}
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={`steam-${i}`}
+            className="absolute left-1/2 -translate-x-1/2 w-2 h-8 bg-gradient-to-t from-primary/40 to-transparent rounded-full blur-sm"
+            style={{
+              bottom: '100%',
+            }}
+            animate={visible ? {
+              y: [-20, -60],
+              opacity: [0.8, 0],
+              scaleX: [1, 1.5],
+            } : {}}
+            transition={{
+              duration: 2,
+              delay: i * 0.3,
+              repeat: Infinity,
+              ease: 'easeOut',
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Text */}
+      <motion.div
+        className="mt-4 text-center"
+        animate={visible ? {
+          opacity: [0, 1, 1, 0],
+        } : {}}
+        transition={{
+          duration: 3,
+          times: [0, 0.3, 0.7, 1],
+        }}
+      >
+        <p className="text-primary font-serif text-xl whitespace-nowrap font-bold bg-background/90 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/30 shadow-lg">
+          AI Chef Preparing...
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+};
 
 const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [showChef, setShowChef] = useState(false);
+  const isInView = useInView(cardRef, { once: true, margin: '-100px' });
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   const rotateX = useSpring(mouseY, { stiffness: 200, damping: 25 });
   const rotateY = useSpring(mouseX, { stiffness: 200, damping: 25 });
+
+  // Trigger chef animation when card comes into view
+  useState(() => {
+    if (isInView) {
+      const timer = setTimeout(() => {
+        setShowChef(true);
+        setTimeout(() => setShowChef(false), 3000);
+      }, index * 400);
+      return () => clearTimeout(timer);
+    }
+  });
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -49,6 +163,10 @@ const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
       >
+        {/* AI Chef Animation */}
+        <AIChefAnimation visible={showChef} />
+
+        {/* Dish appears with animation */}
         <motion.div
           className="bg-card rounded-lg overflow-hidden border border-border/50 hover:border-primary/40 shadow-lg hover:shadow-2xl h-full flex flex-col relative"
           style={{
@@ -56,11 +174,21 @@ const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
             rotateY: rotateY,
             transformStyle: 'preserve-3d',
           }}
-          animate={{
-            y: isHovered ? -12 : 0,
-            scale: isHovered ? 1.02 : 1,
+          initial={{ opacity: 0, scale: 0.8, y: 50 }}
+          animate={isInView ? {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+          } : {}}
+          transition={{
+            duration: 0.8,
+            delay: index * 0.4 + 1.5,
+            ease: [0.16, 1, 0.3, 1],
           }}
-          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{
+            y: -12,
+            scale: 1.02,
+          }}
         >
           {/* Image */}
           <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden">
