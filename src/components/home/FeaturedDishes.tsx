@@ -8,30 +8,32 @@ const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  const rotateX = useMotionValue(0);
-  const rotateY = useMotionValue(0);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  const rotateXSpring = useSpring(rotateX, { stiffness: 150, damping: 20 });
-  const rotateYSpring = useSpring(rotateY, { stiffness: 150, damping: 20 });
+  const rotateX = useSpring(mouseY, { stiffness: 200, damping: 25 });
+  const rotateY = useSpring(mouseX, { stiffness: 200, damping: 25 });
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
 
     const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+    const width = rect.width;
+    const height = rect.height;
+    const mouseXPos = e.clientX - rect.left;
+    const mouseYPos = e.clientY - rect.top;
+    
+    const xPct = mouseXPos / width - 0.5;
+    const yPct = mouseYPos / height - 0.5;
 
-    const rotateXValue = ((e.clientY - centerY) / (rect.height / 2)) * -15;
-    const rotateYValue = ((e.clientX - centerX) / (rect.width / 2)) * 15;
-
-    rotateX.set(rotateXValue);
-    rotateY.set(rotateYValue);
+    mouseX.set(xPct * 20);
+    mouseY.set(yPct * -20);
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    rotateX.set(0);
-    rotateY.set(0);
+    mouseX.set(0);
+    mouseY.set(0);
   };
 
   return (
@@ -41,23 +43,24 @@ const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
         className="group relative h-full"
         style={{
           perspective: '1500px',
+          transformStyle: 'preserve-3d',
         }}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
       >
         <motion.div
-          className="bg-card rounded-lg overflow-hidden border border-border/50 hover:border-primary/40 transition-all duration-500 shadow-lg hover:shadow-2xl h-full flex flex-col"
+          className="bg-card rounded-lg overflow-hidden border border-border/50 hover:border-primary/40 shadow-lg hover:shadow-2xl h-full flex flex-col relative"
           style={{
-            rotateX: rotateXSpring,
-            rotateY: rotateYSpring,
+            rotateX: rotateX,
+            rotateY: rotateY,
             transformStyle: 'preserve-3d',
-            willChange: 'transform',
           }}
           animate={{
             y: isHovered ? -12 : 0,
+            scale: isHovered ? 1.02 : 1,
           }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Image */}
           <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden">
