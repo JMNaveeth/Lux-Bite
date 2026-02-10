@@ -1,4 +1,4 @@
-import { useState, useRef, MouseEvent } from 'react';
+import { useState, useRef, MouseEvent, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { getFeaturedItems } from '@/lib/menuData';
@@ -6,16 +6,18 @@ import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { ChefHat, Sparkles } from 'lucide-react';
 
 const AIChefAnimation = ({ visible }: { visible: boolean }) => {
+  if (!visible) return null;
+  
   return (
     <motion.div
       className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
       initial={{ opacity: 0, y: -50, scale: 0 }}
-      animate={visible ? {
+      animate={{
         opacity: [0, 1, 1, 0],
         y: [-50, -100, -100, -150],
         scale: [0, 1.2, 1, 0.8],
         rotate: [0, -10, 10, 0],
-      } : {}}
+      }}
       transition={{
         duration: 3,
         times: [0, 0.3, 0.7, 1],
@@ -118,7 +120,7 @@ const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
   const rotateY = useSpring(mouseX, { stiffness: 200, damping: 25 });
 
   // Trigger chef animation when card comes into view
-  useState(() => {
+  useEffect(() => {
     if (isInView) {
       const timer = setTimeout(() => {
         setShowChef(true);
@@ -126,7 +128,7 @@ const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
       }, index * 400);
       return () => clearTimeout(timer);
     }
-  });
+  }, [isInView, index]);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
