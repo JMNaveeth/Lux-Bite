@@ -1,11 +1,12 @@
 import { useState, useRef, MouseEvent } from 'react';
 import { motion, useMotionValue, useSpring, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { getFeaturedItems } from '@/lib/menuData';
+import { getFeaturedItems, MenuItem } from '@/lib/menuData';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
+import { MenuModal } from '@/components/menu/MenuModal';
 
 
-const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
+const FeaturedCard = ({ item, index, onClick }: { item: any; index: number; onClick: () => void }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const isInView = useInView(cardRef, { once: false, margin: '-50px', amount: 0.3 });
@@ -42,7 +43,7 @@ const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
     <AnimatedSection delay={index * 100}>
       <motion.div
         ref={cardRef}
-        className="group relative h-full"
+        className="group relative h-full cursor-pointer"
         style={{
           perspective: '1500px',
           transformStyle: 'preserve-3d',
@@ -50,6 +51,7 @@ const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
+        onClick={onClick}
       >
         {/* Dish appears with animation */}
         <motion.div
@@ -157,32 +159,37 @@ const FeaturedCard = ({ item, index }: { item: any; index: number }) => {
 
 export const FeaturedDishes = () => {
   const featuredItems = getFeaturedItems();
+  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
 
   return (
-    <section className="py-16 md:py-24 lg:py-32 bg-background">
-      <div className="container mx-auto px-4 sm:px-6">
-        <AnimatedSection className="text-center mb-12 md:mb-16">
-          <span className="text-primary text-xs sm:text-sm tracking-luxury uppercase mb-3 md:mb-4 block">
-            Culinary Excellence
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 md:mb-6 px-4">
-            Signature Creations
-          </h2>
-          <div className="divider-gold" />
-        </AnimatedSection>
+    <>
+      <section className="py-16 md:py-24 lg:py-32 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <AnimatedSection className="text-center mb-12 md:mb-16">
+            <span className="text-primary text-xs sm:text-sm tracking-luxury uppercase mb-3 md:mb-4 block">
+              Culinary Excellence
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 md:mb-6 px-4">
+              Signature Creations
+            </h2>
+            <div className="divider-gold" />
+          </AnimatedSection>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-          {featuredItems.map((item, index) => (
-            <FeaturedCard key={item.id} item={item} index={index} />
-          ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+            {featuredItems.map((item, index) => (
+              <FeaturedCard key={item.id} item={item} index={index} onClick={() => setSelectedItem(item)} />
+            ))}
+          </div>
+
+          <AnimatedSection className="text-center mt-16" delay={400}>
+            <Link to="/menu" className="btn-outline-gold">
+              View Full Menu
+            </Link>
+          </AnimatedSection>
         </div>
+      </section>
 
-        <AnimatedSection className="text-center mt-16" delay={400}>
-          <Link to="/menu" className="btn-outline-gold">
-            View Full Menu
-          </Link>
-        </AnimatedSection>
-      </div>
-    </section>
+      <MenuModal item={selectedItem} onClose={() => setSelectedItem(null)} />
+    </>
   );
 };

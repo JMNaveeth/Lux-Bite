@@ -79,13 +79,8 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
               </div>
 
               {/* Content */}
-              <div className="p-2 md:p-4 bg-card flex flex-col h-full">
-                <div className="space-y-1.5 flex-1 overflow-hidden">
-                  {/* Category Badge */}
-                  <span className="inline-block text-primary text-[10px] font-semibold tracking-luxury uppercase px-2 py-0.5 bg-primary/20 rounded-full border border-primary/40">
-                    {item.category.replace('-', ' ')}
-                  </span>
-
+              <div className="p-2 md:p-4 pb-6 bg-card overflow-y-auto h-full">
+                <div className="space-y-1.5">
                   {/* Title & Price */}
                   <div className="space-y-1">
                     <h2 className="font-serif text-xl md:text-2xl text-foreground leading-tight font-bold">
@@ -197,9 +192,9 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
                     {/* Add to Cart Button */}
                     <button 
                       onClick={handleAddToCart}
-                      className="w-full btn-gold flex items-center justify-center gap-1.5 text-sm py-2 font-bold"
+                      className="w-full btn-gold flex items-center justify-center gap-2 text-base py-3 font-bold shadow-lg"
                     >
-                      <ShoppingCart size={16} />
+                      <ShoppingCart size={18} />
                       Add to Cart
                     </button>
                   </div>
