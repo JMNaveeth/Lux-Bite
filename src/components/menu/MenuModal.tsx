@@ -1,6 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Wine, Leaf, Sparkles } from 'lucide-react';
+import { X, Wine, Leaf, Sparkles, Plus, Minus, ShoppingCart } from 'lucide-react';
 import { MenuItem } from '@/lib/menuData';
+import { useCart } from '@/contexts/CartContext';
+import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
 
 interface MenuModalProps {
   item: MenuItem | null;
@@ -8,7 +11,23 @@ interface MenuModalProps {
 }
 
 export const MenuModal = ({ item, onClose }: MenuModalProps) => {
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+  const [quantity, setQuantity] = useState(1);
+  
   if (!item) return null;
+
+  const handleAddToCart = () => {
+    addToCart(item, quantity);
+    toast({
+      title: "Added to cart!",
+      description: `${quantity} x ${item.name} added to your cart.`,
+    });
+    setQuantity(1);
+  };
+
+  const incrementQuantity = () => setQuantity(prev => prev + 1);
+  const decrementQuantity = () => setQuantity(prev => Math.max(1, prev - 1));
 
   return (
     <AnimatePresence>
@@ -144,10 +163,49 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
                     </div>
                   </div>
 
-                  {/* CTA */}
-                  <button className="w-full btn-gold mt-4">
-                    Reserve & Order This Dish
-                  </button>
+                  {/* Add to Cart Section */}
+                  <div className="space-y-4 mt-6">
+                    {/* Quantity Selector */}
+                    <div className="flex items-center justify-between p-4 bg-background/80 rounded-lg border border-border/50">
+                      <span className="text-sm font-semibold text-foreground">Quantity</span>
+                      <div className="flex items-center gap-4">
+                        <button
+                          onClick={decrementQuantity}
+                          className="w-8 h-8 flex items-center justify-center rounded-full bg-charcoal-light border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all"
+                          aria-label="Decrease quantity"
+                        >
+                          <Minus size={16} className="text-foreground" />
+                        </button>
+                        <span className="text-lg font-semibold text-foreground w-8 text-center">
+                          {quantity}
+                        </span>
+                        <button
+                          onClick={incrementQuantity}
+                          className="w-8 h-8 flex items-center justify-center rounded-full bg-charcoal-light border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all"
+                          aria-label="Increase quantity"
+                        >
+                          <Plus size={16} className="text-foreground" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Total Price */}
+                    <div className="flex items-center justify-between px-4">
+                      <span className="text-sm text-muted-foreground">Total</span>
+                      <span className="text-2xl font-serif text-gradient-gold">
+                        Rs {item.price * quantity}
+                      </span>
+                    </div>
+
+                    {/* Add to Cart Button */}
+                    <button 
+                      onClick={handleAddToCart}
+                      className="w-full btn-gold flex items-center justify-center gap-2"
+                    >
+                      <ShoppingCart size={20} />
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

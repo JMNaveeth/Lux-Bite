@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 
 const navLinks = [
   { path: '/', label: 'Home' },
@@ -14,6 +15,8 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { getCartItemCount } = useCart();
+  const cartItemCount = getCartItemCount();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,29 +75,68 @@ export const Header = () => {
             ))}
           </nav>
 
-          {/* Reserve Button - Desktop */}
-          <motion.div
-            className="hidden md:block"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Link
-              to="/reservations"
-              className="btn-outline-gold text-xs"
+          {/* Cart & Reserve Button - Desktop */}
+          <div className="hidden md:flex items-center gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              Reserve a Table
-            </Link>
-          </motion.div>
+              <Link
+                to="/cart"
+                className="relative p-2 text-foreground/80 hover:text-primary transition-colors"
+                aria-label="Shopping cart"
+              >
+                <ShoppingCart size={24} />
+                {cartItemCount > 0 && (
+                  <motion.span
+                    className="absolute -top-1 -right-1 bg-primary text-background text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                  >
+                    {cartItemCount}
+                  </motion.span>
+                )}
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Link
+                to="/reservations"
+                className="btn-outline-gold text-xs"
+              >
+                Reserve a Table
+              </Link>
+            </motion.div>
+          </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden relative z-10 p-2 text-foreground"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-4">
+            <Link
+              to="/cart"
+              className="relative p-2 text-foreground"
+              aria-label="Shopping cart"
+            >
+              <ShoppingCart size={20} />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-primary text-background text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+            </Link>
+            <button
+              className="relative z-10 p-2 text-foreground"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </header>
 
