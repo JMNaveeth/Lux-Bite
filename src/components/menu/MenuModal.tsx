@@ -77,7 +77,7 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
                     </h2>
                     
                     <div className="flex items-center gap-4">
-                      <span className="text-3xl font-serif text-gradient-gold">${item.price}</span>
+                      <span className="text-3xl font-serif text-gradient-gold">Rs {item.price}</span>
                     </div>
                   </div>
 

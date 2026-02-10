@@ -133,7 +133,7 @@ export const generateResponse = (
 
   // Check for price/budget
   if (message.includes('price') || message.includes('budget') || message.includes('expensive')) {
-    response = "Our dishes range from $18 to $225. For an exceptional experience without the top tier, I'd suggest the Duck à l'Orange at $62 or our Wild Mushroom Risotto at $48 — both are extraordinary value.";
+    response = "Our dishes range from Rs 400 to Rs 3250. For an exceptional experience without the top tier, I'd suggest the Black Pork Curry at Rs 1650 or our Kottu Roti at Rs 1450 — both are extraordinary value and authentically Sri Lankan.";
     return { response, recommendations };
   }
 

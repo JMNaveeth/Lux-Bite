@@ -162,7 +162,7 @@ export const MenuCard = ({ item, onClick }: MenuCardProps) => {
               }}
               transition={{ duration: 0.3 }}
             >
-              ${item.price}
+              Rs {item.price}
             </motion.span>
           </div>
           
