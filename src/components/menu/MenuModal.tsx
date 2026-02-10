@@ -44,7 +44,7 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
 
           {/* Modal */}
           <motion.div
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-5xl max-h-[85vh] bg-card rounded-2xl overflow-hidden shadow-2xl z-50"
+            className="fixed top-[4%] left-[13%] -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-5xl h-[92vh] bg-card rounded-2xl overflow-hidden shadow-2xl z-50"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
@@ -58,13 +58,13 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
               <X size={24} />
             </button>
 
-            <div className="grid md:grid-cols-[45%_55%] overflow-y-auto max-h-[85vh]">
+            <div className="grid md:grid-cols-[45%_55%] h-full">
               {/* Image */}
-              <div className="relative h-80 md:h-full overflow-hidden">
+              <div className="relative h-80 md:h-full flex items-center justify-center bg-black p-4">
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
                 
                 {/* Featured Badge */}
@@ -79,38 +79,38 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
               </div>
 
               {/* Content */}
-              <div className="p-8 md:p-10 bg-card">
-                <div className="space-y-6">
+              <div className="p-3 md:p-5 bg-card overflow-y-auto">
+                <div className="space-y-2">
                   {/* Category Badge */}
-                  <span className="inline-block text-primary text-sm font-semibold tracking-luxury uppercase px-4 py-2 bg-primary/20 rounded-full border-2 border-primary/40">
+                  <span className="inline-block text-primary text-xs font-semibold tracking-luxury uppercase px-3 py-1 bg-primary/20 rounded-full border border-primary/40">
                     {item.category.replace('-', ' ')}
                   </span>
 
                   {/* Title & Price */}
-                  <div className="space-y-4">
-                    <h2 className="font-serif text-3xl md:text-5xl text-foreground leading-tight font-bold">
+                  <div className="space-y-2">
+                    <h2 className="font-serif text-2xl md:text-3xl text-foreground leading-tight font-bold">
                       {item.name}
                     </h2>
                     
                     <div className="flex items-center gap-4">
-                      <span className="text-4xl md:text-5xl font-serif text-gradient-gold font-bold">Rs {item.price}</span>
+                      <span className="text-2xl md:text-3xl font-serif text-gradient-gold font-bold">Rs {item.price}</span>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-foreground/90 leading-relaxed text-base md:text-lg font-medium">
+                  <p className="text-foreground/90 leading-relaxed text-sm font-medium">
                     {item.description}
                   </p>
 
                   {/* Pairing */}
                   {item.pairing && (
-                    <div className="flex items-start gap-3 p-4 bg-background/80 rounded-lg border border-border/50 backdrop-blur-sm">
-                      <Wine size={20} className="text-primary mt-0.5 flex-shrink-0" />
+                    <div className="flex items-start gap-2 p-3 bg-background/80 rounded-lg border border-border/50">
+                      <Wine size={16} className="text-primary mt-0.5 flex-shrink-0" />
                       <div className="flex-1">
-                        <span className="text-sm text-foreground font-semibold block mb-1">
+                        <span className="text-xs text-foreground font-semibold block mb-1">
                           Perfect Pairing
                         </span>
-                        <span className="text-sm text-muted-foreground leading-relaxed">
+                        <span className="text-xs text-muted-foreground leading-relaxed">
                           {item.pairing}
                         </span>
                       </div>
@@ -119,17 +119,17 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
 
                   {/* Dietary */}
                   {item.dietary && item.dietary.length > 0 && (
-                    <div className="flex items-start gap-3 p-4 bg-background/80 rounded-lg border border-border/50 backdrop-blur-sm">
-                      <Leaf size={20} className="text-accent mt-0.5 flex-shrink-0" />
+                    <div className="flex items-start gap-2 p-3 bg-background/80 rounded-lg border border-border/50">
+                      <Leaf size={16} className="text-accent mt-0.5 flex-shrink-0" />
                       <div className="flex-1">
-                        <span className="text-sm text-foreground font-semibold block mb-2">
+                        <span className="text-xs text-foreground font-semibold block mb-1">
                           Dietary Information
                         </span>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-1">
                           {item.dietary.map((diet) => (
                             <span
                               key={diet}
-                              className="text-xs text-accent border border-accent/30 px-3 py-1 rounded-full capitalize bg-accent/5"
+                              className="text-xs text-accent border border-accent/30 px-2 py-0.5 rounded-full capitalize bg-accent/5"
                             >
                               {diet}
                             </span>
@@ -141,14 +141,14 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
 
                   {/* Moods */}
                   <div>
-                    <span className="text-sm text-foreground font-semibold block mb-3">
+                    <span className="text-xs text-foreground font-semibold block mb-2">
                       Perfect For
                     </span>
                     <div className="flex flex-wrap gap-2">
                       {item.moods.map((mood) => (
                         <span
                           key={mood}
-                          className="text-sm text-foreground/90 bg-charcoal-light px-4 py-2 rounded-full capitalize border border-border/30 hover:border-primary/30 transition-colors"
+                          className="text-xs text-foreground/90 bg-charcoal-light px-3 py-1 rounded-full capitalize border border-border/30"
                         >
                           {mood === 'romantic' && '💕 '}
                           {mood === 'indulgent' && '✨ '}
@@ -161,35 +161,35 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
                   </div>
 
                   {/* Add to Cart Section */}
-                  <div className="space-y-5 mt-8">
+                  <div className="space-y-3 mt-4">
                     {/* Quantity Selector */}
-                    <div className="flex items-center justify-between p-5 bg-background/90 rounded-xl border-2 border-primary/30 shadow-lg">
-                      <span className="text-base font-bold text-foreground">Quantity</span>
-                      <div className="flex items-center gap-5">
+                    <div className="flex items-center justify-between p-3 bg-background/90 rounded-lg border border-primary/30">
+                      <span className="text-sm font-bold text-foreground">Quantity</span>
+                      <div className="flex items-center gap-3">
                         <button
                           onClick={decrementQuantity}
-                          className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/20 border-2 border-primary/50 hover:border-primary hover:bg-primary/30 transition-all active:scale-95 shadow-md"
+                          className="w-8 h-8 flex items-center justify-center rounded-full bg-primary/20 border border-primary/50 hover:border-primary hover:bg-primary/30 transition-all"
                           aria-label="Decrease quantity"
                         >
-                          <Minus size={20} className="text-foreground font-bold" />
+                          <Minus size={16} className="text-foreground font-bold" />
                         </button>
-                        <span className="text-2xl font-bold text-foreground w-12 text-center">
+                        <span className="text-lg font-bold text-foreground w-8 text-center">
                           {quantity}
                         </span>
                         <button
                           onClick={incrementQuantity}
-                          className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/20 border-2 border-primary/50 hover:border-primary hover:bg-primary/30 transition-all active:scale-95 shadow-md"
+                          className="w-8 h-8 flex items-center justify-center rounded-full bg-primary/20 border border-primary/50 hover:border-primary hover:bg-primary/30 transition-all"
                           aria-label="Increase quantity"
                         >
-                          <Plus size={20} className="text-foreground font-bold" />
+                          <Plus size={16} className="text-foreground font-bold" />
                         </button>
                       </div>
                     </div>
 
                     {/* Total Price */}
-                    <div className="flex items-center justify-between px-5 py-3 bg-primary/10 rounded-xl">
-                      <span className="text-base font-bold text-foreground">Total</span>
-                      <span className="text-3xl md:text-4xl font-serif text-gradient-gold font-bold">
+                    <div className="flex items-center justify-between px-3 py-2 bg-primary/10 rounded-lg">
+                      <span className="text-sm font-bold text-foreground">Total</span>
+                      <span className="text-2xl font-serif text-gradient-gold font-bold">
                         Rs {item.price * quantity}
                       </span>
                     </div>
@@ -197,9 +197,9 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
                     {/* Add to Cart Button */}
                     <button 
                       onClick={handleAddToCart}
-                      className="w-full btn-gold flex items-center justify-center gap-3 text-lg py-4 font-bold shadow-xl hover:shadow-2xl active:scale-95"
+                      className="w-full btn-gold flex items-center justify-center gap-2 text-base py-3 font-bold"
                     >
-                      <ShoppingCart size={24} />
+                      <ShoppingCart size={20} />
                       Add to Cart
                     </button>
                   </div>
