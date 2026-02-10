@@ -10,38 +10,198 @@ const AIChefAnimation = ({ visible }: { visible: boolean }) => {
   
   return (
     <motion.div
-      className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
-      initial={{ opacity: 0, y: -50, scale: 0 }}
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none w-48"
+      initial={{ opacity: 0, scale: 0, rotate: -180 }}
       animate={{
-        opacity: [0, 1, 1, 0],
-        y: [-50, -100, -100, -150],
-        scale: [0, 1.2, 1, 0.8],
-        rotate: [0, -10, 10, 0],
+        opacity: 1,
+        scale: [0.9, 1.05, 1],
+        rotate: [0, 5, -5, 0],
+        y: [0, -8, 0],
       }}
       transition={{
-        duration: 3,
-        times: [0, 0.3, 0.7, 1],
-        ease: [0.16, 1, 0.3, 1],
+        opacity: { duration: 0.5 },
+        scale: { duration: 2.5, repeat: Infinity, ease: "easeInOut" },
+        rotate: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+        y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
       }}
     >
-      {/* Chef Icon with Cooking Animation */}
       <div className="relative">
-        <motion.div
-          className="w-24 h-24 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center shadow-2xl border-4 border-background"
-          animate={visible ? {
-            boxShadow: [
-              '0 10px 40px rgba(201, 169, 98, 0.3)',
-              '0 20px 60px rgba(201, 169, 98, 0.6)',
-              '0 10px 40px rgba(201, 169, 98, 0.3)',
-            ],
-          } : {}}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <ChefHat size={40} className="text-background" strokeWidth={2.5} />
-        </motion.div>
-
-        {/* Sparkles */}
-        {[...Array(6)].map((_, i) => (
+        {/* Chef Silhouette Figure */}
+        <motion.div className="relative w-32 h-40 mx-auto">
+          {/* Chef Head with Hat */}
+          <motion.div
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16"
+            animate={{
+              rotate: [0, -8, 8, -5, 5, 0],
+              y: [0, -3, 0, -2, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {/* Chef Hat */}
+            <motion.div via-gray-50 to-gray-100 rounded-t-full border-2 border-primary/50 shadow-2xl"
+              animate={{
+                scaleY: [1, 1.1, 1, 1.05, 1],
+                scaleX: [1, 0.95, 1],
+                boxShadow: [
+                  '0 4px 15px rgba(201, 169, 98, 0.3)',
+                  '0 8px 30px rgba(201, 169, 98, 0.6)',
+                  '0 4px 15px rgba(201, 169, 98, 0.3)',
+                ],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+                repeat: Infinity,
+              }}
+            />
+            <div className="absolute top-7 left-1/2 -translate-x-1/2 w-12 h-3 bg-primary/90 rounded-sm" />
+            
+            {/* Chef Face */}800 rounded-full"
+                animate={{
+                  scaleX: [1, 1.2, 1, 1.1, 1],
+                  y: [0, -1, 0],
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                className="absolute bottom-2 left-1/2 -translate-x-1/2 w-4 h-2 border-b-2 border-gray-700 rounded-full"
+                animate={{
+                  scaleX: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 2,via-gray-50 to-gray-100 rounded-lg border-2 border-primary/40 shadow-2xl"
+            animate={{
+              scaleY: [1, 1.03, 1, 1.01, 1],
+              scaleX: [1, 0.98, 1],
+              boxShadow: [
+                '0 5px 20px rgba(0, 0, 0, 0.2)',
+                '0 8px 35px rgba(201, 169, 98, 0.4)',
+                '0 5px 20px rgba(0, 0, 0, 0.2)',
+              ],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+          {/* Chef Body */}
+          <motion.div 
+            className="absolute top-20 left-1/2 -translate-x-1/2 w-20 h-16 bg-gradient-to-br from-white to-gray-50 rounded-lg border-2 border-primary/30 shadow-lg"
+            animate={{
+              scaleY: [1, 1.02, 1],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+            }}
+          >
+            {/* Chef Buttons */}
+            <div className="absolute left-1/2 -translate-x-1/2 space-y-1.5 top-2">via-gray-50 to-gray-100 rounded-full border-2 border-primary/40 origin-left shadow-lg"
+            animate={{
+              rotate: [0, -55, -10, -50, 0],
+              x: [0, 6, 0, 5, 0],
+              scaleX: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 1.8,
+              times: [0, 0.3, 0.5, 0.8, 1],
+              repeat: Infinity,
+              ease: [0.4, 0, 0.2, 1],
+            }}
+          >
+            {/* Chef Knife */}
+            <motion.div 
+              className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-1.5 bg-gradient-to-r from-gray-400 via-gray-300 to-primary rounded-full shadow-lg"
+              animate={{
+                scaleX: [1, 1.3, 1, 1.2, 1],
+                boxShadow: [
+                  '0 2px 10px rgba(201, 169, 98, 0.4)',
+                  '0 4px 20px rgba(201, 169, 98, 0.8)',
+                  '0 2px 10px rgba(201, 169, 98, 0.4)',
+                ],
+              }}
+              transition={{
+                duration: 0.9,
+                repeat: Infinity,
+                ease: "easeInOut"
+            {/* Chef Knife */}
+            <motion.div via-gray-50 to-gray-100 rounded-full border-2 border-primary/40 origin-right shadow-lg"
+            animate={{
+              rotate: [0, 50, 10, 45, 0],
+              x: [0, -6, 0, -5, 0],
+              scaleX: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 2,
+              times: [0, 0.3, 0.5, 0.8, 1],
+              repeat: Infinity,
+              ease: [0.4, 0, 0.2, 1],
+              delay: 0.4,
+            }}
+          >
+            {/* Cooking Spoon */}
+            <motion.div 
+              className="absolute left-0 top-1/2 -translate-y-1/2 w-7 h-2 bg-gradient-to-l from-primary via-gray-300 to-gray-400 rounded-full shadow-lg"
+              animate={{
+                rotate: [0, 360],
+                scale: [1, 1.1, 1],
+                boxShadow: [
+                  '0 2px 10px rgba(201, 169, 98, 0.4)',
+                  '0 4px 20px rgba(201, 169, 98, 0.8)',
+                  '0 2px 10px rgba(201, 169, 98, 0.4)',
+                ],
+              }}
+              transition={{
+                rotate: { duration: 1.5, repeat: Infinity, ease: "linear" },
+                scale: { duration: 1, repeat: Infinity, ease: "easeInOut" },
+                boxShadow: { duration: 1.5, repeat: Infinity },
+              ease: "easeIn20 h-10 bg-gradient-to-br from-gray-400 via-gray-300 to-gray-500 rounded-lg border-2 border-gray-600 shadow-2xl"
+              animate={{
+                y: [0, -3, 0, -2, 0],
+                scale: [1, 1.02, 1],
+                boxShadow: [
+                  '0 5px 20px rgba(0, 0, 0, 0.3)',
+                  '0 8px 35px rgba(201, 169, 98, 0.5)',
+                  '0 5px 20px rgba(0, 0, 0, 0.3)',
+                ],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              {/* Glowing liquid inside pot */}
+              <motion.div
+                className="absolute inset-2 bg-gradient-to-t from-primary/60 to-primary/30 rounded blur-sm"
+                animate={{
+                  opacity: [0.5, 0.8, 0.5],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                }}
+              />
+            </motion.div>
+            {/* Enhanced Steam particles */}
+            {[...Array(8)].map((_, i) => (
+              <motion.div
+                key={`steam-${i}`}
+                className="absolute left-1/2 -translate-x-1/2 w-3 h-3 bg-gradient-to-t from-primary/40 to-primary/10 rounded-full blur-md"
+                style={{
+                  left: `${20 + i * 8}%`,
+                }}
+                animate={{
+                  y: [0, -40, -80],
+                  opacity: [0, 0.9, 0.5, 0],
+                  scale: [1, 1.8, 2.5, 3],
+                  x: [0, (i % 2 === - Continuous */}
+        {[...Array(16)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
@@ -49,59 +209,149 @@ const AIChefAnimation = ({ visible }: { visible: boolean }) => {
               left: '50%',
               top: '50%',
             }}
-            animate={visible ? {
-              x: [0, Math.cos((i * Math.PI) / 3) * 50],
-              y: [0, Math.sin((i * Math.PI) / 3) * 50],
-              opacity: [1, 0],
-              scale: [0, 1, 0],
-            } : {}}
+            animate={{
+              x: [
+                0, 
+                Math.cos((i * Math.PI) / 8) * (30 + i * 4),
+                Math.cos((i * Math.PI) / 8) * (50 + i * 6),
+                0
+              ],
+              y: [
+                0, 
+                Math.sin((i * Math.PI) / 8) * (30 + i * 4),
+                Math.sin((i * Math.PI) / 8) * (50 + i * 6),
+                0
+              ],
+              opacity: [0, 0.8, 1, 0.6, 0],
+              scale: [0, 1.2, 1.8, 1, 0],
+              rotate: [0, 180, 360, 540, 720],
+            }}
             transition={{
-              duration: 1.5,
-              delay: 0.3 + i * 0.1,
-              ease: 'easeOut',
+              duration: 3,
+              delay: i * 0.15,
+              repeat: Infinity,
+              ease: "easeInOut",
             }}
           >
-            <Sparkles size={16} className="text-primary" fill="currentColor" />
+            <Sparkles 
+              size={i % 3 === 0 ? 24 : i % 2 === 0 ? 20 : 16} 
+              className={i % 2 === 0 ? "text-primary drop-shadow-2xl" : "text-yellow-400 drop-shadow-2xl"}
+                  delay: i * 0.2,
+                  repeat: Infinity,- Continuous */}
+        <motion.div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-radial from-primary/30 via-yellow-400/20 to-transparent rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.4, 1.2, 1.5, 1],
+            opacity: [0.3, 0.6, 0.4, 0.7, 0.3],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        {/* Secondary Glow Layer */}- Always Visible */}
+      <motion.div
+        className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-center w-64"
+        animate={{
+          y: [0, -5, 0],
+        }}
+        transition={{
+          duration: 2.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <motion.p 
+          className="text-primary font-serif text-base sm:text-lg whitespace-nowrap font-bold bg-gradient-to-r from-background/95 via-background to-background/95 backdrop-blur-md px-6 py-3 rounded-full border-2 border-primary/50 shadow-2xl"
+          animate={{
+            boxShadow: [
+              '0 0 25px rgba(201, 169, 98, 0.4)',
+              '0 0 50px rgba(201, 169, 98, 0.8)',
+              '0 0 25px rgba(201, 169, 98, 0.4)',
+            ],
+            borderColor: [
+              'rgba(201, 169, 98, 0.5)',
+              'rgba(201, 169, 98, 0.9)',
+              'rgba(201, 169, 98, 0.5)',
+            ],
+            scale: [1, 1.02, 1],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <motion.span
+            className="inline-block"
+            animate={{
+              rotate: [0, 10, -10, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+            }}
+        isInView = useInView(cardRef, { once: false, margin: '-50px', amount: 0.3 });
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useSpring(mouseY, { stiffness: 200, damping: 25 });
+  const rotateY = useSpring(mouseX, { stiffness: 200, damping: 25 }.3 + i * 0.08,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+          >
+            <Sparkles 
+              size={i % 2 === 0 ? 20 : 16} 
+              className="text-primary drop-shadow-lg" 
+              fill="currentColor" 
+            />
           </motion.div>
         ))}
 
-        {/* Cooking steam effect */}
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={`steam-${i}`}
-            className="absolute left-1/2 -translate-x-1/2 w-2 h-8 bg-gradient-to-t from-primary/40 to-transparent rounded-full blur-sm"
-            style={{
-              bottom: '100%',
-            }}
-            animate={visible ? {
-              y: [-20, -60],
-              opacity: [0.8, 0],
-              scaleX: [1, 1.5],
-            } : {}}
-            transition={{
-              duration: 2,
-              delay: i * 0.3,
-              repeat: Infinity,
-              ease: 'easeOut',
-            }}
-          />
-        ))}
+        {/* Gourmet Presentation Glow */}
+        <motion.div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-primary/20 rounded-full blur-3xl"
+          animate={{
+            scale: [0, 1.5, 2, 1.5, 0],
+            opacity: [0, 0.5, 0.3, 0.5, 0],
+          }}
+          transition={{
+            duration: 3.5,
+            ease: "easeInOut",
+          }}
+        />
       </div>
 
-      {/* Text */}
+      {/* Premium Text with Animation */}
       <motion.div
-        className="mt-4 text-center"
-        animate={visible ? {
-          opacity: [0, 1, 1, 0],
-        } : {}}
+        className="mt-2 text-center"
+        animate={{
+          opacity: [0, 1, 1, 1, 0],
+        }}
         transition={{
-          duration: 3,
-          times: [0, 0.3, 0.7, 1],
+          duration: 3.5,
+          times: [0, 0.2, 0.5, 0.8, 1],
         }}
       >
-        <p className="text-primary font-serif text-xl whitespace-nowrap font-bold bg-background/90 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/30 shadow-lg">
-          AI Chef Preparing...
-        </p>
+        <motion.p 
+          className="text-primary font-serif text-lg whitespace-nowrap font-bold bg-gradient-to-r from-background via-background/95 to-background backdrop-blur-md px-6 py-2.5 rounded-full border-2 border-primary/40 shadow-2xl"
+          animate={{
+            boxShadow: [
+              '0 0 20px rgba(201, 169, 98, 0.3)',
+              '0 0 40px rgba(201, 169, 98, 0.6)',
+              '0 0 20px rgba(201, 169, 98, 0.3)',
+            ],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+          }}- Always Show When In View */}
+        <AIChefAnimation visible={isInView
+          ✨ Master Chef Crafting Your Dish ✨
+        </motion.p>
       </motion.div>
     </motion.div>
   );
