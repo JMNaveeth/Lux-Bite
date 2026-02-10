@@ -44,7 +44,7 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
 
           {/* Modal */}
           <motion.div
-            className="fixed top-[8%] left-[13%] -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-4xl h-[70vh] bg-card rounded-2xl overflow-hidden shadow-2xl z-50"
+            className="fixed top-[8%] left-[18%] -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-4xl h-[70vh] bg-card rounded-2xl overflow-hidden shadow-2xl z-50"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
@@ -60,11 +60,11 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
 
             <div className="grid md:grid-cols-[45%_55%] h-full">
               {/* Image */}
-              <div className="relative h-80 md:h-full flex items-center justify-center bg-black p-4">
+              <div className="relative h-80 md:h-full flex items-center justify-center bg-black">
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
                 
                 {/* Featured Badge */}
