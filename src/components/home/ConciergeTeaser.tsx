@@ -62,6 +62,7 @@ export const ConciergeTeaser = () => {
           <AnimatedSection delay={400}>
             <motion.button
               className="inline-flex items-center gap-3 btn-gold"
+              onClick={() => window.dispatchEvent(new Event('openConcierge'))}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

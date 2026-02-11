@@ -26,6 +26,13 @@ export const AIConcierge = () => {
     scrollToBottom();
   }, [messages]);
 
+  // Listen for global concierge open events
+  useEffect(() => {
+    const handleOpenConcierge = () => setIsOpen(true);
+    window.addEventListener('openConcierge', handleOpenConcierge);
+    return () => window.removeEventListener('openConcierge', handleOpenConcierge);
+  }, []);
+
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setIsTyping(true);
