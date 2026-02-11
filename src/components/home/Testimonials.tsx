@@ -9,7 +9,7 @@ const testimonials = [
   },
   {
     text: "LUXE BITE redefined my understanding of fine dining. Every detail, from ambiance to the last bite, was perfection.",
-    author: "Marcus J.",
+    author: "Marcus J.m",
     title: "Michelin Guide",
   },
   {
