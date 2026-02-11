@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Package, Calendar, LogOut, Menu, X } from 'lucide-react';
-import { Layout } from '@/components/layout/Layout';
 import { useAuth } from '@/contexts/AuthContext';
 import { OrdersManagement } from '@/components/admin/OrdersManagement';
 import { ReservationsManagement } from '@/components/admin/ReservationsManagement';
@@ -33,32 +32,30 @@ export const AdminDashboard = () => {
   ];
 
   return (
-    <Layout>
-      <div className="min-h-screen pt-20 bg-background">
-        <div className="flex h-[calc(100vh-80px)]">
-          {/* Mobile Sidebar Toggle */}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="lg:hidden fixed top-24 left-4 z-50 p-2 bg-card rounded-lg border border-border/50 shadow-lg"
-          >
-            {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+    <div className="min-h-screen bg-background">
+      <div className="flex h-screen">
+        {/* Mobile Sidebar Toggle */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-card rounded-lg border border-border/50 shadow-lg"
+        >
+          {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
 
-          {/* Sidebar */}
-          <motion.aside
-            className={`
-              fixed lg:relative inset-y-0 left-0 z-40
-              w-64 bg-card border-r border-border/50 pt-20 lg:pt-0
-              transform transition-transform duration-300 ease-in-out
-              ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-            `}
-          >
-            <div className="h-full flex flex-col">
-              {/* Header */}
-              <div className="p-6 border-b border-border/50">
-                <h2 className="font-serif text-2xl text-gradient-gold">Admin Panel</h2>
-                <p className="text-sm text-muted-foreground mt-1">{user.email}</p>
-              </div>
+        {/* Sidebar */}
+        <motion.aside
+          className={`
+            fixed lg:relative inset-y-0 left-0 z-40
+            w-64 bg-card border-r border-border/50
+            transform transition-transform duration-300 ease-in-out
+            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+          `}
+        >
+          <div className="h-full flex flex-col">
+            {/* Header */}
+            <div className="p-6 border-b border-border/50">
+              <h2 className="font-serif text-2xl text-gradient-gold">Admin Panel</h2>
+            </div>
 
               {/* Navigation */}
               <nav className="flex-1 p-4 space-y-2">
@@ -136,14 +133,13 @@ export const AdminDashboard = () => {
           </main>
         </div>
 
-        {/* Overlay for mobile */}
-        {sidebarOpen && (
-          <div
-            className="lg:hidden fixed inset-0 bg-black/50 z-30"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
-      </div>
-    </Layout>
+      {/* Overlay for mobile */}
+      {sidebarOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 z-30"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+    </div>
   );
 };
