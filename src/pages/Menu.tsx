@@ -22,36 +22,44 @@ const Menu = () => {
       {/* Hero Section */}
       <section className="pt-28 pb-6 md:pt-32 md:pb-8 bg-background relative overflow-hidden">
         {/* Decorative Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0 opacity-[0.08]">
           <svg className="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="menuPattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-                <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary" />
-                <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" strokeWidth="0.3" className="text-primary" />
-                <path d="M100,40 L100,160 M40,100 L160,100" stroke="currentColor" strokeWidth="0.5" className="text-primary" opacity="0.5" />
-                <circle cx="100" cy="40" r="3" fill="currentColor" className="text-primary" />
-                <circle cx="160" cy="100" r="3" fill="currentColor" className="text-primary" />
-                <circle cx="100" cy="160" r="3" fill="currentColor" className="text-primary" />
-                <circle cx="40" cy="100" r="3" fill="currentColor" className="text-primary" />
+                <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary" />
+                <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary" />
+                <path d="M100,40 L100,160 M40,100 L160,100" stroke="currentColor" strokeWidth="0.8" className="text-primary" opacity="0.6" />
+                <circle cx="100" cy="40" r="4" fill="currentColor" className="text-primary" />
+                <circle cx="160" cy="100" r="4" fill="currentColor" className="text-primary" />
+                <circle cx="100" cy="160" r="4" fill="currentColor" className="text-primary" />
+                <circle cx="40" cy="100" r="4" fill="currentColor" className="text-primary" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#menuPattern)" />
           </svg>
         </div>
         
+        {/* Glowing Effects */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent/8 rounded-full blur-3xl" />
+        
         {/* Elegant Corner Ornaments */}
-        <div className="absolute top-8 left-8 w-32 h-32 opacity-5">
+        <div className="absolute top-8 left-8 w-40 h-40 opacity-15">
           <svg viewBox="0 0 100 100" className="text-primary">
-            <path d="M0,0 Q25,25 50,0 T100,0" fill="none" stroke="currentColor" strokeWidth="1"/>
-            <path d="M0,0 Q25,25 0,50 T0,100" fill="none" stroke="currentColor" strokeWidth="1"/>
-            <circle cx="15" cy="15" r="2" fill="currentColor"/>
+            <path d="M0,0 Q25,25 50,0 T100,0" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M0,0 Q25,25 0,50 T0,100" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+            <circle cx="15" cy="15" r="3" fill="currentColor"/>
+            <line x1="0" y1="20" x2="30" y2="20" stroke="currentColor" strokeWidth="1" opacity="0.5"/>
+            <line x1="20" y1="0" x2="20" y2="30" stroke="currentColor" strokeWidth="1" opacity="0.5"/>
           </svg>
         </div>
-        <div className="absolute top-8 right-8 w-32 h-32 opacity-5 rotate-90">
+        <div className="absolute top-8 right-8 w-40 h-40 opacity-15 rotate-90">
           <svg viewBox="0 0 100 100" className="text-primary">
-            <path d="M0,0 Q25,25 50,0 T100,0" fill="none" stroke="currentColor" strokeWidth="1"/>
-            <path d="M0,0 Q25,25 0,50 T0,100" fill="none" stroke="currentColor" strokeWidth="1"/>
-            <circle cx="15" cy="15" r="2" fill="currentColor"/>
+            <path d="M0,0 Q25,25 50,0 T100,0" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M0,0 Q25,25 0,50 T0,100" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+            <circle cx="15" cy="15" r="3" fill="currentColor"/>
+            <line x1="0" y1="20" x2="30" y2="20" stroke="currentColor" strokeWidth="1" opacity="0.5"/>
+            <line x1="20" y1="0" x2="20" y2="30" stroke="currentColor" strokeWidth="1" opacity="0.5"/>
           </svg>
         </div>
 
@@ -129,15 +137,17 @@ const Menu = () => {
       {/* Menu Grid */}
       <section className="py-8 md:py-12 bg-background relative overflow-hidden">
         {/* Subtle Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.015]">
+        <div className="absolute inset-0 opacity-[0.05]">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="gridPattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-                <circle cx="50" cy="50" r="1" fill="currentColor" className="text-primary" />
-                <circle cx="0" cy="0" r="1" fill="currentColor" className="text-primary" />
-                <circle cx="100" cy="0" r="1" fill="currentColor" className="text-primary" />
-                <circle cx="0" cy="100" r="1" fill="currentColor" className="text-primary" />
-                <circle cx="100" cy="100" r="1" fill="currentColor" className="text-primary" />
+                <circle cx="50" cy="50" r="2" fill="currentColor" className="text-primary" />
+                <circle cx="0" cy="0" r="1.5" fill="currentColor" className="text-primary" />
+                <circle cx="100" cy="0" r="1.5" fill="currentColor" className="text-primary" />
+                <circle cx="0" cy="100" r="1.5" fill="currentColor" className="text-primary" />
+                <circle cx="100" cy="100" r="1.5" fill="currentColor" className="text-primary" />
+                <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" strokeWidth="0.3" opacity="0.3" />
+                <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" strokeWidth="0.3" opacity="0.3" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#gridPattern)" />
@@ -145,8 +155,9 @@ const Menu = () => {
         </div>
         
         {/* Decorative Side Elements */}
-        <div className="absolute left-0 top-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute right-0 bottom-1/4 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute left-0 top-1/4 w-96 h-96 bg-primary/8 rounded-full blur-3xl" />
+        <div className="absolute right-0 bottom-1/4 w-80 h-80 bg-accent/8 rounded-full blur-3xl" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/3 rounded-full blur-3xl" />
         
         <div className="container mx-auto px-6 relative z-10">
           <AnimatePresence mode="wait">
