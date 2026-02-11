@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ShoppingCart } from 'lucide-react';
+import { Menu, X, ShoppingCart, Shield } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 
 const navLinks = [
@@ -107,6 +107,21 @@ export const Header = () => {
               transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
               <Link
+                to="/admin"
+                className="p-2 text-foreground/80 hover:text-primary transition-colors"
+                aria-label="Admin panel"
+                title="Admin Panel"
+              >
+                <Shield size={20} />
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Link
                 to="/reservations"
                 className="btn-outline-gold text-xs"
               >
@@ -171,6 +186,20 @@ export const Header = () => {
                   </Link>
                 </motion.div>
               ))}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 30 }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+              >
+                <Link
+                  to="/admin"
+                  className="font-serif text-3xl tracking-wide text-foreground/70 hover:text-primary transition-colors flex items-center gap-3"
+                >
+                  <Shield size={28} />
+                  Admin
+                </Link>
+              </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
