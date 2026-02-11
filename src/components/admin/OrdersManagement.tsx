@@ -140,7 +140,7 @@ export const OrdersManagement = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs uppercase tracking-wider text-primary font-semibold mb-2">Revenue</p>
-              <p className="text-4xl font-bold text-primary">₹{todayRevenue.toLocaleString()}</p>
+              <p className="text-4xl font-bold text-primary">Rs {todayRevenue.toLocaleString()}</p>
             </div>
             <div className="p-3 bg-primary/20 rounded-xl">
               <DollarSign className="text-primary" size={28} />
@@ -307,13 +307,13 @@ export const OrdersManagement = () => {
                             <div className="flex-1">
                               <p className="font-bold text-foreground mb-1">{item.name}</p>
                               <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                                <span>₹{item.price} each</span>
+                                <span>Rs {item.price} each</span>
                                 <span>•</span>
                                 <span className="font-medium">Quantity: {item.quantity}</span>
                               </div>
                             </div>
                             <div className="text-right">
-                              <p className="font-bold text-lg text-primary">₹{item.price * item.quantity}</p>
+                              <p className="font-bold text-lg text-primary">Rs {item.price * item.quantity}</p>
                               <p className="text-xs text-muted-foreground">Item Total</p>
                             </div>
                           </motion.div>
@@ -333,14 +333,14 @@ export const OrdersManagement = () => {
                             <Package size={14} />
                             Items Subtotal
                           </span>
-                          <span className="font-semibold text-foreground">₹{order.subtotal.toLocaleString()}</span>
+                          <span className="font-semibold text-foreground">Rs {order.subtotal.toLocaleString()}</span>
                         </div>
                         <div className="flex items-center justify-between text-sm">
                           <span className="text-muted-foreground flex items-center gap-2">
                             <Truck size={14} />
                             Delivery Fee
                           </span>
-                          <span className="font-semibold text-foreground">₹{order.deliveryFee.toLocaleString()}</span>
+                          <span className="font-semibold text-foreground">Rs {order.deliveryFee.toLocaleString()}</span>
                         </div>
                         <div className="border-t-2 border-primary/20 pt-3 mt-3">
                           <div className="flex items-center justify-between">
@@ -348,7 +348,7 @@ export const OrdersManagement = () => {
                               <CreditCard size={18} />
                               Grand Total
                             </span>
-                            <span className="font-bold text-2xl text-primary">₹{order.total.toLocaleString()}</span>
+                            <span className="font-bold text-2xl text-primary">Rs {order.total.toLocaleString()}</span>
                           </div>
                           <div className="mt-2 flex items-center gap-2 text-xs">
                             <span className="px-2 py-1 bg-green-500/10 text-green-600 dark:text-green-400 rounded-full font-medium">Cash on Delivery</span>
