@@ -34,7 +34,7 @@ export const FlyingCartItem = ({
 
   // Calculate arc path for smooth curved motion
   const midX = (startPosition.x + endPosition.x) / 2;
-  const midY = Math.min(startPosition.y, endPosition.y) - 120; // Higher arc for smoother motion
+  const midY = Math.min(startPosition.y, endPosition.y) - 7; // Gentle arc that stays visible
 
   return createPortal(
     <AnimatePresence>
