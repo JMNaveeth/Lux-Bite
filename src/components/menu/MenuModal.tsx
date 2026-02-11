@@ -195,9 +195,9 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
                   </div>
 
                   {/* Add to Cart Section */}
-                  <div className="space-y-1.5 mt-2">
+                  <div className="space-y-1 mt-1">
                     {/* Quantity Selector */}
-                    <div className="flex items-center justify-between p-2 bg-background/90 rounded-lg border border-primary/30">
+                    <div className="flex items-center justify-between p-1.5 bg-background/90 rounded-lg border border-primary/30">
                       <span className="text-xs font-bold text-foreground">Quantity</span>
                       <div className="flex items-center gap-2">
                         <button
@@ -221,7 +221,7 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
                     </div>
 
                     {/* Total Price */}
-                    <div className="flex items-center justify-between px-2 py-1.5 bg-primary/10 rounded-lg">
+                    <div className="flex items-center justify-between px-2 py-1 bg-primary/10 rounded-lg">
                       <span className="text-xs font-bold text-foreground">Total</span>
                       <span className="text-xl font-serif text-gradient-gold font-bold">
                         Rs {item.price * quantity}
@@ -232,7 +232,7 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
                     <button 
                       ref={buttonRef}
                       onClick={handleAddToCart}
-                      className="w-full btn-gold flex items-center justify-center gap-2 text-base py-3 font-bold shadow-lg"
+                      className="w-full btn-gold flex items-center justify-center gap-2 text-base py-2 font-bold shadow-lg"
                     >
                       <ShoppingCart size={18} />
                       Add to Cart
