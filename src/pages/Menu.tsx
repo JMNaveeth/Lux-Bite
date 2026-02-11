@@ -22,7 +22,7 @@ const Menu = () => {
       {/* Hero Section */}
       <section className="pt-28 pb-6 md:pt-32 md:pb-8 bg-background relative overflow-hidden">
         {/* Food-themed Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.04]">
+        <div className="absolute inset-0 opacity-[0.06]">
           <svg className="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="foodPattern" x="0" y="0" width="300" height="300" patternUnits="userSpaceOnUse">
@@ -116,8 +116,30 @@ const Menu = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-4 bg-card/98 border-y border-border/50 sticky top-[64px] z-40 backdrop-blur-xl shadow-md">
-        <div className="container mx-auto px-6">
+      <section className="py-4 bg-card/98 border-y border-border/50 sticky top-[64px] z-40 backdrop-blur-xl shadow-md relative overflow-hidden">
+        {/* Food-themed Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.04]">
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="filterPattern" x="0" y="0" width="150" height="150" patternUnits="userSpaceOnUse">
+                {/* Spoon */}
+                <g transform="translate(40, 75)">
+                  <ellipse cx="0" cy="-25" rx="8" ry="10" fill="none" stroke="currentColor" strokeWidth="1.2" className="text-primary" />
+                  <line x1="0" y1="-15" x2="0" y2="20" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                </g>
+                {/* Coffee Cup */}
+                <g transform="translate(110, 75)">
+                  <path d="M-8,0 L-8,15 Q-8,20 0,20 Q8,20 8,15 L8,0 Z" fill="none" stroke="currentColor" strokeWidth="1.2" className="text-primary" />
+                  <path d="M8,5 L12,5 Q15,5 15,8 Q15,11 12,11 L8,11" fill="none" stroke="currentColor" strokeWidth="1.2" className="text-primary" />
+                  <line x1="-6" y1="-3" x2="6" y2="-3" stroke="currentColor" strokeWidth="1" className="text-primary" opacity="0.5" />
+                </g>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#filterPattern)" />
+          </svg>
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
           {/* Category Filter */}
           <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
             {categories.map((cat) => (
@@ -163,25 +185,25 @@ const Menu = () => {
       {/* Menu Grid */}
       <section className="py-8 md:py-12 bg-background relative overflow-hidden">
         {/* Food-themed Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0 opacity-[0.06]">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="dishPattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
                 {/* Cloche/Food Cover */}
                 <g transform="translate(100, 100)">
-                  <path d="M-30,10 L-30,5 Q-30,-20 0,-30 Q30,-20 30,5 L30,10 Z" fill="none" stroke="currentColor" strokeWidth="1.2" className="text-primary" />
-                  <ellipse cx="0" cy="10" rx="32" ry="4" fill="none" stroke="currentColor" strokeWidth="1.2" className="text-primary" />
+                  <path d="M-30,10 L-30,5 Q-30,-20 0,-30 Q30,-20 30,5 L30,10 Z" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                  <ellipse cx="0" cy="10" rx="32" ry="4" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
                   <circle cx="0" cy="-30" r="3" fill="currentColor" className="text-primary" opacity="0.6" />
                 </g>
                 
                 {/* Leaves/Garnish */}
-                <g transform="translate(50, 180)" opacity="0.5">
-                  <ellipse cx="0" cy="0" rx="8" ry="15" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary" transform="rotate(20)" />
-                  <line x1="0" y1="-15" x2="0" y2="15" stroke="currentColor" strokeWidth="0.8" className="text-primary" />
+                <g transform="translate(50, 180)" opacity="0.6">
+                  <ellipse cx="0" cy="0" rx="8" ry="15" fill="none" stroke="currentColor" strokeWidth="1.2" className="text-primary" transform="rotate(20)" />
+                  <line x1="0" y1="-15" x2="0" y2="15" stroke="currentColor" strokeWidth="1" className="text-primary" />
                 </g>
-                <g transform="translate(150, 20)" opacity="0.5">
-                  <ellipse cx="0" cy="0" rx="8" ry="15" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary" transform="rotate(-20)" />
-                  <line x1="0" y1="-15" x2="0" y2="15" stroke="currentColor" strokeWidth="0.8" className="text-primary" />
+                <g transform="translate(150, 20)" opacity="0.6">
+                  <ellipse cx="0" cy="0" rx="8" ry="15" fill="none" stroke="currentColor" strokeWidth="1.2" className="text-primary" transform="rotate(-20)" />
+                  <line x1="0" y1="-15" x2="0" y2="15" stroke="currentColor" strokeWidth="1" className="text-primary" />
                 </g>
               </pattern>
             </defs>
