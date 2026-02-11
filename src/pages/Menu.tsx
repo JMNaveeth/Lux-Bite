@@ -21,21 +21,43 @@ const Menu = () => {
     <Layout>
       {/* Hero Section */}
       <section className="pt-28 pb-6 md:pt-32 md:pb-8 bg-background relative overflow-hidden">
-        {/* Decorative Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.08]">
+        {/* Food-themed Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.04]">
           <svg className="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <pattern id="menuPattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-                <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary" />
-                <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary" />
-                <path d="M100,40 L100,160 M40,100 L160,100" stroke="currentColor" strokeWidth="0.8" className="text-primary" opacity="0.6" />
-                <circle cx="100" cy="40" r="4" fill="currentColor" className="text-primary" />
-                <circle cx="160" cy="100" r="4" fill="currentColor" className="text-primary" />
-                <circle cx="100" cy="160" r="4" fill="currentColor" className="text-primary" />
-                <circle cx="40" cy="100" r="4" fill="currentColor" className="text-primary" />
+              <pattern id="foodPattern" x="0" y="0" width="300" height="300" patternUnits="userSpaceOnUse">
+                {/* Fork */}
+                <g transform="translate(50, 50)">
+                  <line x1="0" y1="0" x2="0" y2="40" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                  <line x1="-6" y1="0" x2="-6" y2="35" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                  <line x1="-3" y1="0" x2="-3" y2="35" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                  <line x1="3" y1="0" x2="3" y2="35" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                  <line x1="6" y1="0" x2="6" y2="35" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                </g>
+                {/* Knife */}
+                <g transform="translate(250, 50)">
+                  <line x1="0" y1="0" x2="0" y2="40" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                  <path d="M-4,0 L4,0 L2,-15 L-2,-15 Z" fill="currentColor" className="text-primary" opacity="0.6" />
+                </g>
+                {/* Plate */}
+                <g transform="translate(150, 150)">
+                  <circle cx="0" cy="0" r="30" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                  <circle cx="0" cy="0" r="25" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary" opacity="0.5" />
+                </g>
+                {/* Wine Glass */}
+                <g transform="translate(50, 250)">
+                  <path d="M-8,-20 L-8,-10 Q-8,0 0,5 L0,15 M8,-20 L8,-10 Q8,0 0,5" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                  <line x1="-10" y1="15" x2="10" y2="15" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                  <line x1="-10" y1="-20" x2="10" y2="-20" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                </g>
+                {/* Chef Hat */}
+                <g transform="translate(250, 250)">
+                  <ellipse cx="0" cy="-5" rx="20" ry="10" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                  <path d="M-20,-5 Q-20,-20 -10,-25 Q0,-30 10,-25 Q20,-20 20,-5" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+                </g>
               </pattern>
             </defs>
-            <rect width="100%" height="100%" fill="url(#menuPattern)" />
+            <rect width="100%" height="100%" fill="url(#foodPattern)" />
           </svg>
         </div>
         
@@ -43,23 +65,27 @@ const Menu = () => {
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent/8 rounded-full blur-3xl" />
         
-        {/* Elegant Corner Ornaments */}
-        <div className="absolute top-8 left-8 w-40 h-40 opacity-15">
+        {/* Elegant Corner Food Illustrations */}
+        <div className="absolute top-8 left-8 w-32 h-32 opacity-[0.12]">
           <svg viewBox="0 0 100 100" className="text-primary">
-            <path d="M0,0 Q25,25 50,0 T100,0" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-            <path d="M0,0 Q25,25 0,50 T0,100" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-            <circle cx="15" cy="15" r="3" fill="currentColor"/>
-            <line x1="0" y1="20" x2="30" y2="20" stroke="currentColor" strokeWidth="1" opacity="0.5"/>
-            <line x1="20" y1="0" x2="20" y2="30" stroke="currentColor" strokeWidth="1" opacity="0.5"/>
+            {/* Decorative food frame */}
+            <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M50,20 L50,30 M50,70 L50,80 M20,50 L30,50 M70,50 L80,50" stroke="currentColor" strokeWidth="1.5"/>
+            <circle cx="50" cy="20" r="3" fill="currentColor"/>
+            <circle cx="50" cy="80" r="3" fill="currentColor"/>
+            <circle cx="20" cy="50" r="3" fill="currentColor"/>
+            <circle cx="80" cy="50" r="3" fill="currentColor"/>
           </svg>
         </div>
-        <div className="absolute top-8 right-8 w-40 h-40 opacity-15 rotate-90">
+        <div className="absolute top-8 right-8 w-32 h-32 opacity-[0.12]">
           <svg viewBox="0 0 100 100" className="text-primary">
-            <path d="M0,0 Q25,25 50,0 T100,0" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-            <path d="M0,0 Q25,25 0,50 T0,100" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-            <circle cx="15" cy="15" r="3" fill="currentColor"/>
-            <line x1="0" y1="20" x2="30" y2="20" stroke="currentColor" strokeWidth="1" opacity="0.5"/>
-            <line x1="20" y1="0" x2="20" y2="30" stroke="currentColor" strokeWidth="1" opacity="0.5"/>
+            {/* Decorative food frame */}
+            <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M50,20 L50,30 M50,70 L50,80 M20,50 L30,50 M70,50 L80,50" stroke="currentColor" strokeWidth="1.5"/>
+            <circle cx="50" cy="20" r="3" fill="currentColor"/>
+            <circle cx="50" cy="80" r="3" fill="currentColor"/>
+            <circle cx="20" cy="50" r="3" fill="currentColor"/>
+            <circle cx="80" cy="50" r="3" fill="currentColor"/>
           </svg>
         </div>
 
@@ -136,21 +162,30 @@ const Menu = () => {
 
       {/* Menu Grid */}
       <section className="py-8 md:py-12 bg-background relative overflow-hidden">
-        {/* Subtle Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.05]">
+        {/* Food-themed Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.03]">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <pattern id="gridPattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-                <circle cx="50" cy="50" r="2" fill="currentColor" className="text-primary" />
-                <circle cx="0" cy="0" r="1.5" fill="currentColor" className="text-primary" />
-                <circle cx="100" cy="0" r="1.5" fill="currentColor" className="text-primary" />
-                <circle cx="0" cy="100" r="1.5" fill="currentColor" className="text-primary" />
-                <circle cx="100" cy="100" r="1.5" fill="currentColor" className="text-primary" />
-                <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" strokeWidth="0.3" opacity="0.3" />
-                <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" strokeWidth="0.3" opacity="0.3" />
+              <pattern id="dishPattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+                {/* Cloche/Food Cover */}
+                <g transform="translate(100, 100)">
+                  <path d="M-30,10 L-30,5 Q-30,-20 0,-30 Q30,-20 30,5 L30,10 Z" fill="none" stroke="currentColor" strokeWidth="1.2" className="text-primary" />
+                  <ellipse cx="0" cy="10" rx="32" ry="4" fill="none" stroke="currentColor" strokeWidth="1.2" className="text-primary" />
+                  <circle cx="0" cy="-30" r="3" fill="currentColor" className="text-primary" opacity="0.6" />
+                </g>
+                
+                {/* Leaves/Garnish */}
+                <g transform="translate(50, 180)" opacity="0.5">
+                  <ellipse cx="0" cy="0" rx="8" ry="15" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary" transform="rotate(20)" />
+                  <line x1="0" y1="-15" x2="0" y2="15" stroke="currentColor" strokeWidth="0.8" className="text-primary" />
+                </g>
+                <g transform="translate(150, 20)" opacity="0.5">
+                  <ellipse cx="0" cy="0" rx="8" ry="15" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary" transform="rotate(-20)" />
+                  <line x1="0" y1="-15" x2="0" y2="15" stroke="currentColor" strokeWidth="0.8" className="text-primary" />
+                </g>
               </pattern>
             </defs>
-            <rect width="100%" height="100%" fill="url(#gridPattern)" />
+            <rect width="100%" height="100%" fill="url(#dishPattern)" />
           </svg>
         </div>
         
