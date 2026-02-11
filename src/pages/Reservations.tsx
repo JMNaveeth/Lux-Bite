@@ -34,6 +34,8 @@ const Reservations = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    console.log('Form submitted with data:', formData);
+    
     // Validate form
     if (!formData.name || !formData.email || !formData.phone || !formData.date || !formData.time) {
       toast({
@@ -47,8 +49,10 @@ const Reservations = () => {
     setIsSubmitting(true);
 
     try {
-      // Save reservation to Firebase
-      await createReservation({
+      console.log('Creating reservation...');
+      
+      // Create reservation with timeout
+      const reservationPromise = createReservation({
         customerName: formData.name,
         email: formData.email,
         phone: formData.phone,
@@ -59,6 +63,14 @@ const Reservations = () => {
         specialRequests: formData.notes || undefined,
       });
 
+      // Set a timeout of 10 seconds
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Request timeout')), 3000)
+      );
+
+      await Promise.race([reservationPromise, timeoutPromise]);
+
+      console.log('Reservation created successfully');
       setIsSubmitted(true);
       toast({
         title: "Reservation confirmed!",
@@ -66,9 +78,13 @@ const Reservations = () => {
       });
     } catch (error) {
       console.error('Reservation error:', error);
+      const errorMessage = error instanceof Error && error.message === 'Request timeout'
+        ? 'The request is taking too long. Please check your connection and try again.'
+        : 'There was an error creating your reservation. Please try again.';
+      
       toast({
         title: "Reservation failed",
-        description: "There was an error creating your reservation. Please try again.",
+        description: errorMessage,
         variant: "destructive"
       });
     } finally {
@@ -318,11 +334,12 @@ const Reservations = () => {
                 {/* Submit */}
                 <motion.button
                   type="submit"
-                  className="w-full btn-gold py-4"
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
+                  disabled={isSubmitting}
+                  className="w-full btn-gold py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: isSubmitting ? 1 : 1.01 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.99 }}
                 >
-                  Confirm Reservation
+                  {isSubmitting ? 'Confirming...' : 'Confirm Reservation'}
                 </motion.button>
               </form>
             </AnimatedSection>
