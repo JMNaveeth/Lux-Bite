@@ -71,117 +71,133 @@ export const OrdersManagement = () => {
 
   return (
     <div className="space-y-6">
-      {/* Stats Cards */}
+      {/* Stats Cards - Enhanced */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <motion.div
-          className="bg-card rounded-lg border border-border/50 p-4"
-          whileHover={{ y: -4 }}
+          className="bg-gradient-to-br from-yellow-500/10 to-transparent rounded-xl border-2 border-yellow-500/30 p-5 shadow-lg hover:shadow-xl transition-all"
+          whileHover={{ y: -4, scale: 1.02 }}
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-yellow-500/10 rounded-lg">
-              <Clock className="text-yellow-500" size={20} />
-            </div>
+          <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Pending</p>
-              <p className="text-2xl font-bold text-foreground">{stats.pending}</p>
+              <p className="text-xs uppercase tracking-wider text-yellow-600 dark:text-yellow-400 font-semibold mb-2">Pending</p>
+              <p className="text-4xl font-bold text-foreground">{stats.pending}</p>
+            </div>
+            <div className="p-3 bg-yellow-500/20 rounded-xl">
+              <Clock className="text-yellow-600 dark:text-yellow-400" size={28} />
             </div>
           </div>
         </motion.div>
 
         <motion.div
-          className="bg-card rounded-lg border border-border/50 p-4"
-          whileHover={{ y: -4 }}
+          className="bg-gradient-to-br from-orange-500/10 to-transparent rounded-xl border-2 border-orange-500/30 p-5 shadow-lg hover:shadow-xl transition-all"
+          whileHover={{ y: -4, scale: 1.02 }}
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-orange-500/10 rounded-lg">
-              <Package className="text-orange-500" size={20} />
-            </div>
+          <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Preparing</p>
-              <p className="text-2xl font-bold text-foreground">{stats.preparing}</p>
+              <p className="text-xs uppercase tracking-wider text-orange-600 dark:text-orange-400 font-semibold mb-2">Preparing</p>
+              <p className="text-4xl font-bold text-foreground">{stats.preparing}</p>
+            </div>
+            <div className="p-3 bg-orange-500/20 rounded-xl">
+              <Package className="text-orange-600 dark:text-orange-400" size={28} />
             </div>
           </div>
         </motion.div>
 
         <motion.div
-          className="bg-card rounded-lg border border-border/50 p-4"
-          whileHover={{ y: -4 }}
+          className="bg-gradient-to-br from-purple-500/10 to-transparent rounded-xl border-2 border-purple-500/30 p-5 shadow-lg hover:shadow-xl transition-all"
+          whileHover={{ y: -4, scale: 1.02 }}
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-purple-500/10 rounded-lg">
-              <CheckCircle className="text-purple-500" size={20} />
-            </div>
+          <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Ready</p>
-              <p className="text-2xl font-bold text-foreground">{stats.ready}</p>
+              <p className="text-xs uppercase tracking-wider text-purple-600 dark:text-purple-400 font-semibold mb-2">Ready</p>
+              <p className="text-4xl font-bold text-foreground">{stats.ready}</p>
+            </div>
+            <div className="p-3 bg-purple-500/20 rounded-xl">
+              <CheckCircle className="text-purple-600 dark:text-purple-400" size={28} />
             </div>
           </div>
         </motion.div>
 
         <motion.div
-          className="bg-card rounded-lg border border-border/50 p-4"
-          whileHover={{ y: -4 }}
+          className="bg-gradient-to-br from-green-500/10 to-transparent rounded-xl border-2 border-green-500/30 p-5 shadow-lg hover:shadow-xl transition-all"
+          whileHover={{ y: -4, scale: 1.02 }}
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-green-500/10 rounded-lg">
-              <Truck className="text-green-500" size={20} />
-            </div>
+          <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Delivered</p>
-              <p className="text-2xl font-bold text-foreground">{stats.delivered}</p>
+              <p className="text-xs uppercase tracking-wider text-green-600 dark:text-green-400 font-semibold mb-2">Delivered</p>
+              <p className="text-4xl font-bold text-foreground">{stats.delivered}</p>
+            </div>
+            <div className="p-3 bg-green-500/20 rounded-xl">
+              <Truck className="text-green-600 dark:text-green-400" size={28} />
             </div>
           </div>
         </motion.div>
 
         <motion.div
-          className="bg-card rounded-lg border border-border/50 p-4"
-          whileHover={{ y: -4 }}
+          className="bg-gradient-to-br from-primary/10 to-transparent rounded-xl border-2 border-primary/30 p-5 shadow-lg hover:shadow-xl transition-all"
+          whileHover={{ y: -4, scale: 1.02 }}
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <DollarSign className="text-primary" size={20} />
-            </div>
+          <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Revenue</p>
-              <p className="text-2xl font-bold text-primary">Rs {todayRevenue.toLocaleString()}</p>
+              <p className="text-xs uppercase tracking-wider text-primary font-semibold mb-2">Revenue</p>
+              <p className="text-4xl font-bold text-primary">₹{todayRevenue.toLocaleString()}</p>
+            </div>
+            <div className="p-3 bg-primary/20 rounded-xl">
+              <DollarSign className="text-primary" size={28} />
             </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Filters */}
+      {/* Filters - Enhanced */}
       <div className="flex flex-wrap gap-2">
-        <button
+        <motion.button
           onClick={() => setFilter('all')}
-          className={`px-4 py-2 rounded-lg font-medium transition-all ${
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.98 }}
+          className={`px-5 py-2.5 rounded-lg font-bold transition-all shadow-md ${
             filter === 'all'
-              ? 'bg-primary text-black'
-              : 'bg-card text-muted-foreground border border-border/50 hover:border-primary/50'
+              ? 'bg-primary text-black border-2 border-primary shadow-primary/30'
+              : 'bg-card text-muted-foreground border-2 border-border/50 hover:border-primary/50 hover:text-foreground'
           }`}
         >
           All Orders ({orders.length})
-        </button>
-        {Object.entries(statusConfig).map(([status, config]) => (
-          <button
-            key={status}
-            onClick={() => setFilter(status as OrderStatus)}
-            className={`px-4 py-2 rounded-lg font-medium transition-all ${
-              filter === status
-                ? `${config.bgColor} ${config.color}`
-                : 'bg-card text-muted-foreground border border-border/50 hover:border-primary/50'
-            }`}
-          >
-            {config.label}
-          </button>
-        ))}
+        </motion.button>
+        {Object.entries(statusConfig).map(([status, config]) => {
+          const FilterIcon = config.icon;
+          return (
+            <motion.button
+              key={status}
+              onClick={() => setFilter(status as OrderStatus)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              className={`px-4 py-2.5 rounded-lg font-bold transition-all shadow-md flex items-center gap-2 ${
+                filter === status
+                  ? `${config.bgColor} ${config.color} border-2 border-current/40`
+                  : 'bg-card text-muted-foreground border-2 border-border/50 hover:border-primary/50 hover:text-foreground'
+              }`}
+            >
+              <FilterIcon size={16} />
+              {config.label}
+            </motion.button>
+          );
+        })}
       </div>
 
       {/* Orders List */}
       <div className="space-y-4">
         {filteredOrders.length === 0 ? (
-          <div className="text-center py-12 bg-card rounded-lg border border-border/50">
-            <p className="text-muted-foreground">No orders found</p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center py-16 bg-gradient-to-br from-card to-card/50 rounded-xl border-2 border-border/50 shadow-lg"
+          >
+            <div className="inline-block p-6 bg-muted/30 rounded-full mb-4">
+              <Package className="text-muted-foreground" size={64} />
+            </div>
+            <p className="text-xl font-semibold text-foreground mb-2">No orders found</p>
+            <p className="text-muted-foreground">Try adjusting your filters or check back later</p>
+          </motion.div>
         ) : (
           filteredOrders.map((order) => {
             const StatusIcon = statusConfig[order.status].icon;
