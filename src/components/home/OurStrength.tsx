@@ -5,22 +5,22 @@ const strengths = [
   {
     icon: Salad,
     title: "Hygienic Food",
-    description: "Lorem Ipsum is simply dummy printing and typesetting.",
+    description: "We maintain the highest standards of food safety and hygiene, ensuring every ingredient is carefully selected and prepared in pristine conditions.",
   },
   {
     icon: Armchair,
     title: "Fresh Environment",
-    description: "Lorem Ipsum is simply dummy printing and typesetting.",
+    description: "Experience dining in our beautifully designed space with elegant ambiance, creating the perfect atmosphere for memorable culinary moments.",
   },
   {
     icon: ChefHat,
     title: "Skilled Chefs",
-    description: "Lorem Ipsum is simply dummy printing and typesetting.",
+    description: "Our award-winning culinary team brings decades of expertise, crafting innovative dishes that blend traditional techniques with modern gastronomy.",
   },
   {
     icon: PartyPopper,
     title: "Event & Party",
-    description: "Lorem Ipsum is simply dummy printing and typesetting.",
+    description: "From intimate gatherings to grand celebrations, we provide exceptional catering and personalized service for all your special occasions.",
   },
 ];
 
