@@ -2,8 +2,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Wine, Leaf, Sparkles, Plus, Minus, ShoppingCart } from 'lucide-react';
 import { MenuItem } from '@/lib/menuData';
 import { useCart } from '@/contexts/CartContext';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { FlyingCartItem } from '@/components/ui/FlyingCartItem';
 
 interface MenuModalProps {
   item: MenuItem | null;
@@ -14,16 +15,54 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
+  const [isFlying, setIsFlying] = useState(false);
+  const [flyingPositions, setFlyingPositions] = useState<{
+    start: { x: number; y: number } | null;
+    end: { x: number; y: number } | null;
+  }>({ start: null, end: null });
+  const buttonRef = useRef<HTMLButtonElement>(null);
   
   if (!item) return null;
 
   const handleAddToCart = () => {
-    addToCart(item, quantity);
-    toast({
-      title: "Added to cart!",
-      description: `${quantity} x ${item.name} added to your cart.`,
-    });
-    setQuantity(1);
+    // Get button position
+    if (buttonRef.current) {
+      const buttonRect = buttonRef.current.getBoundingClientRect();
+      const startX = buttonRect.left + buttonRect.width / 2 - 40; // Center and adjust for item size
+      const startY = buttonRect.top + buttonRect.height / 2 - 40;
+
+      // Get cart icon position
+      const cartIcon = document.querySelector('[aria-label="Shopping cart"]');
+      if (cartIcon) {
+        const cartRect = cartIcon.getBoundingClientRect();
+        const endX = cartRect.left + cartRect.width / 2 - 40;
+        const endY = cartRect.top + cartRect.height / 2 - 40;
+
+        setFlyingPositions({
+          start: { x: startX, y: startY },
+          end: { x: endX, y: endY },
+        });
+        setIsFlying(true);
+
+        // Delay adding to cart to sync with animation
+        setTimeout(() => {
+          addToCart(item, quantity);
+          toast({
+            title: "Added to cart!",
+            description: `${quantity} x ${item.name} added to your cart.`,
+          });
+          setQuantity(1);
+        }, 400);
+      } else {
+        // Fallback if cart icon not found
+        addToCart(item, quantity);
+        toast({
+          title: "Added to cart!",
+          description: `${quantity} x ${item.name} added to your cart.`,
+        });
+        setQuantity(1);
+      }
+    }
   };
 
   const incrementQuantity = () => setQuantity(prev => prev + 1);
@@ -191,6 +230,7 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
 
                     {/* Add to Cart Button */}
                     <button 
+                      ref={buttonRef}
                       onClick={handleAddToCart}
                       className="w-full btn-gold flex items-center justify-center gap-2 text-base py-3 font-bold shadow-lg"
                     >
@@ -202,6 +242,15 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
               </div>
             </div>
           </motion.div>
+
+          {/* Flying Cart Item Animation */}
+          <FlyingCartItem
+            isFlying={isFlying}
+            startPosition={flyingPositions.start}
+            endPosition={flyingPositions.end}
+            imageUrl={item.image}
+            onComplete={() => setIsFlying(false)}
+          />
         </>
       )}
     </AnimatePresence>
