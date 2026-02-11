@@ -52,7 +52,7 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
             description: `${quantity} x ${item.name} added to your cart.`,
           });
           setQuantity(1);
-        }, 600);
+        }, 800);
       } else {
         // Fallback if cart icon not found
         addToCart(item, quantity);

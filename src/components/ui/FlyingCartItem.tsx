@@ -34,7 +34,7 @@ export const FlyingCartItem = ({
 
   // Calculate arc path for smooth curved motion
   const midX = (startPosition.x + endPosition.x) / 2;
-  const midY = Math.min(startPosition.y, endPosition.y) - 100; // Arc upward
+  const midY = Math.min(startPosition.y, endPosition.y) - 120; // Higher arc for smoother motion
 
   return createPortal(
     <AnimatePresence>
@@ -42,7 +42,7 @@ export const FlyingCartItem = ({
         <>
           {/* Main Flying Item */}
           <motion.div
-            className="fixed pointer-events-none z-[100]"
+            className="fixed pointer-events-none z-[9999]"
             initial={{
               left: startPosition.x,
               top: startPosition.y,
@@ -56,14 +56,15 @@ export const FlyingCartItem = ({
               scale: 0,
             }}
             transition={{
-              duration: 1,
-              ease: [0.25, 0.46, 0.45, 0.94], // Professional easeOutQuad
+              duration: 1.6,
+              ease: [0.22, 1, 0.36, 1], // Smoother easeOutCubic
               times: [0, 0.5, 1],
             }}
             onAnimationComplete={handleAnimationComplete}
             style={{
               perspective: '1200px',
               transformStyle: 'preserve-3d',
+              willChange: 'transform, left, top',
             }}
           >
             {/* Glow Effect */}
@@ -71,15 +72,16 @@ export const FlyingCartItem = ({
               className="absolute inset-0 rounded-full blur-2xl"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{
-                opacity: [0, 0.6, 0.8, 0],
+                opacity: [0, 0.5, 0.7, 0],
                 scale: [0.5, 1.5, 2, 2.5],
               }}
               transition={{
-                duration: 1,
-                ease: 'easeOut',
+                duration: 1.6,
+                ease: [0.22, 1, 0.36, 1],
               }}
               style={{
                 background: 'radial-gradient(circle, rgba(201, 169, 98, 0.4) 0%, transparent 70%)',
+                willChange: 'transform, opacity',
               }}
             />
 
@@ -93,18 +95,19 @@ export const FlyingCartItem = ({
                 rotateZ: 0,
               }}
               animate={{
-                scale: [1, 1.3, 1.2, 0.4, 0],
+                scale: [1, 1.25, 1.2, 0.5, 0],
                 rotateY: [0, 180, 360, 540, 720],
-                rotateX: [0, -20, 20, -10, 0],
-                rotateZ: [0, -10, 10, -5, 0],
+                rotateX: [0, -15, 15, -8, 0],
+                rotateZ: [0, -8, 8, -4, 0],
               }}
               transition={{
-                duration: 1,
-                ease: [0.34, 1.56, 0.64, 1], // Smooth bounce
+                duration: 1.6,
+                ease: [0.22, 1, 0.36, 1], // Smoother curve
                 times: [0, 0.3, 0.5, 0.85, 1],
               }}
               style={{
                 transformStyle: 'preserve-3d',
+                willChange: 'transform',
               }}
             >
               {/* Shadow */}
@@ -112,21 +115,22 @@ export const FlyingCartItem = ({
                 className="absolute inset-0 rounded-full bg-black/40 blur-md"
                 initial={{ scale: 1, opacity: 0.4 }}
                 animate={{
-                  scale: [1, 1.2, 1.1, 0.5, 0],
+                  scale: [1, 1.15, 1.1, 0.5, 0],
                   opacity: [0.4, 0.3, 0.2, 0.1, 0],
                 }}
                 transition={{
-                  duration: 1,
-                  ease: 'easeOut',
+                  duration: 1.6,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
                 style={{
                   transform: 'translateZ(-20px)',
+                  willChange: 'transform, opacity',
                 }}
               />
 
               {/* Main Item with Border */}
               <motion.div
-                className="relative w-full h-full rounded-full overflow-hidden border-3 border-primary shadow-2xl"
+                className="relative w-full h-full rounded-full overflow-hidden border-3 border-primary shadow-2xl bg-background"
                 animate={{
                   borderColor: ['rgba(201, 169, 98, 1)', 'rgba(201, 169, 98, 0.6)', 'rgba(201, 169, 98, 1)'],
                   boxShadow: [
@@ -136,12 +140,13 @@ export const FlyingCartItem = ({
                   ],
                 }}
                 transition={{
-                  duration: 0.5,
+                  duration: 0.8,
                   repeat: 1,
-                  ease: 'easeInOut',
+                  ease: [0.22, 1, 0.36, 1],
                 }}
                 style={{
                   transformStyle: 'preserve-3d',
+                  willChange: 'transform, box-shadow',
                 }}
               >
                 <img
@@ -150,6 +155,7 @@ export const FlyingCartItem = ({
                   className="w-full h-full object-cover"
                   style={{
                     transform: 'translateZ(10px)',
+                    willChange: 'transform',
                   }}
                 />
                 
@@ -162,11 +168,12 @@ export const FlyingCartItem = ({
                     y: ['150%', '200%'],
                   }}
                   transition={{
-                    duration: 0.6,
-                    ease: 'easeOut',
+                    duration: 0.8,
+                    ease: [0.22, 1, 0.36, 1],
                   }}
                   style={{
                     transform: 'translateZ(20px)',
+                    willChange: 'transform',
                   }}
                 />
 
@@ -174,15 +181,16 @@ export const FlyingCartItem = ({
                 <motion.div
                   className="absolute inset-0 bg-gradient-radial from-primary/20 via-transparent to-transparent"
                   animate={{
-                    opacity: [0.3, 0.6, 0.3],
+                    opacity: [0.3, 0.5, 0.3],
                   }}
                   transition={{
-                    duration: 0.5,
+                    duration: 0.8,
                     repeat: 1,
-                    ease: 'easeInOut',
+                    ease: [0.22, 1, 0.36, 1],
                   }}
                   style={{
                     transform: 'translateZ(15px)',
+                    willChange: 'opacity',
                   }}
                 />
               </motion.div>
@@ -193,7 +201,7 @@ export const FlyingCartItem = ({
           {[...Array(5)].map((_, index) => (
             <motion.div
               key={index}
-              className="fixed pointer-events-none z-[99]"
+              className="fixed pointer-events-none z-[9998]"
               initial={{
                 left: startPosition.x + 10,
                 top: startPosition.y + 10,
@@ -202,14 +210,17 @@ export const FlyingCartItem = ({
               animate={{
                 left: [startPosition.x + 10, midX + 10, endPosition.x + 10],
                 top: [startPosition.y + 10, midY + 10, endPosition.y + 10],
-                opacity: [0, 0.6, 0],
+                opacity: [0, 0.5, 0],
                 scale: [0.5, 1, 0.3],
               }}
               transition={{
-                duration: 1,
-                delay: index * 0.08,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                duration: 1.6,
+                delay: index * 0.1,
+                ease: [0.22, 1, 0.36, 1],
                 times: [0, 0.5, 1],
+              }}
+              style={{
+                willChange: 'transform, left, top, opacity',
               }}
             >
               <div
@@ -225,22 +236,25 @@ export const FlyingCartItem = ({
           {[...Array(8)].map((_, index) => (
             <motion.div
               key={`sparkle-${index}`}
-              className="fixed pointer-events-none z-[99]"
+              className="fixed pointer-events-none z-[9998]"
               initial={{
                 left: startPosition.x + 10,
                 top: startPosition.y + 10,
                 opacity: 0,
               }}
               animate={{
-                left: startPosition.x + 10 + Math.cos((index * Math.PI) / 4) * 40,
-                top: startPosition.y + 10 + Math.sin((index * Math.PI) / 4) * 40,
+                left: startPosition.x + 10 + Math.cos((index * Math.PI) / 4) * 50,
+                top: startPosition.y + 10 + Math.sin((index * Math.PI) / 4) * 50,
                 opacity: [0, 1, 0],
                 scale: [0, 1, 0],
               }}
               transition={{
-                duration: 0.6,
-                delay: 0.1,
-                ease: 'easeOut',
+                duration: 0.9,
+                delay: 0.15,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              style={{
+                willChange: 'transform, left, top, opacity',
               }}
             >
               <div className="w-2 h-2 bg-primary rounded-full" style={{
