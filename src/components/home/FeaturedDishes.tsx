@@ -40,7 +40,7 @@ const FeaturedCard = ({ item, index, onClick }: { item: any; index: number; onCl
   };
 
   return (
-    <AnimatedSection delay={index * 100}>
+    <AnimatedSection delay={0}>
       <motion.div
         ref={cardRef}
         className="group relative h-full cursor-pointer"
@@ -69,7 +69,7 @@ const FeaturedCard = ({ item, index, onClick }: { item: any; index: number; onCl
           } : {}}
           transition={{
             duration: 0.8,
-            delay: index * 0.4 + 0.5,
+            delay: 0,
             ease: [0.16, 1, 0.3, 1],
           }}
           whileHover={{
