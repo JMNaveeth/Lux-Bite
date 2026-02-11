@@ -2,7 +2,6 @@ import { useState, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Lock, Mail, AlertCircle } from 'lucide-react';
-import { Layout } from '@/components/layout/Layout';
 import { useAuth } from '@/contexts/AuthContext';
 
 export const AdminLogin = () => {
@@ -35,15 +34,14 @@ export const AdminLogin = () => {
   };
 
   return (
-    <Layout>
-      <div className="min-h-screen flex items-center justify-center pt-20 pb-20 bg-gradient-to-b from-background via-charcoal-light to-background">
-        <motion.div
-          className="w-full max-w-md px-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="bg-card rounded-2xl border border-border/50 shadow-2xl p-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background via-charcoal-light to-background">
+      <motion.div
+        className="w-full max-w-md px-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="bg-card rounded-2xl border border-border/50 shadow-2xl p-8">
             {/* Header */}
             <div className="text-center mb-8">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
@@ -123,15 +121,14 @@ export const AdminLogin = () => {
               </button>
             </form>
 
-            {/* Footer */}
-            <div className="mt-6 text-center">
-              <p className="text-muted-foreground text-sm">
-                Protected area for authorized personnel only
-              </p>
-            </div>
+          {/* Footer */}
+          <div className="mt-6 text-center">
+            <p className="text-muted-foreground text-sm">
+              Protected area for authorized personnel only
+            </p>
           </div>
-        </motion.div>
-      </div>
-    </Layout>
+        </div>
+      </motion.div>
+    </div>
   );
 };
