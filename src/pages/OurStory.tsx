@@ -26,7 +26,7 @@ const chefs = [
     image: '/image1.png',
     bio: 'Trained in Tokyo for 15 years, Chef Takeshi brings the precision and philosophy of traditional Japanese cuisine to our omakase experience.',
     quote: 'Simplicity is the ultimate sophistication.',
-    specialties: ['Omakase', 'Kaiseki', 'Fish Preparation'],
+    specialties: ['Seafood Specialties', 'Kottu Roti', 'Hoppers & String Hoppers'],
   },
   {
     name: 'Chef Takeshi Yamamoto',
