@@ -5,25 +5,33 @@ import { Quote } from 'lucide-react';
 
 const chefs = [
   {
-    name: 'Chef Marcus Laurent',
+    name: 'Chef Muhammed Naveeth',
     title: 'Executive Chef & Founder',
-    image: '/image1.png',
+    image: '/image3.png',
     bio: 'With over 20 years of experience in Michelin-starred kitchens across Paris, Tokyo, and New York, Chef Marcus brings a unique fusion of French technique with global influences.',
     quote: 'Cooking is not just about feeding the body — it\'s about nourishing the soul.',
-    specialties: ['French Cuisine', 'Fusion', 'Seasonal Tasting'],
+    specialties: ['Sri Lankan Cuisine', 'Rice & Curry', 'Spice Blends'],
   },
   {
-    name: 'Chef Sofia Reyes',
+    name: 'Chef Reyes',
     title: 'Pastry Chef',
-    image: '/image2.png',
+    image: '/image5.png',
     bio: 'A graduate of Le Cordon Bleu, Sofia\'s desserts are legendary. Her chocolate soufflé has been featured in Bon Appétit and Food & Wine.',
     quote: 'Every dessert should be a moment of pure joy.',
-    specialties: ['French Pastry', 'Chocolate Artistry', 'Plated Desserts'],
+    specialties: ['Sri Lankan Sweets', 'Kokis & Kavum', 'Traditional Desserts'],
   },
   {
     name: 'Chef Takeshi Yamamoto',
     title: 'Sushi Master',
-    image: '/image3.png',
+    image: '/image1.png',
+    bio: 'Trained in Tokyo for 15 years, Chef Takeshi brings the precision and philosophy of traditional Japanese cuisine to our omakase experience.',
+    quote: 'Simplicity is the ultimate sophistication.',
+    specialties: ['Omakase', 'Kaiseki', 'Fish Preparation'],
+  },
+  {
+    name: 'Chef Takeshi Yamamoto',
+    title: 'Sushi Master',
+    image: '/image2.png',
     bio: 'Trained in Tokyo for 15 years, Chef Takeshi brings the precision and philosophy of traditional Japanese cuisine to our omakase experience.',
     quote: 'Simplicity is the ultimate sophistication.',
     specialties: ['Omakase', 'Kaiseki', 'Fish Preparation'],
@@ -117,7 +125,7 @@ const OurStory = () => {
                       <img
                         src={chef.image}
                         alt={chef.name}
-                        className="w-full aspect-[4/3] object-cover"
+                        className="h-full w-full aspect-[4/3] object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
                     </motion.div>
