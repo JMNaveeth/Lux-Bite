@@ -109,10 +109,10 @@ const Checkout = () => {
   if (cartItems.length === 0) {
     return (
       <Layout>
-        <div className="min-h-screen pt-32 pb-20 bg-gradient-to-b from-background via-charcoal-light to-background">
-          <div className="container mx-auto px-6">
+        <div className="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 bg-gradient-to-b from-background via-charcoal-light to-background">
+          <div className="container mx-auto px-4 sm:px-6">
             <AnimatedSection>
-              <div className="text-center py-20">
+              <div className="text-center py-12 sm:py-16 md:py-20">
                 <h1 className="font-serif text-4xl text-foreground mb-4">No Items to Checkout</h1>
                 <p className="text-muted-foreground mb-8">
                   Your cart is empty. Please add items before proceeding to checkout.
@@ -131,44 +131,45 @@ const Checkout = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen pt-32 pb-20 bg-gradient-to-b from-background via-charcoal-light to-background">
-        <div className="container mx-auto px-6 max-w-6xl">
+      <div className="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 bg-gradient-to-b from-background via-charcoal-light to-background">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <AnimatedSection>
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
-              <h1 className="font-serif text-4xl md:text-5xl text-gradient-gold">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-gradient-gold">
                 Checkout
               </h1>
               <Link 
                 to="/cart" 
-                className="btn-outline-gold flex items-center gap-2"
+                className="btn-outline-gold flex items-center gap-2 text-xs sm:text-sm px-4 sm:px-6"
               >
-                <ArrowLeft size={18} />
-                Back to Cart
+                <ArrowLeft size={16} />
+                <span className="hidden sm:inline">Back to Cart</span>
+                <span className="sm:hidden">Cart</span>
               </Link>
             </div>
 
             <form onSubmit={handleSubmit}>
-              <div className="grid lg:grid-cols-3 gap-8">
+              <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
                 {/* Checkout Form */}
-                <div className="lg:col-span-2 space-y-6">
+                <div className="lg:col-span-2 space-y-4 sm:space-y-6">
                   {/* Delivery Information */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-card border border-border/50 rounded-lg p-6"
+                    className="bg-card border border-border/50 rounded-lg p-4 sm:p-6"
                   >
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Truck className="text-primary" size={20} />
+                    <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Truck className="text-primary" size={18} />
                       </div>
-                      <h2 className="font-serif text-2xl text-foreground">Delivery Information</h2>
+                      <h2 className="font-serif text-xl sm:text-2xl text-foreground">Delivery Information</h2>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-foreground mb-2">
-                          <User size={16} className="inline mr-2" />
+                        <label className="block text-xs sm:text-sm font-medium text-foreground mb-2">
+                          <User size={14} className="inline mr-2" />
                           Full Name *
                         </label>
                         <input
@@ -177,14 +178,14 @@ const Checkout = () => {
                           value={formData.fullName}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-foreground"
+                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm sm:text-base text-foreground"
                           placeholder="Enter your full name"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-foreground mb-2">
-                          <Phone size={16} className="inline mr-2" />
+                        <label className="block text-xs sm:text-sm font-medium text-foreground mb-2">
+                          <Phone size={14} className="inline mr-2" />
                           Phone Number *
                         </label>
                         <input
@@ -193,14 +194,14 @@ const Checkout = () => {
                           value={formData.phone}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-foreground"
+                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm sm:text-base text-foreground"
                           placeholder="0771234567"
                         />
                       </div>
 
                       <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-foreground mb-2">
-                          <Mail size={16} className="inline mr-2" />
+                        <label className="block text-xs sm:text-sm font-medium text-foreground mb-2">
+                          <Mail size={14} className="inline mr-2" />
                           Email Address *
                         </label>
                         <input
@@ -209,14 +210,14 @@ const Checkout = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-foreground"
+                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm sm:text-base text-foreground"
                           placeholder="your.email@example.com"
                         />
                       </div>
 
                       <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-foreground mb-2">
-                          <MapPin size={16} className="inline mr-2" />
+                        <label className="block text-xs sm:text-sm font-medium text-foreground mb-2">
+                          <MapPin size={14} className="inline mr-2" />
                           Delivery Address *
                         </label>
                         <input
@@ -225,13 +226,13 @@ const Checkout = () => {
                           value={formData.address}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-foreground"
+                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm sm:text-base text-foreground"
                           placeholder="Street address, apartment, etc."
                         />
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-foreground mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-foreground mb-2">
                           City *
                         </label>
                         <input
@@ -240,13 +241,13 @@ const Checkout = () => {
                           value={formData.city}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-foreground"
+                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm sm:text-base text-foreground"
                           placeholder="Colombo"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-foreground mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-foreground mb-2">
                           Postal Code
                         </label>
                         <input
@@ -254,13 +255,13 @@ const Checkout = () => {
                           name="postalCode"
                           value={formData.postalCode}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-foreground"
+                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm sm:text-base text-foreground"
                           placeholder="00100"
                         />
                       </div>
 
                       <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-foreground mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-foreground mb-2">
                           Special Instructions
                         </label>
                         <textarea
@@ -268,7 +269,7 @@ const Checkout = () => {
                           value={formData.notes}
                           onChange={handleInputChange}
                           rows={3}
-                          className="w-full px-4 py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-foreground resize-none"
+                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border/50 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm sm:text-base text-foreground resize-none"
                           placeholder="Any special requests for your order?"
                         />
                       </div>
@@ -280,13 +281,13 @@ const Checkout = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="bg-card border border-border/50 rounded-lg p-6"
+                    className="bg-card border border-border/50 rounded-lg p-4 sm:p-6"
                   >
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <CreditCard className="text-primary" size={20} />
+                    <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <CreditCard className="text-primary" size={18} />
                       </div>
-                      <h2 className="font-serif text-2xl text-foreground">Payment Method</h2>
+                      <h2 className="font-serif text-xl sm:text-2xl text-foreground">Payment Method</h2>
                     </div>
 
                     <div className="space-y-3">
@@ -300,12 +301,12 @@ const Checkout = () => {
                           className="w-4 h-4 text-primary"
                         />
                         <div className="flex-1">
-                          <span className="font-medium text-foreground">Cash on Delivery</span>
-                          <p className="text-sm text-muted-foreground">Pay when you receive your order</p>
+                          <span className="font-medium text-sm sm:text-base text-foreground">Cash on Delivery</span>
+                          <p className="text-xs sm:text-sm text-muted-foreground">Pay when you receive your order</p>
                         </div>
                       </label>
 
-                      <label className="flex items-center gap-4 p-4 border border-border/50 rounded-lg cursor-pointer hover:border-primary/50 transition-all">
+                      <label className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 border border-border/50 rounded-lg cursor-pointer hover:border-primary/50 transition-all">
                         <input
                           type="radio"
                           name="paymentMethod"
@@ -315,12 +316,12 @@ const Checkout = () => {
                           className="w-4 h-4 text-primary"
                         />
                         <div className="flex-1">
-                          <span className="font-medium text-foreground">Card Payment</span>
-                          <p className="text-sm text-muted-foreground">Pay securely with your credit/debit card</p>
+                          <span className="font-medium text-sm sm:text-base text-foreground">Card Payment</span>
+                          <p className="text-xs sm:text-sm text-muted-foreground">Pay securely with your credit/debit card</p>
                         </div>
                       </label>
 
-                      <label className="flex items-center gap-4 p-4 border border-border/50 rounded-lg cursor-pointer hover:border-primary/50 transition-all">
+                      <label className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 border border-border/50 rounded-lg cursor-pointer hover:border-primary/50 transition-all">
                         <input
                           type="radio"
                           name="paymentMethod"
@@ -330,8 +331,8 @@ const Checkout = () => {
                           className="w-4 h-4 text-primary"
                         />
                         <div className="flex-1">
-                          <span className="font-medium text-foreground">Bank Transfer</span>
-                          <p className="text-sm text-muted-foreground">Direct bank transfer</p>
+                          <span className="font-medium text-sm sm:text-base text-foreground">Bank Transfer</span>
+                          <p className="text-xs sm:text-sm text-muted-foreground">Direct bank transfer</p>
                         </div>
                       </label>
                     </div>
@@ -343,7 +344,7 @@ const Checkout = () => {
                   <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="bg-card border border-border/50 rounded-lg p-6 sticky top-32"
+                    className="bg-card border border-border/50 rounded-lg p-4 sm:p-6 lg:sticky lg:top-32"
                   >
                     <h2 className="font-serif text-2xl text-foreground mb-6">
                       Order Summary

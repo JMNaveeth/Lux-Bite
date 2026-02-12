@@ -69,7 +69,7 @@ export const Footer = () => {
       <div className="absolute top-40 right-1/3 w-3 h-3 bg-primary/20 rounded-full blur-sm animate-pulse delay-1000" style={{ animationDelay: '1s' }} />
       <div className="absolute bottom-32 left-1/3 w-2 h-2 bg-primary/20 rounded-full blur-sm animate-pulse delay-2000" style={{ animationDelay: '2s' }} />
 
-      <div className="container mx-auto px-6 py-20 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           {/* VIP Crown Badge */}
           <motion.div
@@ -93,7 +93,7 @@ export const Footer = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <Link to="/" className="inline-block group">
-              <h2 className="font-serif text-4xl md:text-5xl tracking-luxury text-gradient-gold mb-3 group-hover:scale-105 transition-transform duration-300">
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl tracking-luxury text-gradient-gold mb-3 group-hover:scale-105 transition-transform duration-300">
                 LUXE BITE
               </h2>
               <div className="h-px w-32 mx-auto bg-gradient-to-r from-transparent via-primary to-transparent" />
@@ -117,28 +117,28 @@ export const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-4 mb-10"
+            className="space-y-3 sm:space-y-4 mb-8 sm:mb-10"
           >
-            <div className="flex items-center justify-center gap-2 text-foreground/90 group">
-              <MapPin size={18} className="text-primary group-hover:scale-110 transition-transform" />
-              <p className="text-sm tracking-wide">
+            <div className="flex items-center justify-center gap-2 text-foreground/90 group px-4">
+              <MapPin size={18} className="text-primary group-hover:scale-110 transition-transform flex-shrink-0" />
+              <p className="text-xs sm:text-sm tracking-wide text-center">
                 123 Elegance Avenue, New York, NY 10001
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-xs sm:text-sm px-4">
               <a 
                 href="mailto:naveeth@luxebite.com" 
                 className="text-muted-foreground hover:text-primary transition-all duration-300 flex items-center gap-2 group"
               >
-                <Mail size={16} className="text-primary/70 group-hover:text-primary group-hover:scale-110 transition-all" />
-                naveeth@luxebite.com
+                <Mail size={16} className="text-primary/70 group-hover:text-primary group-hover:scale-110 transition-all flex-shrink-0" />
+                <span className="break-all">naveeth@luxebite.com</span>
               </a>
               <span className="hidden sm:inline text-primary/30">|</span>
               <a 
                 href="tel:+94759560114" 
                 className="text-muted-foreground hover:text-primary transition-all duration-300 flex items-center gap-2 group"
               >
-                <Phone size={16} className="text-primary/70 group-hover:text-primary group-hover:scale-110 transition-all" />
+                <Phone size={16} className="text-primary/70 group-hover:text-primary group-hover:scale-110 transition-all flex-shrink-0" />
                 +94 759560114
               </a>
             </div>
@@ -171,20 +171,20 @@ export const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mb-12 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 border border-primary/20 rounded-2xl p-8 backdrop-blur-sm"
+            className="mb-10 sm:mb-12 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 border border-primary/20 rounded-2xl p-6 sm:p-8 backdrop-blur-sm"
           >
-            <div className="mb-6">
-              <h3 className="font-serif text-3xl text-foreground mb-3 tracking-wide">
+            <div className="mb-4 sm:mb-6">
+              <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2 sm:mb-3 tracking-wide">
                 Exclusive VIP Benefits
               </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed max-w-md mx-auto">
-                Join our distinguished members & receive <span className="text-primary font-bold text-base">25% OFF</span> your first reservation,
+              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed max-w-md mx-auto px-2">
+                Join our distinguished members & receive <span className="text-primary font-bold text-sm sm:text-base">25% OFF</span> your first reservation,
                 <br className="hidden sm:block" />
                 plus early access to special events & seasonal menus
               </p>
             </div>
 
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto px-2 sm:px-0">
               <div className="flex-1 relative group">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={18} />
                 <input

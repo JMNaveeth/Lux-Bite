@@ -16,8 +16,8 @@ const Cart = () => {
   if (cartItems.length === 0) {
     return (
       <Layout>
-        <div className="min-h-screen pt-32 pb-20 bg-gradient-to-b from-background via-charcoal-light to-background">
-          <div className="container mx-auto px-6">
+        <div className="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 bg-gradient-to-b from-background via-charcoal-light to-background">
+          <div className="container mx-auto px-4 sm:px-6">
             <AnimatedSection>
               <div className="text-center py-20">
                 <motion.div
@@ -46,25 +46,26 @@ const Cart = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen pt-32 pb-20 bg-gradient-to-b from-background via-charcoal-light to-background">
-        <div className="container mx-auto px-6">
+      <div className="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 bg-gradient-to-b from-background via-charcoal-light to-background">
+        <div className="container mx-auto px-4 sm:px-6">
           <AnimatedSection>
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
               <div>
-                <h1 className="font-serif text-4xl md:text-5xl text-gradient-gold mb-2">
+                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-gradient-gold mb-2">
                   Shopping Cart
                 </h1>
-                <p className="text-muted-foreground">
+                <p className="text-sm sm:text-base text-muted-foreground">
                   {itemCount} {itemCount === 1 ? 'item' : 'items'} in your cart
                 </p>
               </div>
               <Link 
                 to="/menu" 
-                className="btn-outline-gold flex items-center gap-2"
+                className="btn-outline-gold flex items-center gap-2 text-xs sm:text-sm px-4 sm:px-6"
               >
-                <ArrowLeft size={18} />
-                Continue Shopping
+                <ArrowLeft size={16} />
+                <span className="hidden sm:inline">Continue Shopping</span>
+                <span className="sm:hidden">Menu</span>
               </Link>
             </div>
 
@@ -79,9 +80,9 @@ const Cart = () => {
                     transition={{ delay: index * 0.1 }}
                     className="bg-card border border-border/50 rounded-lg overflow-hidden hover:border-primary/30 transition-all"
                   >
-                    <div className="flex flex-col sm:flex-row gap-4 p-4">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 p-3 sm:p-4">
                       {/* Image */}
-                      <div className="relative w-full sm:w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden">
+                      <div className="relative w-full sm:w-24 md:w-32 h-24 sm:h-24 flex-shrink-0 rounded-lg overflow-hidden">
                         <img
                           src={item.image}
                           alt={item.name}
@@ -92,9 +93,9 @@ const Cart = () => {
                       {/* Details */}
                       <div className="flex-1 flex flex-col justify-between">
                         <div>
-                          <div className="flex items-start justify-between gap-4 mb-2">
-                            <div>
-                              <h3 className="font-serif text-xl text-foreground mb-1">
+                          <div className="flex items-start justify-between gap-2 sm:gap-4 mb-2">
+                            <div className="flex-1">
+                              <h3 className="font-serif text-lg sm:text-xl text-foreground mb-1">
                                 {item.name}
                               </h3>
                               <span className="text-xs text-primary uppercase tracking-wide">
@@ -103,40 +104,40 @@ const Cart = () => {
                             </div>
                             <button
                               onClick={() => removeFromCart(item.id)}
-                              className="p-2 text-muted-foreground hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all"
+                              className="p-2 text-muted-foreground hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all flex-shrink-0"
                               aria-label="Remove item"
                             >
-                              <Trash2 size={18} />
+                              <Trash2 size={16} />
                             </button>
                           </div>
-                          <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                          <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 mb-2 sm:mb-3">
                             {item.description}
                           </p>
                         </div>
 
                         {/* Quantity & Price */}
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2 sm:gap-3">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="w-8 h-8 flex items-center justify-center rounded-full bg-charcoal-light border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all"
+                              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-charcoal-light border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all"
                               aria-label="Decrease quantity"
                             >
-                              <Minus size={16} />
+                              <Minus size={14} />
                             </button>
-                            <span className="text-lg font-semibold w-8 text-center">
+                            <span className="text-base sm:text-lg font-semibold w-6 sm:w-8 text-center">
                               {item.quantity}
                             </span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="w-8 h-8 flex items-center justify-center rounded-full bg-charcoal-light border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all"
+                              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-charcoal-light border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all"
                               aria-label="Increase quantity"
                             >
-                              <Plus size={16} />
+                              <Plus size={14} />
                             </button>
                           </div>
                           <div className="text-right">
-                            <div className="text-lg font-serif text-gradient-gold">
+                            <div className="text-base sm:text-lg font-serif text-gradient-gold">
                               Rs {item.price * item.quantity}
                             </div>
                             <div className="text-xs text-muted-foreground">
@@ -155,7 +156,7 @@ const Cart = () => {
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="bg-card border border-border/50 rounded-lg p-6 sticky top-32"
+                  className="bg-card border border-border/50 rounded-lg p-4 sm:p-6 lg:sticky lg:top-32"
                 >
                   <h2 className="font-serif text-2xl text-foreground mb-6">
                     Order Summary

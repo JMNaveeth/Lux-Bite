@@ -35,15 +35,15 @@ export const Header = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-luxury ${
           isScrolled
-            ? 'bg-background/95 backdrop-blur-md py-4 shadow-lg'
-            : 'bg-transparent py-6'
+            ? 'bg-background/95 backdrop-blur-md py-3 md:py-4 shadow-lg'
+            : 'bg-transparent py-4 md:py-6'
         }`}
       >
-        <div className="container mx-auto px-6 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="relative z-10">
             <motion.h1
-              className="font-serif text-2xl md:text-3xl tracking-luxury text-gradient-gold"
+              className="font-serif text-xl sm:text-2xl md:text-3xl tracking-luxury text-gradient-gold"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -159,13 +159,13 @@ export const Header = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-background md:hidden"
+            className="fixed inset-0 z-40 bg-background md:hidden pt-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <nav className="flex flex-col items-center justify-center h-full gap-8">
+            <nav className="flex flex-col items-center justify-center h-full gap-6 sm:gap-8 px-6">
               {navLinks.map((link, index) => (
                 <motion.div
                   key={link.path}
@@ -176,7 +176,7 @@ export const Header = () => {
                 >
                   <Link
                     to={link.path}
-                    className={`font-serif text-3xl tracking-wide ${
+                    className={`font-serif text-2xl sm:text-3xl tracking-wide ${
                       location.pathname === link.path
                         ? 'text-primary'
                         : 'text-foreground'

@@ -116,7 +116,7 @@ const Menu = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-4 bg-card/98 border-y border-border/50 sticky top-[64px] z-40 backdrop-blur-xl shadow-md relative overflow-hidden">
+      <section className="py-3 sm:py-4 bg-card/98 border-y border-border/50 sticky top-[56px] sm:top-[64px] z-40 backdrop-blur-xl shadow-md relative overflow-hidden">
         {/* Food-themed Background Pattern */}
         <div className="absolute inset-0 opacity-[0.04]">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -139,9 +139,9 @@ const Menu = () => {
           </svg>
         </div>
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Category Filter */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-2 sm:mb-3">
             {categories.map((cat) => (
               <motion.button
                 key={cat.id}

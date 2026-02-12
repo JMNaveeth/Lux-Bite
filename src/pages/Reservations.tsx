@@ -159,21 +159,21 @@ const Reservations = () => {
       </section>
 
       {/* Form Section */}
-      <section className="py-16 md:py-24 bg-card">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="grid md:grid-cols-5 gap-12">
+      <section className="py-12 sm:py-16 md:py-24 bg-card">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="grid md:grid-cols-5 gap-8 md:gap-12">
             {/* Info */}
             <AnimatedSection className="md:col-span-2">
-              <h3 className="font-serif text-2xl text-foreground mb-6">
+              <h3 className="font-serif text-xl sm:text-2xl text-foreground mb-4 sm:mb-6">
                 An Evening Awaits
               </h3>
-              <p className="text-muted-foreground leading-relaxed mb-8">
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6 sm:mb-8">
                 Whether it's an intimate dinner or a grand celebration, we're here to make 
                 your experience unforgettable. Let our AI concierge know if you're planning 
                 something special.
               </p>
 
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div className="flex items-start gap-4">
                   <Calendar size={20} className="text-primary mt-1" />
                   <div>
@@ -201,28 +201,28 @@ const Reservations = () => {
 
             {/* Form */}
             <AnimatedSection className="md:col-span-3" delay={100}>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
                 {/* Name & Email */}
-                <div className="grid sm:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
-                    <label className="text-sm text-foreground mb-2 block">Full Name</label>
+                    <label className="text-xs sm:text-sm text-foreground mb-2 block">Full Name</label>
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 bg-background border border-border rounded-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border rounded-sm text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                       placeholder="John Doe"
                     />
                   </div>
                   <div>
-                    <label className="text-sm text-foreground mb-2 block">Email</label>
+                    <label className="text-xs sm:text-sm text-foreground mb-2 block">Email</label>
                     <input
                       type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 bg-background border border-border rounded-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border rounded-sm text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -230,21 +230,21 @@ const Reservations = () => {
 
                 {/* Phone */}
                 <div>
-                  <label className="text-sm text-foreground mb-2 block">Phone Number</label>
+                  <label className="text-xs sm:text-sm text-foreground mb-2 block">Phone Number</label>
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border rounded-sm text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     placeholder="+1 (555) 123-4567"
                   />
                 </div>
 
                 {/* Date & Time */}
-                <div className="grid sm:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
-                    <label className="text-sm text-foreground mb-2 flex items-center gap-2">
+                    <label className="text-xs sm:text-sm text-foreground mb-2 flex items-center gap-2">
                       <Calendar size={14} />
                       Date
                     </label>
@@ -253,11 +253,11 @@ const Reservations = () => {
                       required
                       value={formData.date}
                       onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                      className="w-full px-4 py-3 bg-background border border-border rounded-sm text-foreground focus:outline-none focus:border-primary transition-colors"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border rounded-sm text-sm sm:text-base text-foreground focus:outline-none focus:border-primary transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="text-sm text-foreground mb-2 flex items-center gap-2">
+                    <label className="text-xs sm:text-sm text-foreground mb-2 flex items-center gap-2">
                       <Clock size={14} />
                       Time
                     </label>
@@ -265,7 +265,7 @@ const Reservations = () => {
                       required
                       value={formData.time}
                       onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                      className="w-full px-4 py-3 bg-background border border-border rounded-sm text-foreground focus:outline-none focus:border-primary transition-colors"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border rounded-sm text-sm sm:text-base text-foreground focus:outline-none focus:border-primary transition-colors"
                     >
                       <option value="">Select time</option>
                       {timeSlots.map((time) => (
@@ -277,7 +277,7 @@ const Reservations = () => {
 
                 {/* Guests */}
                 <div>
-                  <label className="text-sm text-foreground mb-2 flex items-center gap-2">
+                  <label className="text-xs sm:text-sm text-foreground mb-2 flex items-center gap-2">
                     <Users size={14} />
                     Party Size
                   </label>
@@ -285,7 +285,7 @@ const Reservations = () => {
                     required
                     value={formData.guests}
                     onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-sm text-foreground focus:outline-none focus:border-primary transition-colors"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border rounded-sm text-sm sm:text-base text-foreground focus:outline-none focus:border-primary transition-colors"
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
                       <option key={num} value={num}>
@@ -298,14 +298,14 @@ const Reservations = () => {
 
                 {/* Occasion */}
                 <div>
-                  <label className="text-sm text-foreground mb-3 block">Occasion (Optional)</label>
+                  <label className="text-xs sm:text-sm text-foreground mb-2 sm:mb-3 block">Occasion (Optional)</label>
                   <div className="flex flex-wrap gap-2">
                     {occasions.map((occasion) => (
                       <button
                         key={occasion}
                         type="button"
                         onClick={() => setFormData({ ...formData, occasion })}
-                        className={`px-4 py-2 text-sm transition-all duration-300 rounded-sm ${
+                        className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm transition-all duration-300 rounded-sm ${
                           formData.occasion === occasion
                             ? 'bg-primary text-primary-foreground'
                             : 'bg-background border border-border text-muted-foreground hover:border-primary'
@@ -319,14 +319,14 @@ const Reservations = () => {
 
                 {/* Special Requests */}
                 <div>
-                  <label className="text-sm text-foreground mb-2 block">
+                  <label className="text-xs sm:text-sm text-foreground mb-2 block">
                     Special Requests or Dietary Needs
                   </label>
                   <textarea
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     rows={4}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border rounded-sm text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
                     placeholder="Any allergies, accessibility needs, or special arrangements..."
                   />
                 </div>
@@ -335,7 +335,7 @@ const Reservations = () => {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full btn-gold py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full btn-gold py-3 sm:py-4 disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm"
                   whileHover={{ scale: isSubmitting ? 1 : 1.01 }}
                   whileTap={{ scale: isSubmitting ? 1 : 0.99 }}
                 >
