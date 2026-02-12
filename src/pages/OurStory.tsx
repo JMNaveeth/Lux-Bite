@@ -92,7 +92,7 @@ const OurStory = () => {
 
       {/* Chefs */}
       <section className="py-16 md:py-24 bg-background">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 max-w-6xl">
           <AnimatedSection className="text-center mb-16">
             <span className="text-primary text-sm tracking-luxury uppercase mb-4 block">
               The Artists
@@ -103,10 +103,10 @@ const OurStory = () => {
             <div className="divider-gold" />
           </AnimatedSection>
 
-          <div className="space-y-24">
+          <div className="space-y-16">
             {chefs.map((chef, index) => (
               <AnimatedSection key={chef.name} delay={index * 150}>
-                <div className={`grid md:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+                <div className={`grid md:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
                   {/* Image */}
                   <div className={`relative ${index % 2 === 1 ? 'md:order-2' : ''}`}>
                     <motion.div
@@ -117,7 +117,7 @@ const OurStory = () => {
                       <img
                         src={chef.image}
                         alt={chef.name}
-                        className="w-full aspect-[4/5] object-cover"
+                        className="w-full aspect-[4/3] object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
                     </motion.div>
@@ -130,17 +130,17 @@ const OurStory = () => {
                     <span className="text-primary text-sm tracking-wide uppercase mb-2 block">
                       {chef.title}
                     </span>
-                    <h3 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
+                    <h3 className="font-serif text-2xl md:text-3xl text-foreground mb-4">
                       {chef.name}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed mb-8">
+                    <p className="text-muted-foreground leading-relaxed mb-6">
                       {chef.bio}
                     </p>
 
                     {/* Quote */}
-                    <div className="flex items-start gap-4 mb-8 p-6 bg-card border border-border/50 rounded-sm">
-                      <Quote size={24} className="text-primary/40 shrink-0" />
-                      <p className="font-serif text-lg text-foreground italic">
+                    <div className="flex items-start gap-3 mb-6 p-4 bg-card border border-border/50 rounded-sm">
+                      <Quote size={20} className="text-primary/40 shrink-0" />
+                      <p className="font-serif text-base text-foreground italic">
                         "{chef.quote}"
                       </p>
                     </div>
