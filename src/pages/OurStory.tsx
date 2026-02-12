@@ -29,12 +29,12 @@ const chefs = [
     specialties: ['Seafood Specialties', 'Kottu Roti', 'Hoppers & String Hoppers'],
   },
   {
-    name: 'Chef Takeshi Yamamoto',
-    title: 'Sushi Master',
+    name: 'Chef Dinesh Fernando',
+    title: 'Curry Master',
     image: '/image2.png',
-    bio: 'Trained in Tokyo for 15 years, Chef Takeshi brings the precision and philosophy of traditional Japanese cuisine to our omakase experience.',
-    quote: 'Simplicity is the ultimate sophistication.',
-    specialties: ['Omakase', 'Kaiseki', 'Fish Preparation'],
+    bio: 'A Sri Lankan culinary expert with 18 years of experience, Chef Dinesh specializes in authentic Ceylon flavors and traditional cooking methods passed down through generations.',
+    quote: 'Spices tell the story of our heritage.',
+    specialties: ['Lamprais', 'Devilled Dishes', 'Authentic Curries'],
   },
 ];
 

@@ -122,16 +122,16 @@ export const Footer = () => {
             <div className="flex items-center justify-center gap-2 text-foreground/90 group px-4">
               <MapPin size={18} className="text-primary group-hover:scale-110 transition-transform flex-shrink-0" />
               <p className="text-xs sm:text-sm tracking-wide text-center">
-                123 Elegance Avenue, New York, NY 10001
+                OLD BOC LANE, KINNIYA - 04, TRINCOMALEE
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-xs sm:text-sm px-4">
               <a 
-                href="mailto:naveeth@luxebite.com" 
+                href="mailto:naveethkinniya2001@gmail.com" 
                 className="text-muted-foreground hover:text-primary transition-all duration-300 flex items-center gap-2 group"
               >
                 <Mail size={16} className="text-primary/70 group-hover:text-primary group-hover:scale-110 transition-all flex-shrink-0" />
-                <span className="break-all">naveeth@luxebite.com</span>
+                <span className="break-all">naveethkinniya2001@gmail.com</span>
               </a>
               <span className="hidden sm:inline text-primary/30">|</span>
               <a 
