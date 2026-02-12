@@ -41,21 +41,21 @@ export const Header = () => {
             : 'bg-transparent py-4 md:py-6'
         }`}
       >
-        <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between relative">
           {/* Logo */}
           <Link to="/" className="relative z-[70]">
-            <motion.h1
-              className="font-serif text-xl sm:text-2xl md:text-3xl tracking-luxury text-gradient-gold"
+            <motion.img
+              src="/logochat.png"
+              alt="LUXE BITE"
+              className="h-20 sm:h-22 md:h-20 lg:h-20 w-auto"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              LUXE BITE
-            </motion.h1>
+            />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-10">
+          {/* Desktop Navigation - Centered */}
+          <nav className="hidden md:flex items-center gap-10 absolute left-1/2 transform -translate-x-1/2">
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.path}
@@ -132,7 +132,7 @@ export const Header = () => {
             </motion.div>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button */}          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-4 relative z-[70]">
             <Link
               to="/cart"

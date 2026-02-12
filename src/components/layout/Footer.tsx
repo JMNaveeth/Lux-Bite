@@ -93,9 +93,11 @@ export const Footer = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <Link to="/" className="inline-block group">
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl tracking-luxury text-gradient-gold mb-3 group-hover:scale-105 transition-transform duration-300">
-                LUXE BITE
-              </h2>
+              <img
+                src="/logochat.png"
+                alt="LUXE BITE"
+                className="h-16 sm:h-20 md:h-24 w-auto mx-auto mb-3 group-hover:scale-105 transition-transform duration-300"
+              />
               <div className="h-px w-32 mx-auto bg-gradient-to-r from-transparent via-primary to-transparent" />
             </Link>
           </motion.div>
