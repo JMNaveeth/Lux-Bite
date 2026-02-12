@@ -33,7 +33,9 @@ export const Header = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-luxury ${
+        className={`fixed top-0 left-0 right-0 transition-all duration-700 ease-luxury ${
+          isMobileMenuOpen ? 'z-[60]' : 'z-50'
+        } ${
           isScrolled
             ? 'bg-background/95 backdrop-blur-md py-3 md:py-4 shadow-lg'
             : 'bg-transparent py-4 md:py-6'
@@ -41,7 +43,7 @@ export const Header = () => {
       >
         <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="relative z-10">
+          <Link to="/" className="relative z-[70]">
             <motion.h1
               className="font-serif text-xl sm:text-2xl md:text-3xl tracking-luxury text-gradient-gold"
               initial={{ opacity: 0, y: -20 }}
@@ -131,7 +133,7 @@ export const Header = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-4">
+          <div className="md:hidden flex items-center gap-4 relative z-[70]">
             <Link
               to="/cart"
               className="relative p-2 text-foreground"
@@ -145,7 +147,7 @@ export const Header = () => {
               )}
             </Link>
             <button
-              className="relative z-10 p-2 text-foreground"
+              className="relative p-3 text-foreground hover:text-primary transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -159,7 +161,7 @@ export const Header = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-background md:hidden pt-20"
+            className="fixed inset-0 z-[55] bg-background md:hidden pt-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
