@@ -90,9 +90,9 @@ export const AIConcierge = () => {
 
   const quickActions = [
     "What's popular tonight?",
-    "I'm celebrating!",
-    "Vegetarian options?",
-    "Wine pairings",
+    "How do I reserve a table?",
+    "Sri Lankan specialties?",
+    "Wine pairings?",
   ];
 
   return (
