@@ -7,7 +7,7 @@ const chefs = [
   {
     name: 'Chef Marcus Laurent',
     title: 'Executive Chef & Founder',
-    image: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80',
+    image: '/image1.png',
     bio: 'With over 20 years of experience in Michelin-starred kitchens across Paris, Tokyo, and New York, Chef Marcus brings a unique fusion of French technique with global influences.',
     quote: 'Cooking is not just about feeding the body — it\'s about nourishing the soul.',
     specialties: ['French Cuisine', 'Fusion', 'Seasonal Tasting'],
@@ -15,7 +15,7 @@ const chefs = [
   {
     name: 'Chef Sofia Reyes',
     title: 'Pastry Chef',
-    image: 'https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?w=800&q=80',
+    image: '/image2.png',
     bio: 'A graduate of Le Cordon Bleu, Sofia\'s desserts are legendary. Her chocolate soufflé has been featured in Bon Appétit and Food & Wine.',
     quote: 'Every dessert should be a moment of pure joy.',
     specialties: ['French Pastry', 'Chocolate Artistry', 'Plated Desserts'],
@@ -23,7 +23,7 @@ const chefs = [
   {
     name: 'Chef Takeshi Yamamoto',
     title: 'Sushi Master',
-    image: 'https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=800&q=80',
+    image: '/image3.png',
     bio: 'Trained in Tokyo for 15 years, Chef Takeshi brings the precision and philosophy of traditional Japanese cuisine to our omakase experience.',
     quote: 'Simplicity is the ultimate sophistication.',
     specialties: ['Omakase', 'Kaiseki', 'Fish Preparation'],
