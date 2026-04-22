@@ -1,5 +1,3 @@
-import { Timestamp } from 'firebase/firestore';
-
 export type OrderStatus = 'pending' | 'confirmed' | 'preparing' | 'ready' | 'delivered' | 'cancelled';
 export type PaymentMethod = 'cash' | 'card';
 export type ReservationStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed';
@@ -26,8 +24,8 @@ export interface Order {
   paymentMethod: PaymentMethod;
   status: OrderStatus;
   notes?: string;
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Reservation {
@@ -42,13 +40,13 @@ export interface Reservation {
   occasion?: string;
   specialRequests?: string;
   status: ReservationStatus;
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface User {
   id: string;
   email: string;
   role: 'admin' | 'customer';
-  createdAt: Timestamp;
+  createdAt: string;
 }

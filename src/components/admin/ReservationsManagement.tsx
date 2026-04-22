@@ -209,11 +209,11 @@ export const ReservationsManagement = () => {
                           <div className="flex items-center gap-4 text-sm text-muted-foreground">
                             <div className="flex items-center gap-1.5">
                               <CalendarDays size={14} />
-                              <span>Booked: {reservation.createdAt?.toDate().toLocaleDateString()}</span>
+                              <span>Booked: {new Date(reservation.createdAt).toLocaleDateString()}</span>
                             </div>
                             <div className="flex items-center gap-1.5">
                               <Clock size={14} />
-                              <span>{reservation.createdAt?.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                              <span>{new Date(reservation.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                             </div>
                             {reservation.id && (
                               <div className="flex items-center gap-1.5 text-xs">

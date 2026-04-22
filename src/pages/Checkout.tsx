@@ -79,7 +79,7 @@ const Checkout = () => {
         notes: formData.notes || undefined,
       };
 
-      // Save order to Firebase
+      // Save order to Supabase
       const orderId = await createOrder(orderData);
 
       // Clear cart and show success message
