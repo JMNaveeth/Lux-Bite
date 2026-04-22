@@ -226,11 +226,11 @@ export const OrdersManagement = () => {
                           <div className="flex items-center gap-4 text-sm text-muted-foreground">
                             <div className="flex items-center gap-1.5">
                               <Calendar size={14} />
-                              <span>{order.createdAt?.toDate().toLocaleDateString()}</span>
+                              <span>{new Date(order.createdAt).toLocaleDateString()}</span>
                             </div>
                             <div className="flex items-center gap-1.5">
                               <Clock size={14} />
-                              <span>{order.createdAt?.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                              <span>{new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                             </div>
                             {order.id && (
                               <div className="flex items-center gap-1.5 text-xs">

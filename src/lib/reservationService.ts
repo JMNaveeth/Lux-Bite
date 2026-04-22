@@ -1,21 +1,39 @@
-import {
-  collection,
-  addDoc,
-  updateDoc,
-  doc,
-  getDocs,
-  query,
-  where,
-  orderBy,
-  Timestamp,
-  onSnapshot,
-  QuerySnapshot,
-  DocumentData
-} from 'firebase/firestore';
-import { db } from './firebase';
+import { supabase } from './supabase';
 import { Reservation, ReservationStatus } from '@/types/firebase';
 
 const RESERVATIONS_COLLECTION = 'reservations';
+
+type ReservationRow = {
+  id: string;
+  reservation_number: string;
+  customer_name: string;
+  email: string;
+  phone: string;
+  date: string;
+  time: string;
+  guests: number;
+  occasion: string | null;
+  special_requests: string | null;
+  status: ReservationStatus;
+  created_at: string;
+  updated_at: string;
+};
+
+const mapReservationRowToReservation = (row: ReservationRow): Reservation => ({
+  id: row.id,
+  reservationNumber: row.reservation_number,
+  customerName: row.customer_name,
+  email: row.email,
+  phone: row.phone,
+  date: row.date,
+  time: row.time,
+  guests: row.guests,
+  occasion: row.occasion ?? undefined,
+  specialRequests: row.special_requests ?? undefined,
+  status: row.status,
+  createdAt: row.created_at,
+  updatedAt: row.updated_at,
+});
 
 // Generate unique reservation number
 export const generateReservationNumber = (): string => {
@@ -29,16 +47,31 @@ export const createReservation = async (
   reservationData: Omit<Reservation, 'id' | 'reservationNumber' | 'createdAt' | 'updatedAt' | 'status'>
 ): Promise<string> => {
   try {
-    const reservation: Omit<Reservation, 'id'> = {
-      ...reservationData,
-      reservationNumber: generateReservationNumber(),
-      status: 'pending',
-      createdAt: Timestamp.now(),
-      updatedAt: Timestamp.now(),
-    };
+    const now = new Date().toISOString();
+    const { data, error } = await supabase
+      .from(RESERVATIONS_COLLECTION)
+      .insert({
+        reservation_number: generateReservationNumber(),
+        customer_name: reservationData.customerName,
+        email: reservationData.email,
+        phone: reservationData.phone,
+        date: reservationData.date,
+        time: reservationData.time,
+        guests: reservationData.guests,
+        occasion: reservationData.occasion ?? null,
+        special_requests: reservationData.specialRequests ?? null,
+        status: 'pending',
+        created_at: now,
+        updated_at: now,
+      })
+      .select('id')
+      .single();
 
-    const docRef = await addDoc(collection(db, RESERVATIONS_COLLECTION), reservation);
-    return docRef.id;
+    if (error || !data) {
+      throw error ?? new Error('Insert returned no data');
+    }
+
+    return data.id;
   } catch (error) {
     console.error('Error creating reservation:', error);
     throw new Error('Failed to create reservation');
@@ -48,15 +81,16 @@ export const createReservation = async (
 // Get all reservations (for admin)
 export const getAllReservations = async (): Promise<Reservation[]> => {
   try {
-    const q = query(
-      collection(db, RESERVATIONS_COLLECTION),
-      orderBy('createdAt', 'desc')
-    );
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as Reservation));
+    const { data, error } = await supabase
+      .from(RESERVATIONS_COLLECTION)
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error || !data) {
+      throw error ?? new Error('No data returned');
+    }
+
+    return (data as ReservationRow[]).map(mapReservationRowToReservation);
   } catch (error) {
     console.error('Error fetching reservations:', error);
     throw new Error('Failed to fetch reservations');
@@ -66,16 +100,17 @@ export const getAllReservations = async (): Promise<Reservation[]> => {
 // Get reservations by date
 export const getReservationsByDate = async (date: string): Promise<Reservation[]> => {
   try {
-    const q = query(
-      collection(db, RESERVATIONS_COLLECTION),
-      where('date', '==', date),
-      orderBy('time', 'asc')
-    );
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as Reservation));
+    const { data, error } = await supabase
+      .from(RESERVATIONS_COLLECTION)
+      .select('*')
+      .eq('date', date)
+      .order('time', { ascending: true });
+
+    if (error || !data) {
+      throw error ?? new Error('No data returned');
+    }
+
+    return (data as ReservationRow[]).map(mapReservationRowToReservation);
   } catch (error) {
     console.error('Error fetching reservations by date:', error);
     throw new Error('Failed to fetch reservations');
@@ -85,16 +120,17 @@ export const getReservationsByDate = async (date: string): Promise<Reservation[]
 // Get reservations by status
 export const getReservationsByStatus = async (status: ReservationStatus): Promise<Reservation[]> => {
   try {
-    const q = query(
-      collection(db, RESERVATIONS_COLLECTION),
-      where('status', '==', status),
-      orderBy('date', 'asc')
-    );
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as Reservation));
+    const { data, error } = await supabase
+      .from(RESERVATIONS_COLLECTION)
+      .select('*')
+      .eq('status', status)
+      .order('date', { ascending: true });
+
+    if (error || !data) {
+      throw error ?? new Error('No data returned');
+    }
+
+    return (data as ReservationRow[]).map(mapReservationRowToReservation);
   } catch (error) {
     console.error('Error fetching reservations by status:', error);
     throw new Error('Failed to fetch reservations');
@@ -107,11 +143,17 @@ export const updateReservationStatus = async (
   status: ReservationStatus
 ): Promise<void> => {
   try {
-    const reservationRef = doc(db, RESERVATIONS_COLLECTION, reservationId);
-    await updateDoc(reservationRef, {
-      status,
-      updatedAt: Timestamp.now()
-    });
+    const { error } = await supabase
+      .from(RESERVATIONS_COLLECTION)
+      .update({
+        status,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', reservationId);
+
+    if (error) {
+      throw error;
+    }
   } catch (error) {
     console.error('Error updating reservation status:', error);
     throw new Error('Failed to update reservation status');
@@ -120,39 +162,46 @@ export const updateReservationStatus = async (
 
 // Real-time listener for reservations (for admin dashboard)
 export const subscribeToReservations = (callback: (reservations: Reservation[]) => void): (() => void) => {
-  const q = query(
-    collection(db, RESERVATIONS_COLLECTION),
-    orderBy('createdAt', 'desc')
-  );
-
-  const unsubscribe = onSnapshot(
-    q,
-    (snapshot: QuerySnapshot<DocumentData>) => {
-      const reservations = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      } as Reservation));
+  const fetchAndPublish = async () => {
+    try {
+      const reservations = await getAllReservations();
       callback(reservations);
-    },
-    (error) => {
+    } catch (error) {
       console.error('Error in reservations subscription:', error);
     }
-  );
+  };
 
-  return unsubscribe;
+  fetchAndPublish();
+
+  const channel = supabase
+    .channel('reservations-realtime')
+    .on(
+      'postgres_changes',
+      { event: '*', schema: 'public', table: RESERVATIONS_COLLECTION },
+      fetchAndPublish
+    )
+    .subscribe();
+
+  return () => {
+    supabase.removeChannel(channel);
+  };
 };
 
 // Get today's reservations count
 export const getTodayReservationsCount = async (): Promise<number> => {
   try {
     const today = new Date().toISOString().split('T')[0];
-    
-    const q = query(
-      collection(db, RESERVATIONS_COLLECTION),
-      where('date', '==', today)
-    );
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.size;
+
+    const { count, error } = await supabase
+      .from(RESERVATIONS_COLLECTION)
+      .select('id', { count: 'exact', head: true })
+      .eq('date', today);
+
+    if (error) {
+      throw error;
+    }
+
+    return count ?? 0;
   } catch (error) {
     console.error('Error fetching today\'s reservations:', error);
     return 0;
@@ -163,19 +212,20 @@ export const getTodayReservationsCount = async (): Promise<number> => {
 export const getUpcomingReservations = async (): Promise<Reservation[]> => {
   try {
     const today = new Date().toISOString().split('T')[0];
-    
-    const q = query(
-      collection(db, RESERVATIONS_COLLECTION),
-      where('date', '>=', today),
-      where('status', 'in', ['pending', 'confirmed']),
-      orderBy('date', 'asc'),
-      orderBy('time', 'asc')
-    );
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as Reservation));
+
+    const { data, error } = await supabase
+      .from(RESERVATIONS_COLLECTION)
+      .select('*')
+      .gte('date', today)
+      .in('status', ['pending', 'confirmed'])
+      .order('date', { ascending: true })
+      .order('time', { ascending: true });
+
+    if (error || !data) {
+      throw error ?? new Error('No data returned');
+    }
+
+    return (data as ReservationRow[]).map(mapReservationRowToReservation);
   } catch (error) {
     console.error('Error fetching upcoming reservations:', error);
     throw new Error('Failed to fetch upcoming reservations');
