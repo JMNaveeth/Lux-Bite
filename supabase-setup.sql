@@ -25,6 +25,12 @@ CREATE TABLE IF NOT EXISTS menu_items (
 -- Enable RLS (Row Level Security)
 ALTER TABLE menu_items ENABLE ROW LEVEL SECURITY;
 
+-- Drop existing policies if they exist
+DROP POLICY IF EXISTS "Allow public read on menu_items" ON menu_items;
+DROP POLICY IF EXISTS "Allow authenticated users to insert menu_items" ON menu_items;
+DROP POLICY IF EXISTS "Allow authenticated users to update menu_items" ON menu_items;
+DROP POLICY IF EXISTS "Allow authenticated users to delete menu_items" ON menu_items;
+
 -- Create policy for public read access
 CREATE POLICY "Allow public read on menu_items" ON menu_items
   FOR SELECT USING (true);
@@ -66,6 +72,9 @@ CREATE TABLE IF NOT EXISTS reservations (
 -- Enable RLS
 ALTER TABLE reservations ENABLE ROW LEVEL SECURITY;
 
+-- Drop existing policy if it exists
+DROP POLICY IF EXISTS "Allow public access on reservations" ON reservations;
+
 -- Create policy for public access
 CREATE POLICY "Allow public access on reservations" ON reservations
   FOR ALL USING (true);
@@ -89,6 +98,9 @@ CREATE TABLE IF NOT EXISTS carts (
 
 -- Enable RLS
 ALTER TABLE carts ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policy if it exists
+DROP POLICY IF EXISTS "Allow public access on carts" ON carts;
 
 -- Create policy for public access
 CREATE POLICY "Allow public access on carts" ON carts
@@ -120,6 +132,9 @@ CREATE TABLE IF NOT EXISTS cart_items (
 
 -- Enable RLS
 ALTER TABLE cart_items ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policy if it exists
+DROP POLICY IF EXISTS "Allow public access on cart_items" ON cart_items;
 
 -- Create policy for public access
 CREATE POLICY "Allow public access on cart_items" ON cart_items
