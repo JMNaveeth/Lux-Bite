@@ -83,7 +83,7 @@ const Checkout = () => {
       const orderId = await createOrder(orderData);
 
       // Clear cart and show success message
-      clearCart();
+      await clearCart();
       toast({
         title: "Order placed successfully!",
         description: `Your order #${orderId.slice(-6).toUpperCase()} will be delivered within 45-60 minutes.`,

@@ -193,6 +193,9 @@ export const moods = [
   { id: 'adventurous', name: 'Adventurous', emoji: '🔥' },
 ] as const;
 
+// ==================== LOCAL HELPER FUNCTIONS ====================
+// These functions work with local fallback data, useful for when Supabase is unavailable
+
 export const getFeaturedItems = () => menuItems.filter(item => item.featured);
 
 export const getItemsByCategory = (category: string) => 
@@ -202,3 +205,71 @@ export const getItemsByMood = (mood: string) =>
   menuItems.filter(item => item.moods.includes(mood as any));
 
 export const getItemById = (id: string) => menuItems.find(item => item.id === id);
+
+
+// ==================== SUPABASE-BACKED FUNCTIONS ====================
+// These functions fetch from Supabase, falling back to local data if needed
+
+import { 
+  getAllMenuItems, 
+  getFeaturedMenuItems, 
+  getMenuItemsByCategory, 
+  getMenuItemById,
+  subscribeToMenuItems as subscribeToMenuItemsService,
+} from './menuService';
+
+/**
+ * Get all menu items from Supabase (with local fallback)
+ */
+export const getMenuItems = async (): Promise<MenuItem[]> => {
+  try {
+    return await getAllMenuItems();
+  } catch (error) {
+    console.warn('Failed to fetch from Supabase, using local data:', error);
+    return menuItems;
+  }
+};
+
+/**
+ * Get featured menu items from Supabase (with local fallback)
+ */
+export const getFeaturedMenuItemsFromDB = async (): Promise<MenuItem[]> => {
+  try {
+    return await getFeaturedMenuItems();
+  } catch (error) {
+    console.warn('Failed to fetch featured items from Supabase, using local data:', error);
+    return getFeaturedItems();
+  }
+};
+
+/**
+ * Get menu items by category from Supabase (with local fallback)
+ */
+export const getMenuItemsByCategoryFromDB = async (category: string): Promise<MenuItem[]> => {
+  try {
+    return await getMenuItemsByCategory(category);
+  } catch (error) {
+    console.warn('Failed to fetch items by category from Supabase, using local data:', error);
+    return getItemsByCategory(category);
+  }
+};
+
+/**
+ * Get menu item by ID from Supabase (with local fallback)
+ */
+export const getMenuItemByIdFromDB = async (id: string): Promise<MenuItem | null> => {
+  try {
+    const item = await getMenuItemById(id);
+    return item || getItemById(id) || null;
+  } catch (error) {
+    console.warn('Failed to fetch item by ID from Supabase, using local data:', error);
+    return getItemById(id) || null;
+  }
+};
+
+/**
+ * Subscribe to menu items changes in real-time
+ */
+export const subscribeToMenuItems = (callback: (items: MenuItem[]) => void): (() => void) => {
+  return subscribeToMenuItemsService(callback);
+};

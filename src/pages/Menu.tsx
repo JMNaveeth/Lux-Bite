@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Layout } from '@/components/layout/Layout';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
-import { menuItems, categories, moods, MenuItem } from '@/lib/menuData';
+import { categories, moods, MenuItem, getMenuItems, getItemsByMood } from '@/lib/menuData';
 import { MenuCard } from '@/components/menu/MenuCard';
 import { MenuModal } from '@/components/menu/MenuModal';
 
@@ -10,8 +10,28 @@ const Menu = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
+  const [allItems, setAllItems] = useState<MenuItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const filteredItems = menuItems.filter((item) => {
+  // Load menu items from Supabase on component mount
+  useEffect(() => {
+    const loadMenuItems = async () => {
+      try {
+        setIsLoading(true);
+        const items = await getMenuItems();
+        setAllItems(items);
+      } catch (error) {
+        console.error('Error loading menu items:', error);
+        // Will use local fallback from getMenuItems()
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadMenuItems();
+  }, []);
+
+  const filteredItems = allItems.filter((item) => {
     const categoryMatch = selectedCategory === 'all' || item.category === selectedCategory;
     const moodMatch = !selectedMood || item.moods.includes(selectedMood as any);
     return categoryMatch && moodMatch;

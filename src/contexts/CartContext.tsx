@@ -1,5 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { MenuItem } from '@/lib/menuData';
+import {
+  getOrCreateCart,
+  getCartItems,
+  addCartItem,
+  removeCartItem,
+  updateCartItemQuantity,
+  clearCart as clearCartDB,
+  subscribeToCartItems,
+} from '@/lib/cartService';
 
 export interface CartItem extends MenuItem {
   quantity: number;
@@ -7,65 +16,100 @@ export interface CartItem extends MenuItem {
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (item: MenuItem, quantity?: number) => void;
-  removeFromCart: (itemId: string) => void;
-  updateQuantity: (itemId: string, quantity: number) => void;
-  clearCart: () => void;
+  addToCart: (item: MenuItem, quantity?: number) => Promise<void>;
+  removeFromCart: (itemId: string) => Promise<void>;
+  updateQuantity: (itemId: string, quantity: number) => Promise<void>;
+  clearCart: () => Promise<void>;
   getCartTotal: () => number;
   getCartItemCount: () => number;
+  isLoading: boolean;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    // Load cart from localStorage on initial load
-    const savedCart = localStorage.getItem('luxeBiteCart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartId, setCartId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Save cart to localStorage whenever it changes
+  // Initialize cart on component mount
   useEffect(() => {
-    localStorage.setItem('luxeBiteCart', JSON.stringify(cartItems));
-  }, [cartItems]);
+    const initializeCart = async () => {
+      try {
+        setIsLoading(true);
+        const id = await getOrCreateCart();
+        setCartId(id);
 
-  const addToCart = (item: MenuItem, quantity: number = 1) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((cartItem) => cartItem.id === item.id);
-      
-      if (existingItem) {
-        // Update quantity if item already exists
-        return prevItems.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + quantity }
-            : cartItem
-        );
-      } else {
-        // Add new item to cart
-        return [...prevItems, { ...item, quantity }];
+        // Load initial cart items
+        const items = await getCartItems(id);
+        setCartItems(items);
+
+        // Subscribe to real-time updates
+        const unsubscribe = subscribeToCartItems(id, (updatedItems) => {
+          setCartItems(updatedItems);
+        });
+
+        return () => unsubscribe();
+      } catch (error) {
+        console.error('Error initializing cart:', error);
+      } finally {
+        setIsLoading(false);
       }
-    });
-  };
+    };
 
-  const removeFromCart = (itemId: string) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-  };
+    const cleanup = initializeCart().then((fn) => fn);
 
-  const updateQuantity = (itemId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(itemId);
-      return;
+    return () => {
+      cleanup.then((fn) => fn?.());
+    };
+  }, []);
+
+  const addToCart = async (item: MenuItem, quantity: number = 1) => {
+    if (!cartId) return;
+
+    try {
+      const cartItem: CartItem = {
+        ...item,
+        quantity,
+      };
+      await addCartItem(cartId, cartItem);
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      throw error;
     }
-    
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === itemId ? { ...item, quantity } : item
-      )
-    );
   };
 
-  const clearCart = () => {
-    setCartItems([]);
+  const removeFromCart = async (itemId: string) => {
+    if (!cartId) return;
+
+    try {
+      await removeCartItem(cartId, itemId);
+    } catch (error) {
+      console.error('Error removing from cart:', error);
+      throw error;
+    }
+  };
+
+  const updateQuantity = async (itemId: string, quantity: number) => {
+    if (!cartId) return;
+
+    try {
+      await updateCartItemQuantity(cartId, itemId, quantity);
+    } catch (error) {
+      console.error('Error updating quantity:', error);
+      throw error;
+    }
+  };
+
+  const clearCart = async () => {
+    if (!cartId) return;
+
+    try {
+      await clearCartDB(cartId);
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+      throw error;
+    }
   };
 
   const getCartTotal = () => {
@@ -86,6 +130,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         clearCart,
         getCartTotal,
         getCartItemCount,
+        isLoading,
       }}
     >
       {children}

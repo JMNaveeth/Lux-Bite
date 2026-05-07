@@ -24,7 +24,7 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
   
   if (!item) return null;
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     // Get button position
     if (buttonRef.current) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
@@ -45,22 +45,40 @@ export const MenuModal = ({ item, onClose }: MenuModalProps) => {
         setIsFlying(true);
 
         // Delay adding to cart to sync with animation
-        setTimeout(() => {
-          addToCart(item, quantity);
+        setTimeout(async () => {
+          try {
+            await addToCart(item, quantity);
+            toast({
+              title: "Added to cart!",
+              description: `${quantity} x ${item.name} added to your cart.`,
+            });
+            setQuantity(1);
+          } catch (error) {
+            console.error('Error adding to cart:', error);
+            toast({
+              title: "Error",
+              description: "Failed to add item to cart. Please try again.",
+              variant: "destructive",
+            });
+          }
+        }, 800);
+      } else {
+        // Fallback if cart icon not found
+        try {
+          await addToCart(item, quantity);
           toast({
             title: "Added to cart!",
             description: `${quantity} x ${item.name} added to your cart.`,
           });
           setQuantity(1);
-        }, 800);
-      } else {
-        // Fallback if cart icon not found
-        addToCart(item, quantity);
-        toast({
-          title: "Added to cart!",
-          description: `${quantity} x ${item.name} added to your cart.`,
-        });
-        setQuantity(1);
+        } catch (error) {
+          console.error('Error adding to cart:', error);
+          toast({
+            title: "Error",
+            description: "Failed to add item to cart. Please try again.",
+            variant: "destructive",
+          });
+        }
       }
     }
   };

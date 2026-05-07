@@ -1,7 +1,7 @@
-import { useState, useRef, MouseEvent } from 'react';
+import { useState, useRef, MouseEvent, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { getFeaturedItems, MenuItem } from '@/lib/menuData';
+import { getFeaturedMenuItemsFromDB, MenuItem } from '@/lib/menuData';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { MenuModal } from '@/components/menu/MenuModal';
 
@@ -158,8 +158,25 @@ const FeaturedCard = ({ item, index, onClick }: { item: any; index: number; onCl
 };
 
 export const FeaturedDishes = () => {
-  const featuredItems = getFeaturedItems();
+  const [featuredItems, setFeaturedItems] = useState<MenuItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadFeaturedItems = async () => {
+      try {
+        setIsLoading(true);
+        const items = await getFeaturedMenuItemsFromDB();
+        setFeaturedItems(items);
+      } catch (error) {
+        console.error('Error loading featured items:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadFeaturedItems();
+  }, []);
 
   return (
     <>

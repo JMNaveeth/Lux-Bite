@@ -4,14 +4,42 @@ import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { useCart } from '@/contexts/CartContext';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
+import { useToast } from '@/hooks/use-toast';
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal, getCartItemCount } = useCart();
+  const { toast } = useToast();
   const total = getCartTotal();
   const itemCount = getCartItemCount();
 
   const deliveryFee = total > 0 ? 200 : 0;
   const grandTotal = total + deliveryFee;
+
+  const handleRemoveItem = async (itemId: string) => {
+    try {
+      await removeFromCart(itemId);
+    } catch (error) {
+      console.error('Error removing item:', error);
+      toast({
+        title: "Error",
+        description: "Failed to remove item from cart. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleUpdateQuantity = async (itemId: string, newQuantity: number) => {
+    try {
+      await updateQuantity(itemId, newQuantity);
+    } catch (error) {
+      console.error('Error updating quantity:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update quantity. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -103,7 +131,7 @@ const Cart = () => {
                               </span>
                             </div>
                             <button
-                              onClick={() => removeFromCart(item.id)}
+                              onClick={() => handleRemoveItem(item.id)}
                               className="p-2 text-muted-foreground hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all flex-shrink-0"
                               aria-label="Remove item"
                             >
@@ -119,7 +147,7 @@ const Cart = () => {
                         <div className="flex items-center justify-between gap-2">
                           <div className="flex items-center gap-2 sm:gap-3">
                             <button
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                              onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
                               className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-charcoal-light border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all"
                               aria-label="Decrease quantity"
                             >
@@ -129,7 +157,7 @@ const Cart = () => {
                               {item.quantity}
                             </span>
                             <button
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                              onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
                               className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-charcoal-light border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all"
                               aria-label="Increase quantity"
                             >
