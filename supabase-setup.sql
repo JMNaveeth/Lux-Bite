@@ -1,11 +1,11 @@
 -- =====================================================
--- LUXE BITE - Supabase Database Setup
+-- LUXE BITE - Complete Supabase Database Setup
+-- Run this entire script in Supabase SQL Editor
 -- =====================================================
--- Run this entire script in Supabase SQL Editor to create all tables
--- and set up Row Level Security policies
+
 
 -- =====================================================
--- 1. CREATE MENU_ITEMS TABLE
+-- 1. MENU_ITEMS TABLE
 -- =====================================================
 CREATE TABLE IF NOT EXISTS menu_items (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -22,36 +22,25 @@ CREATE TABLE IF NOT EXISTS menu_items (
   updated_at timestamp with time zone DEFAULT now()
 );
 
--- Enable RLS (Row Level Security)
 ALTER TABLE menu_items ENABLE ROW LEVEL SECURITY;
 
--- Drop existing policies if they exist
 DROP POLICY IF EXISTS "Allow public read on menu_items" ON menu_items;
 DROP POLICY IF EXISTS "Allow authenticated users to insert menu_items" ON menu_items;
 DROP POLICY IF EXISTS "Allow authenticated users to update menu_items" ON menu_items;
 DROP POLICY IF EXISTS "Allow authenticated users to delete menu_items" ON menu_items;
 
--- Create policy for public read access
-CREATE POLICY "Allow public read on menu_items" ON menu_items
-  FOR SELECT USING (true);
+CREATE POLICY "Allow public read on menu_items" ON menu_items FOR SELECT USING (true);
+CREATE POLICY "Allow authenticated users to insert menu_items" ON menu_items FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow authenticated users to update menu_items" ON menu_items FOR UPDATE USING (true);
+CREATE POLICY "Allow authenticated users to delete menu_items" ON menu_items FOR DELETE USING (true);
 
--- Create policy for admin write access (authenticated users with appropriate role)
-CREATE POLICY "Allow authenticated users to insert menu_items" ON menu_items
-  FOR INSERT WITH CHECK (true);
-
-CREATE POLICY "Allow authenticated users to update menu_items" ON menu_items
-  FOR UPDATE USING (true);
-
-CREATE POLICY "Allow authenticated users to delete menu_items" ON menu_items
-  FOR DELETE USING (true);
-
--- Create indexes for better query performance
 CREATE INDEX IF NOT EXISTS idx_menu_items_category ON menu_items(category);
 CREATE INDEX IF NOT EXISTS idx_menu_items_featured ON menu_items(featured);
 CREATE INDEX IF NOT EXISTS idx_menu_items_created_at ON menu_items(created_at DESC);
 
+
 -- =====================================================
--- 2. CREATE RESERVATIONS TABLE
+-- 2. RESERVATIONS TABLE
 -- =====================================================
 CREATE TABLE IF NOT EXISTS reservations (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -69,24 +58,26 @@ CREATE TABLE IF NOT EXISTS reservations (
   updated_at timestamp with time zone DEFAULT now()
 );
 
--- Enable RLS
 ALTER TABLE reservations ENABLE ROW LEVEL SECURITY;
 
--- Drop existing policy if it exists
-DROP POLICY IF EXISTS "Allow public access on reservations" ON reservations;
+DROP POLICY IF EXISTS "Allow public read on reservations" ON reservations;
+DROP POLICY IF EXISTS "Allow public insert on reservations" ON reservations;
+DROP POLICY IF EXISTS "Allow public update on reservations" ON reservations;
+DROP POLICY IF EXISTS "Allow public delete on reservations" ON reservations;
 
--- Create policy for public access
-CREATE POLICY "Allow public access on reservations" ON reservations
-  FOR ALL USING (true);
+CREATE POLICY "Allow public read on reservations" ON reservations FOR SELECT USING (true);
+CREATE POLICY "Allow public insert on reservations" ON reservations FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public update on reservations" ON reservations FOR UPDATE USING (true);
+CREATE POLICY "Allow public delete on reservations" ON reservations FOR DELETE USING (true);
 
--- Create indexes for better query performance
 CREATE INDEX IF NOT EXISTS idx_reservations_status ON reservations(status);
 CREATE INDEX IF NOT EXISTS idx_reservations_date ON reservations(date);
 CREATE INDEX IF NOT EXISTS idx_reservations_created_at ON reservations(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_reservations_reservation_number ON reservations(reservation_number);
 
+
 -- =====================================================
--- 3. CREATE CARTS TABLE
+-- 3. CARTS TABLE
 -- =====================================================
 CREATE TABLE IF NOT EXISTS carts (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -96,22 +87,24 @@ CREATE TABLE IF NOT EXISTS carts (
   updated_at timestamp with time zone DEFAULT now()
 );
 
--- Enable RLS
 ALTER TABLE carts ENABLE ROW LEVEL SECURITY;
 
--- Drop existing policy if it exists
-DROP POLICY IF EXISTS "Allow public access on carts" ON carts;
+DROP POLICY IF EXISTS "Allow public read on carts" ON carts;
+DROP POLICY IF EXISTS "Allow public insert on carts" ON carts;
+DROP POLICY IF EXISTS "Allow public update on carts" ON carts;
+DROP POLICY IF EXISTS "Allow public delete on carts" ON carts;
 
--- Create policy for public access
-CREATE POLICY "Allow public access on carts" ON carts
-  FOR ALL USING (true);
+CREATE POLICY "Allow public read on carts" ON carts FOR SELECT USING (true);
+CREATE POLICY "Allow public insert on carts" ON carts FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public update on carts" ON carts FOR UPDATE USING (true);
+CREATE POLICY "Allow public delete on carts" ON carts FOR DELETE USING (true);
 
--- Create index for session lookup
 CREATE INDEX IF NOT EXISTS idx_carts_session_id ON carts(session_id);
 CREATE INDEX IF NOT EXISTS idx_carts_created_at ON carts(created_at DESC);
 
+
 -- =====================================================
--- 4. CREATE CART_ITEMS TABLE
+-- 4. CART_ITEMS TABLE
 -- =====================================================
 CREATE TABLE IF NOT EXISTS cart_items (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -130,23 +123,66 @@ CREATE TABLE IF NOT EXISTS cart_items (
   updated_at timestamp with time zone DEFAULT now()
 );
 
--- Enable RLS
 ALTER TABLE cart_items ENABLE ROW LEVEL SECURITY;
 
--- Drop existing policy if it exists
-DROP POLICY IF EXISTS "Allow public access on cart_items" ON cart_items;
+CREATE UNIQUE INDEX IF NOT EXISTS idx_cart_items_cart_menu_unique ON cart_items(cart_id, menu_item_id);
 
--- Create policy for public access
-CREATE POLICY "Allow public access on cart_items" ON cart_items
-  FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow public read on cart_items" ON cart_items;
+DROP POLICY IF EXISTS "Allow public insert on cart_items" ON cart_items;
+DROP POLICY IF EXISTS "Allow public update on cart_items" ON cart_items;
+DROP POLICY IF EXISTS "Allow public delete on cart_items" ON cart_items;
 
--- Create indexes for better query performance
+CREATE POLICY "Allow public read on cart_items" ON cart_items FOR SELECT USING (true);
+CREATE POLICY "Allow public insert on cart_items" ON cart_items FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public update on cart_items" ON cart_items FOR UPDATE USING (true);
+CREATE POLICY "Allow public delete on cart_items" ON cart_items FOR DELETE USING (true);
+
 CREATE INDEX IF NOT EXISTS idx_cart_items_cart_id ON cart_items(cart_id);
 CREATE INDEX IF NOT EXISTS idx_cart_items_created_at ON cart_items(created_at DESC);
 
+
 -- =====================================================
--- 5. INSERT MENU DATA
+-- 5. ORDERS TABLE
 -- =====================================================
+CREATE TABLE IF NOT EXISTS orders (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  order_number text NOT NULL UNIQUE,
+  customer_name text NOT NULL,
+  email text NOT NULL,
+  phone text NOT NULL,
+  address text NOT NULL,
+  items jsonb NOT NULL,
+  subtotal numeric NOT NULL,
+  delivery_fee numeric NOT NULL,
+  total numeric NOT NULL,
+  payment_method text NOT NULL,
+  status text NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled')),
+  notes text,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now()
+);
+
+ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Allow public read on orders" ON orders;
+DROP POLICY IF EXISTS "Allow public insert on orders" ON orders;
+DROP POLICY IF EXISTS "Allow public update on orders" ON orders;
+DROP POLICY IF EXISTS "Allow public delete on orders" ON orders;
+
+CREATE POLICY "Allow public read on orders" ON orders FOR SELECT USING (true);
+CREATE POLICY "Allow public insert on orders" ON orders FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public update on orders" ON orders FOR UPDATE USING (true);
+CREATE POLICY "Allow public delete on orders" ON orders FOR DELETE USING (true);
+
+CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
+CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_orders_order_number ON orders(order_number);
+
+
+-- =====================================================
+-- 6. SEED MENU DATA
+-- =====================================================
+
 -- Appetizers
 INSERT INTO menu_items (name, description, price, category, moods, image, pairing, dietary, featured) VALUES
 ('Vegetable Samosa', 'Crispy golden pastry filled with spiced potato, peas, and aromatic herbs, served with mint chutney', 450, 'appetizers', ARRAY['romantic', 'indulgent'], 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800&q=80', 'Ginger Lime Punch or Ceylon Black Tea', ARRAY['vegetarian'], true),
@@ -177,11 +213,16 @@ INSERT INTO menu_items (name, description, price, category, moods, image, pairin
 ('Coffee', 'Rich and aromatic coffee brewed from premium Ceylon beans, served with a side of traditional Sri Lankan sweets for the perfect afternoon indulgence', 250, 'chefs-selection', ARRAY['adventurous', 'romantic'], 'cofee.avif', 'Premium Ceylon tea pairing included', NULL, false)
 ON CONFLICT DO NOTHING;
 
+
 -- =====================================================
--- 6. VERIFY TABLES WERE CREATED
+-- 7. VERIFY ALL TABLES
 -- =====================================================
--- Uncomment the queries below to verify tables exist:
--- SELECT COUNT(*) as menu_items_count FROM menu_items;
--- SELECT COUNT(*) as reservations_count FROM reservations;
--- SELECT COUNT(*) as carts_count FROM carts;
--- SELECT COUNT(*) as cart_items_count FROM cart_items;
+SELECT 'menu_items'   AS table_name, COUNT(*) AS rows FROM menu_items
+UNION ALL
+SELECT 'reservations' AS table_name, COUNT(*) AS rows FROM reservations
+UNION ALL
+SELECT 'carts'        AS table_name, COUNT(*) AS rows FROM carts
+UNION ALL
+SELECT 'cart_items'   AS table_name, COUNT(*) AS rows FROM cart_items
+UNION ALL
+SELECT 'orders'       AS table_name, COUNT(*) AS rows FROM orders;
