@@ -31,6 +31,23 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [cartId, setCartId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const cartIdPromiseRef = React.useRef<Promise<string> | null>(null);
+  const unsubscribeRef = React.useRef<(() => void) | null>(null);
+
+  const ensureCartId = async (): Promise<string> => {
+    if (cartId) {
+      return cartId;
+    }
+
+    if (!cartIdPromiseRef.current) {
+      cartIdPromiseRef.current = getOrCreateCart().then((id) => {
+        setCartId(id);
+        return id;
+      });
+    }
+
+    return cartIdPromiseRef.current;
+  };
 
   // Initialize cart on component mount
   useEffect(() => {
@@ -39,17 +56,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsLoading(true);
         const id = await getOrCreateCart();
         setCartId(id);
+        cartIdPromiseRef.current = Promise.resolve(id);
 
         // Load initial cart items
         const items = await getCartItems(id);
         setCartItems(items);
 
         // Subscribe to real-time updates
-        const unsubscribe = subscribeToCartItems(id, (updatedItems) => {
+        unsubscribeRef.current?.();
+        unsubscribeRef.current = subscribeToCartItems(id, (updatedItems) => {
           setCartItems(updatedItems);
         });
-
-        return () => unsubscribe();
       } catch (error) {
         console.error('Error initializing cart:', error);
       } finally {
@@ -57,22 +74,24 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     };
 
-    const cleanup = initializeCart().then((fn) => fn);
+    initializeCart();
 
     return () => {
-      cleanup.then((fn) => fn?.());
+      unsubscribeRef.current?.();
+      unsubscribeRef.current = null;
     };
   }, []);
 
   const addToCart = async (item: MenuItem, quantity: number = 1) => {
-    if (!cartId) return;
-
     try {
+      const resolvedCartId = await ensureCartId();
       const cartItem: CartItem = {
         ...item,
         quantity,
       };
-      await addCartItem(cartId, cartItem);
+      await addCartItem(resolvedCartId, cartItem);
+      const updatedItems = await getCartItems(resolvedCartId);
+      setCartItems(updatedItems);
     } catch (error) {
       console.error('Error adding to cart:', error);
       throw error;
@@ -80,10 +99,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const removeFromCart = async (itemId: string) => {
-    if (!cartId) return;
-
     try {
-      await removeCartItem(cartId, itemId);
+      const resolvedCartId = await ensureCartId();
+      await removeCartItem(resolvedCartId, itemId);
+      const updatedItems = await getCartItems(resolvedCartId);
+      setCartItems(updatedItems);
     } catch (error) {
       console.error('Error removing from cart:', error);
       throw error;
@@ -91,10 +111,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const updateQuantity = async (itemId: string, quantity: number) => {
-    if (!cartId) return;
-
     try {
-      await updateCartItemQuantity(cartId, itemId, quantity);
+      const resolvedCartId = await ensureCartId();
+      await updateCartItemQuantity(resolvedCartId, itemId, quantity);
+      const updatedItems = await getCartItems(resolvedCartId);
+      setCartItems(updatedItems);
     } catch (error) {
       console.error('Error updating quantity:', error);
       throw error;
@@ -102,10 +123,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const clearCart = async () => {
-    if (!cartId) return;
-
     try {
-      await clearCartDB(cartId);
+      const resolvedCartId = await ensureCartId();
+      await clearCartDB(resolvedCartId);
+      setCartItems([]);
     } catch (error) {
       console.error('Error clearing cart:', error);
       throw error;
