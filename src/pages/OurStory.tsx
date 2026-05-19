@@ -5,7 +5,7 @@ import { Quote } from 'lucide-react';
 
 const chefs = [
   {
-    name: 'Chef Muhammed Naveeth',
+    name: 'Chef Muhammed Naveeth11',
     title: 'Executive Chef & Founder',
     image: '/image3.png',
     bio: 'With over 20 years of experience in Michelin-starred kitchens across Paris, Tokyo, and New York, Chef Marcus brings a unique fusion of French technique with global influences.',
